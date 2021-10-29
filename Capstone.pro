@@ -11,9 +11,11 @@ CONFIG += c++11
 SOURCES += \
     QT/main.cpp \
     QT/mainwindow.cpp \
+    external/ECE496-Backend/src/TestClass.cpp
 
 HEADERS += \
-    QT/mainwindow.h
+    QT/mainwindow.h \
+    external/ECE496-Backend/inc/TestClass.h
 
 FORMS += \
     QT/mainwindow.ui
@@ -29,3 +31,5 @@ DISTFILES += \
     README.md \
     external/ECE496-Backend/.gitignore \
     external/ECE496-Backend/README.md
+
+INCLUDEPATH += $$PWD/external/ECE496-Backend/inc/
