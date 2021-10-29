@@ -2,6 +2,11 @@
 Sound Synthesizer for Learning Purposes
 
 
+Initializing submodules
+```
+git submodule init
+git submodule update
+```
 
 Contributors: 
 Max
