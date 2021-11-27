@@ -17,10 +17,10 @@
    <widget class="QWidget" name="verticalLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>130</x>
-      <y>110</y>
-      <width>351</width>
-      <height>251</height>
+      <x>140</x>
+      <y>130</y>
+      <width>381</width>
+      <height>111</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -30,6 +30,24 @@
         <string>Play Sound</string>
        </property>
       </widget>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="FrequencyBox">
+       <item>
+        <widget class="QSlider" name="FrequencySlider">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="FrequencyLabel">
+         <property name="text">
+          <string>600 Hz</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </item>
      <item>
       <widget class="QPushButton" name="pushButton_2">

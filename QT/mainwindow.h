@@ -15,9 +15,16 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+private:
+    //Setup functions
+    //Called upon initialization
+    void setup_FrequencyBox(int initialFrequency);
+
 private slots:
     void on_pushButton_clicked(bool checked);
     void on_pushButton_2_clicked(bool checked);
+
+    void on_FrequencySlider_valueChanged(int value);
 
 private:
     Ui::MainWindow *ui;
