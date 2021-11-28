@@ -13,8 +13,8 @@ MainWindow::MainWindow(QWidget *parent)
 }
 
 void MainWindow::setup_FrequencyBox(int initialFrequency) {
-    ui->FrequencySlider->setMinimum(300);
-    ui->FrequencySlider->setMaximum(2000);
+    ui->FrequencySlider->setMinimum(20);
+    ui->FrequencySlider->setMaximum(22050);
     ui->FrequencySlider->setSingleStep(100);
     ui->FrequencySlider->setValue(initialFrequency);
 }
