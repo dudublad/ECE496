@@ -32,6 +32,14 @@ Expand **Qt > Qt 6.2.1 > Additional Libraries** and select **Qt multimedia**
 
 This library is required to output sound out of QT
 
+
+### Building Error FAQ
+
+must have VS2019 installed for compiler
+
+deselect shadow build
+
+
 Contributors: 
 Max
 Kyu Bum Kim (kb.kim@mail.utoronto.ca)
