@@ -5,12 +5,20 @@
 #include <iostream>
 
 #include <QApplication>
-using namespace stk;
+//using namespace stk;
+
+//Link Ws2_32.lib for STK
+#pragma comment(lib, "Ws2_32.lib")
 
 int main(int argc, char *argv[])
 {
-    StkFloat output;
-      Noise noise;
+    stk::StkFloat output;
+    stk::Noise noise;
+
+    for ( unsigned int i=0; i<20; i++ ) {
+        output = noise.tick();
+        std::cout << "i = " << i << " : output = " << output << std::endl;
+      }
 
     //Testing the backend. TODO: Remove
     TestClass::testHelloWorld();

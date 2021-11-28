@@ -6,7 +6,16 @@ Initializing submodules
 ```
 git submodule init
 git submodule update
+
+cd external/ECE496-Backend
+git submodule init
+sit submodule sync
+git submodule update
 ```
+
+Updated submodule:
+
+Submodules can be updated recusively by running `git submodule update -- recursive` from the current directory
 
 ### Getting QT Multimedia
 Go to **QT Maintanence Tool** located in your downloaded directory
