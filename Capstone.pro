@@ -1,5 +1,6 @@
-QT       += core gui
-QT += multimedia
+QT += \
+    core gui \
+    multimedia
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -12,11 +13,14 @@ CONFIG += c++11
 SOURCES += \
     QT/main.cpp \
     QT/mainwindow.cpp \
-    external/ECE496-Backend/src/TestClass.cpp
+    external/ECE496-Backend/src/TestClass.cpp \
+    $$files(external/ECE496-Backend/stk/src/*.cpp)
 
 HEADERS += \
     QT/mainwindow.h \
-    external/ECE496-Backend/inc/TestClass.h
+    external/ECE496-Backend/inc/TestClass.h \
+    $$files(external/ECE496-Backend/stk/include/*.h) \
+    $$files(external/ECE496-Backend/stk/src/include/*.h)
 
 FORMS += \
     QT/mainwindow.ui
@@ -33,4 +37,7 @@ DISTFILES += \
     external/ECE496-Backend/.gitignore \
     external/ECE496-Backend/README.md
 
-INCLUDEPATH += $$PWD/external/ECE496-Backend/inc/
+INCLUDEPATH += \
+    $$PWD/external/ECE496-Backend/inc/ \
+    $$PWD/external/ECE496-Backend/stk/include/ \
+    $$PWD/external/ECE496-Backend/stk/src/include/

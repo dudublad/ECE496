@@ -6,7 +6,16 @@ Initializing submodules
 ```
 git submodule init
 git submodule update
+
+cd external/ECE496-Backend
+git submodule init
+sit submodule sync
+git submodule update
 ```
+
+Updated submodule:
+
+Submodules can be updated recusively by running `git submodule update -- recursive` from the current directory
 
 ### Getting QT Multimedia
 Go to **QT Maintanence Tool** located in your downloaded directory
@@ -22,6 +31,14 @@ Select **MSVC 2019 64-bit** which is a compiler that works with QT multimedia
 Expand **Qt > Qt 6.2.1 > Additional Libraries** and select **Qt multimedia**
 
 This library is required to output sound out of QT
+
+
+### Building Error FAQ
+
+must have VS2019 installed for compiler
+
+deselect shadow build
+
 
 Contributors: 
 Max
