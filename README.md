@@ -9,7 +9,7 @@ git submodule update
 
 cd external/ECE496-Backend
 git submodule init
-sit submodule sync
+git submodule sync
 git submodule update
 ```
 
