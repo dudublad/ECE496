@@ -27,3 +27,11 @@ Contributors:
 Max
 Kyu Bum Kim (kb.kim@mail.utoronto.ca)
 Eduardo Ortenblad (edu.ortenblad@mail.utoronto.ca)
+
+Acknowledgements:
+
+This code uses STK
+
+This code uses QCustomPlot which is built on the QT 
+
+The TimeDomain widget draws from code written by StackOverflow user thibsc.
