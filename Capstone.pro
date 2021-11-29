@@ -41,3 +41,13 @@ INCLUDEPATH += \
     $$PWD/external/ECE496-Backend/inc/ \
     $$PWD/external/ECE496-Backend/stk/include/ \
     $$PWD/external/ECE496-Backend/stk/src/include/
+
+DEFINES += \
+    __WINDOWS_DS__ \
+
+LIBS += \
+    -lole32 \
+    -lwinmm \
+    -ldsound \
+    -lws2_32 \
+    -luser32
