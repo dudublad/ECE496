@@ -5,8 +5,13 @@ TimeDomain::TimeDomain(QWidget *parent)
     : QCustomPlot(parent)
     , decoder(new QAudioDecoder(this))
 {
+
     currentFile="";
     wavePlot = addGraph();
+    this->setInteraction(QCP::iRangeDrag,true);
+    this->setInteraction(QCP::iRangeZoom,true);
+    this->axisRects().at(0)->setRangeDrag(Qt::Horizontal);
+    this->axisRects().at(0)->setRangeZoom(Qt::Horizontal);
     setMinimumHeight(100);
     connect(decoder, SIGNAL(bufferReady()), this, SLOT(setBuffer()));
     connect(decoder, SIGNAL(finished()), this, SLOT(plot()));
