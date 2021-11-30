@@ -40,7 +40,7 @@ void TimeDomain::setSource(const QString &fileName)
 
 void TimeDomain::setBuffer()
 {
-    std::cout << "Setting Buffer" << std::endl;
+    //std::cout << "Setting Buffer" << std::endl;
     buffer = decoder->read();
     qreal peak = getPeakValue(buffer.format());
 
@@ -51,7 +51,7 @@ void TimeDomain::setBuffer()
         double val = data[i]/peak;
         samples.append(val);
     }
-    std::cout << "Setting Buffer Exited" << std::endl;
+    //std::cout << "Setting Buffer Exited" << std::endl;
 }
 
 void TimeDomain::appendSamples(QVector<double> incomingSamples)
