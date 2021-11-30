@@ -38,7 +38,6 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    TimeDomain *timeDomainInput;
 
     const float stkFrequency = 44100.0;
 
