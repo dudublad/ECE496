@@ -14,13 +14,16 @@ SOURCES += \
     QT/mainwindow.cpp \
     QT/qcustomplot.cpp \
     QT/timedomain.cpp \
-    external/ECE496-Backend/src/TestClass.cpp
+    external/ECE496-Backend/src/TestClass.cpp \
+    $$files(external/ECE496-Backend/stk/src/*.cpp)
 
 HEADERS += \
     QT/mainwindow.h \
     QT/qcustomplot.h \
     QT/timedomain.h \
     external/ECE496-Backend/inc/TestClass.h
+    $$files(external/ECE496-Backend/stk/include/*.h) \
+    $$files(external/ECE496-Backend/stk/src/include/*.h)
 
 FORMS += \
     QT/mainwindow.ui
@@ -37,4 +40,7 @@ DISTFILES += \
     external/ECE496-Backend/.gitignore \
     external/ECE496-Backend/README.md
 
-INCLUDEPATH += $$PWD/external/ECE496-Backend/inc/
+INCLUDEPATH += \
+    $$PWD/external/ECE496-Backend/inc/ \
+    $$PWD/external/ECE496-Backend/stk/include/ \
+    $$PWD/external/ECE496-Backend/stk/src/include/
