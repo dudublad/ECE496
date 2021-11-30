@@ -81,14 +81,14 @@
      <item>
       <widget class="QPushButton" name="playButton">
        <property name="text">
-        <string>Play</string>
+        <string>Play Imperial March</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pauseButton">
+      <widget class="QPushButton" name="playSineButton">
        <property name="text">
-        <string>Pause</string>
+        <string>Play Sine Wave</string>
        </property>
       </widget>
      </item>
@@ -101,7 +101,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>25</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>

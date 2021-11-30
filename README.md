@@ -18,6 +18,11 @@ Updated submodule:
 
 Submodules can be updated recusively by running `git submodule update -- recursive` from the current directory
 
+### Setting QT's working directory
+In order to open and modify files within our project, we need to set the correct working directory in QT.
+
+Go to projects->[environment]->run->working directory and set the top-level directory of this repo as your working directory.
+
 ### Getting QT Multimedia
 
 Go to **QT Maintanence Tool** located in your downloaded directory
