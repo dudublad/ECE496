@@ -39,6 +39,11 @@ Expand **Qt > Qt 6.2.1 > Additional Libraries** and select **Qt multimedia**
 
 This library is required to output sound out of QT
 
+### File structure
+
+Audio files must go in the `audio_files` directory. Please name auto generated audio files with the following
+format `gen_<file name>.wav`. These files will get ignored by git.
+
 ### Building Error FAQ
 
 must have VS2019 installed for compiler
@@ -52,7 +57,7 @@ Eduardo Ortenblad (edu.ortenblad@mail.utoronto.ca)
 
 Acknowledgements:
 
-This code uses STK
+This code uses STK (https://ccrma.stanford.edu/software/stk/index.html)
 
 This code uses QCustomPlot which is built on QT
 
