@@ -49,6 +49,6 @@ Acknowledgements:
 
 This code uses STK
 
-This code uses QCustomPlot which is built on QT
+This code uses QCustomPlot which is built on QT (https://www.qcustomplot.com)
 
 The TimeDomain widget draws from code written by StackOverflow user thibsc.
