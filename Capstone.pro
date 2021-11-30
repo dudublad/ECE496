@@ -1,7 +1,6 @@
-QT += \
-    core gui \
-    multimedia
-
+QT += core gui \
+      multimedia \
+      printsupport
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++11
@@ -13,11 +12,15 @@ CONFIG += c++11
 SOURCES += \
     QT/main.cpp \
     QT/mainwindow.cpp \
+    QT/qcustomplot.cpp \
+    QT/timedomain.cpp \
     external/ECE496-Backend/src/TestClass.cpp \
     $$files(external/ECE496-Backend/stk/src/*.cpp)
 
 HEADERS += \
     QT/mainwindow.h \
+    QT/qcustomplot.h \
+    QT/timedomain.h \
     external/ECE496-Backend/inc/TestClass.h \
     $$files(external/ECE496-Backend/stk/include/*.h) \
     $$files(external/ECE496-Backend/stk/src/include/*.h)

@@ -2,7 +2,6 @@
 #include "ui_mainwindow.h"
 
 #include <iostream>
-
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -31,8 +30,28 @@ void MainWindow::on_FrequencySlider_valueChanged(int value) {
     ui->FrequencyLabel->setText(QString::number(value) + "Hz");
 }
 
+void MainWindow::drawWaveFromFile(QString file)
+{
+    ui->timeDomainInput->setSource(file);
+    ui->timeDomainInput->plot();
+}
+
+void MainWindow::on_playButton_clicked(bool)
+{
+
+    // Get current cursor position when it exists
+    // If this following section is not loading the sound file
+    // Ensure that you have the right working directory set under
+    // Projects->Run->Working Directory
+    QString currentDirectory = QDir::currentPath();
+    //std::cout << "Play Button Pushed, currentDir =" << currentDirectory.toStdString() << std::endl;
+    QString file = currentDirectory + "/ImperialMarch60.wav";
+    drawWaveFromFile(file);
+    //std::cout << "Play Button Finished" << std::endl;
+}
+
+
 MainWindow::~MainWindow()
 {
     delete ui;
 }
-

@@ -1,8 +1,9 @@
 # ECE496
+
 Sound Synthesizer for Learning Purposes
 
-
 Initializing submodules
+
 ```
 git submodule init
 git submodule update
@@ -18,6 +19,7 @@ Updated submodule:
 Submodules can be updated recusively by running `git submodule update -- recursive` from the current directory
 
 ### Getting QT Multimedia
+
 Go to **QT Maintanence Tool** located in your downloaded directory
 
 Click **next > add or remove components >**
@@ -32,15 +34,21 @@ Expand **Qt > Qt 6.2.1 > Additional Libraries** and select **Qt multimedia**
 
 This library is required to output sound out of QT
 
-
 ### Building Error FAQ
 
 must have VS2019 installed for compiler
 
 deselect shadow build
 
-
-Contributors: 
+Contributors:
 Max
 Kyu Bum Kim (kb.kim@mail.utoronto.ca)
 Eduardo Ortenblad (edu.ortenblad@mail.utoronto.ca)
+
+Acknowledgements:
+
+This code uses STK
+
+This code uses QCustomPlot which is built on QT
+
+The TimeDomain widget draws from code written by StackOverflow user thibsc.
