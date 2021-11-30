@@ -5,7 +5,7 @@ TimeDomain::TimeDomain(QWidget *parent)
     : QCustomPlot(parent)
     , decoder(new QAudioDecoder(this))
 {
-
+    sampleScale = 1.0;
     currentFile="";
     wavePlot = addGraph();
     this->setInteraction(QCP::iRangeDrag,true);
@@ -42,8 +42,17 @@ void TimeDomain::setBuffer()
 {
     //std::cout << "Setting Buffer" << std::endl;
     buffer = decoder->read();
-    qreal peak = getPeakValue(buffer.format());
-
+    QAudioFormat format = buffer.format();
+    qreal peak = getPeakValue(format);
+    sampleRate = format.sampleRate();
+    if(format.channelCount() == 1)
+    {
+        sampleScale = 2.0;
+    }
+    else
+    {
+        sampleScale = 1.0;
+    }
     //CHECK in case of error constData may come in different Types
     const qint16 *data = buffer.constData<qint16>();
     int count = buffer.sampleCount() / 2;
@@ -54,9 +63,12 @@ void TimeDomain::setBuffer()
     //std::cout << "Setting Buffer Exited" << std::endl;
 }
 
-void TimeDomain::appendSamples(QVector<double> incomingSamples)
+// Sample rate in hertz
+void TimeDomain::appendSamples(QVector<double> incomingSamples,int sample_rate)
 {
+    sampleScale = 1.0;
     samples.clear();
+    sampleRate = sample_rate;
     for( int i = 0; i< incomingSamples.length(); i++)
     {
         samples.append(incomingSamples[i]);
@@ -69,12 +81,24 @@ void TimeDomain::plot()
     QVector<double> vec(samples.size());
     std::cout << "Samples size is " << samples.size() << std::endl;
     for (int i=0; i<vec.size(); i++)
-        vec[i] = i;
+        vec[i] = i*sampleScale/sampleRate;
     wavePlot->addData(vec, samples);
     yAxis->setRange(QCPRange(-1, 1));
-    xAxis->setRange(QCPRange(0, samples.size()));
+    if(vec.size() > 0)
+    {
+        xAxis->setRange(QCPRange(0, vec.last()));
+    }
+    else
+    {
+        xAxis->setRange(QCPRange(0,vec.size()));
+    }
     replot();
     std::cout << "Plot exited" << std::endl;
+}
+
+int TimeDomain::getSampleRate()
+{
+    return sampleRate;
 }
 
 qreal TimeDomain::getPeakValue(const QAudioFormat &format)
