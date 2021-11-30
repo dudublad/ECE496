@@ -31,9 +31,6 @@ private:
 
 
 private slots:
-    void on_pushButton_clicked(bool checked);
-    void on_pushButton_2_clicked(bool checked);
-
     // Interaction Functions
     void on_FrequencySlider_valueChanged(int value);
     void on_playButton_clicked(bool);

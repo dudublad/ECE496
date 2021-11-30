@@ -25,14 +25,6 @@ void MainWindow::setup_FrequencyBox(int initialFrequency) {
     ui->FrequencySlider->setValue(initialFrequency);
 }
 
-void MainWindow::on_pushButton_clicked(bool) {
-    std::cout << "Lesss gooo" << std::endl;
-}
-
-void MainWindow::on_pushButton_2_clicked(bool) {
-    std::cout << "Dumb af" << std::endl;
-}
-
 void MainWindow::on_FrequencySlider_valueChanged(int value) {
     ui->FrequencyLabel->setText(QString::number(value) + "Hz");
     sineWaveFrequency = value;
