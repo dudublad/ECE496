@@ -21,7 +21,7 @@ HEADERS += \
     QT/mainwindow.h \
     QT/qcustomplot.h \
     QT/timedomain.h \
-    external/ECE496-Backend/inc/TestClass.h
+    external/ECE496-Backend/inc/TestClass.h \
     $$files(external/ECE496-Backend/stk/include/*.h) \
     $$files(external/ECE496-Backend/stk/src/include/*.h)
 

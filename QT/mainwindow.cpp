@@ -40,12 +40,14 @@ void MainWindow::on_playButton_clicked(bool)
 {
 
     // Get current cursor position when it exists
-    //int position = 0;
-    //
-    std::cout << "Play Button Pushed" << std::endl;
-    QString file = "C:/Users/The_M/Documents/repos/ECE496/ImperialMarch60.wav";
+    // If this following section is not loading the sound file
+    // Ensure that you have the right working directory set under
+    // Projects->Run->Working Directory
+    QString currentDirectory = QDir::currentPath();
+    //std::cout << "Play Button Pushed, currentDir =" << currentDirectory.toStdString() << std::endl;
+    QString file = currentDirectory + "/ImperialMarch60.wav";
     drawWaveFromFile(file);
-    std::cout << "Play Button Finished" << std::endl;
+    //std::cout << "Play Button Finished" << std::endl;
 }
 
 
