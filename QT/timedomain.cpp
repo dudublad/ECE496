@@ -45,17 +45,11 @@ void TimeDomain::setBuffer()
     QAudioFormat format = buffer.format();
     qreal peak = getPeakValue(format);
     sampleRate = format.sampleRate();
-    if(format.channelCount() == 1)
-    {
-        sampleScale = 2.0;
-    }
-    else
-    {
-        sampleScale = 1.0;
-    }
+    sampleScale = 1.0;
+
     //CHECK in case of error constData may come in different Types
     const qint16 *data = buffer.constData<qint16>();
-    int count = buffer.sampleCount() / 2;
+    int count = buffer.sampleCount();
     for (int i=0; i<count; i++){
         double val = data[i]/peak;
         samples.append(val);
