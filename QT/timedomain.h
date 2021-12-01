@@ -26,7 +26,10 @@ public slots:
     void plot();
 
     // Adds samples from a vector of doubles and stores them in the samples attribute, does not automatically plot
-    void appendSamples(QVector<double> incomingSamples);
+    void appendSamples(QVector<double> incomingSamples,int sample_rate);
+
+    //Returns the value stored in the sampleRate attribute
+    int getSampleRate();
 
 private:
     // Gets the peak value of the specific audio format
@@ -36,5 +39,7 @@ private:
     QAudioBuffer buffer;
     QVector<double> samples;
     QCPGraph *wavePlot;
+    int sampleRate;
+    double sampleScale;
 };
 #endif

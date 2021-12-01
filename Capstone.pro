@@ -48,6 +48,7 @@ INCLUDEPATH += \
 
 DEFINES += \
     __WINDOWS_DS__ \
+    __LITTLE_ENDIAN__ \
 
 LIBS += \
     -lole32 \

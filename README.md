@@ -18,6 +18,11 @@ Updated submodule:
 
 Submodules can be updated recusively by running `git submodule update -- recursive` from the current directory
 
+### Setting QT's working directory
+In order to open and modify files within our project, we need to set the correct working directory in QT.
+
+Go to projects->[environment]->run->working directory and set the top-level directory of this repo as your working directory.
+
 ### Getting QT Multimedia
 
 Go to **QT Maintanence Tool** located in your downloaded directory
@@ -34,6 +39,11 @@ Expand **Qt > Qt 6.2.1 > Additional Libraries** and select **Qt multimedia**
 
 This library is required to output sound out of QT
 
+### File structure
+
+Audio files must go in the `audio_files` directory. Please name auto generated audio files with the following
+format `gen_<file name>.wav`. These files will get ignored by git.
+
 ### Building Error FAQ
 
 must have VS2019 installed for compiler
@@ -47,8 +57,8 @@ Eduardo Ortenblad (edu.ortenblad@mail.utoronto.ca)
 
 Acknowledgements:
 
-This code uses STK
+This code uses STK (https://ccrma.stanford.edu/software/stk/index.html)
 
-This code uses QCustomPlot which is built on QT
+This code uses QCustomPlot which is built on QT (https://www.qcustomplot.com)
 
 The TimeDomain widget draws from code written by StackOverflow user thibsc.

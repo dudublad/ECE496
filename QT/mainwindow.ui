@@ -14,20 +14,65 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
+   <widget class="QWidget" name="horizontalLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>110</x>
+      <y>280</y>
+      <width>401</width>
+      <height>80</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QPushButton" name="playButton">
+       <property name="text">
+        <string>Play Imperial March</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="playSineButton">
+       <property name="text">
+        <string>Play Sine Wave</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="TimeDomain" name="timeDomainInput" native="true">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>80</y>
+      <width>539</width>
+      <height>159</height>
+     </rect>
+    </property>
+   </widget>
    <widget class="QWidget" name="verticalLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>140</x>
-      <y>130</y>
-      <width>381</width>
-      <height>111</height>
+      <x>110</x>
+      <y>360</y>
+      <width>401</width>
+      <height>81</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
-      <widget class="QPushButton" name="pushButton">
+      <widget class="QLabel" name="label">
+       <property name="font">
+        <font>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
        <property name="text">
-        <string>Play Sound</string>
+        <string>Set Sine Wave Frequency</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
        </property>
       </widget>
      </item>
@@ -49,49 +94,6 @@
        </item>
       </layout>
      </item>
-     <item>
-      <widget class="QPushButton" name="pushButton_2">
-       <property name="text">
-        <string>Lucky is?</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
-   <widget class="TimeDomain" name="timeDomainInput" native="true">
-    <property name="geometry">
-     <rect>
-      <x>59</x>
-      <y>279</y>
-      <width>681</width>
-      <height>181</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QWidget" name="horizontalLayoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>160</x>
-      <y>460</y>
-      <width>401</width>
-      <height>80</height>
-     </rect>
-    </property>
-    <layout class="QHBoxLayout" name="horizontalLayout">
-     <item>
-      <widget class="QPushButton" name="playButton">
-       <property name="text">
-        <string>Play</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pauseButton">
-       <property name="text">
-        <string>Pause</string>
-       </property>
-      </widget>
-     </item>
     </layout>
    </widget>
   </widget>
@@ -101,7 +103,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>25</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>
