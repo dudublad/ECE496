@@ -15,6 +15,13 @@ MainWindow::MainWindow(QWidget *parent)
 }
 
 void MainWindow::setup_STK() {
+
+    // RtAudio API setup
+    streamParameters.deviceId = dac.getDefaultInputDevice();
+    streamParameters.nChannels = 1;
+    audioFormat = ( sizeof(stk::StkFloat) == 8) ? RTAUDIO_FLOAT64 : RTAUDIO_FLOAT32;
+
+    bufferFrames = stk::RT_BUFFER_SIZE;
     stk::Stk::setSampleRate(stkFrequency);
 }
 
@@ -47,6 +54,8 @@ void MainWindow::on_playButton_clicked(bool)
     //std::cout << "Play Button Pushed, currentDir =" << currentDirectory.toStdString() << std::endl;
     QString file = currentDirectory + "/audio_files/ImperialMarch60.wav";
     drawWaveFromFile(file);
+
+    playFile(file);
     //std::cout << "Play Button Finished" << std::endl;
 }
 
@@ -62,6 +71,7 @@ void MainWindow::on_playSineButton_clicked(bool) {
 
     generateSineWav(file);
     drawWaveFromFile(file);
+    playSine();
 }
 
 void MainWindow::generateSineWav(QString file) {
@@ -81,6 +91,73 @@ void MainWindow::generateSineWav(QString file) {
     output.closeFile();
 }
 
+void MainWindow::playFile(QString file){
+    if (dac.isStreamOpen()) dac.closeStream();
+    if (input.isOpen()) input.closeFile();
+
+    try {
+        input.openFile(file.toStdString());
+    } catch (stk::StkError &error){
+        error.printMessage();
+    }
+
+    double rate = input.getFileRate() / stk::Stk::sampleRate();
+    input.setRate(rate);
+
+    try {
+        dac.openStream( &streamParameters, NULL, audioFormat, stk::Stk::sampleRate(), &bufferFrames, &tickFile, (void *) &input);
+    } catch (RtAudioError &error) {
+        error.printMessage();
+    }
+
+    dac.startStream();
+}
+
+void MainWindow::playSine(){
+    if (dac.isStreamOpen()) dac.closeStream();
+    try {
+        dac.openStream( &streamParameters, NULL, audioFormat, stk::Stk::sampleRate(), &bufferFrames, &tickSine, (void *) &sineWave);
+    } catch (RtAudioError &error) {
+        error.printMessage();
+    }
+
+    dac.startStream();
+}
+
+void MainWindow::on_stopSound_clicked(bool){
+    if (dac.isStreamOpen()) dac.closeStream();
+    if (input.isOpen()) input.closeFile();
+}
+
+int tickFile( void *outputBuffer, void *inputBuffer, unsigned int nBufferFrames,
+         double streamTime, RtAudioStreamStatus status, void *userData )
+{
+    stk::FileWvIn *input = (stk::FileWvIn *) userData;
+    auto *samples = (stk::StkFloat *) outputBuffer;
+    for ( unsigned int i=0; i<nBufferFrames; i++ ){
+        try {
+            *samples++ = input->tick();
+        }  catch (stk::StkError &error) {
+            error.printMessage();
+        }
+    }
+    return 0;
+}
+
+int tickSine( void *outputBuffer, void *inputBuffer, unsigned int nBufferFrames,
+         double streamTime, RtAudioStreamStatus status, void *dataPointer )
+{
+    stk::SineWave *sine = (stk::SineWave *) dataPointer;
+    auto *samples = (stk::StkFloat *) outputBuffer;
+    for ( unsigned int i=0; i<nBufferFrames; i++ ){
+        try {
+            *samples++ = sine->tick();
+        } catch (stk::StkError &error) {
+            error.printMessage();
+        }
+    }
+    return 0;
+}
 
 MainWindow::~MainWindow()
 {
