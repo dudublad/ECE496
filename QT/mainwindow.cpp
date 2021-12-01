@@ -94,19 +94,33 @@ void MainWindow::generateSineWav(QString file) {
 void MainWindow::playFile(QString file){
     if (dac.isStreamOpen()) dac.closeStream();
     if (input.isOpen()) input.closeFile();
-    input = stk::FileWvIn();
-    input.openFile(file.toStdString());
+
+    try {
+        input.openFile(file.toStdString());
+    } catch (stk::StkError &error){
+        error.printMessage();
+    }
 
     double rate = input.getFileRate() / stk::Stk::sampleRate();
     input.setRate(rate);
 
-    dac.openStream( &streamParameters, NULL, audioFormat, stk::Stk::sampleRate(), &bufferFrames, &tickFile, (void *) &input);
+    try {
+        dac.openStream( &streamParameters, NULL, audioFormat, stk::Stk::sampleRate(), &bufferFrames, &tickFile, (void *) &input);
+    } catch (RtAudioError &error) {
+        error.printMessage();
+    }
+
     dac.startStream();
 }
 
 void MainWindow::playSine(){
     if (dac.isStreamOpen()) dac.closeStream();
-    dac.openStream( &streamParameters, NULL, audioFormat, stk::Stk::sampleRate(), &bufferFrames, &tickSine, (void *) &sineWave);
+    try {
+        dac.openStream( &streamParameters, NULL, audioFormat, stk::Stk::sampleRate(), &bufferFrames, &tickSine, (void *) &sineWave);
+    } catch (RtAudioError &error) {
+        error.printMessage();
+    }
+
     dac.startStream();
 }
 
@@ -118,22 +132,31 @@ void MainWindow::on_stopSound_clicked(bool){
 int tickFile( void *outputBuffer, void *inputBuffer, unsigned int nBufferFrames,
          double streamTime, RtAudioStreamStatus status, void *userData )
 {
-  stk::FileWvIn *input = (stk::FileWvIn *) userData;
-  auto *samples = (stk::StkFloat *) outputBuffer;
-  for ( unsigned int i=0; i<nBufferFrames; i++ )
-    *samples++ = input->tick();
-
-  return 0;
+    stk::FileWvIn *input = (stk::FileWvIn *) userData;
+    auto *samples = (stk::StkFloat *) outputBuffer;
+    for ( unsigned int i=0; i<nBufferFrames; i++ ){
+        try {
+            *samples++ = input->tick();
+        }  catch (stk::StkError &error) {
+            error.printMessage();
+        }
+    }
+    return 0;
 }
 
 int tickSine( void *outputBuffer, void *inputBuffer, unsigned int nBufferFrames,
          double streamTime, RtAudioStreamStatus status, void *dataPointer )
 {
-  stk::SineWave *sine = (stk::SineWave *) dataPointer;
-  auto *samples = (stk::StkFloat *) outputBuffer;
-  for ( unsigned int i=0; i<nBufferFrames; i++ )
-    *samples++ = sine->tick();
-  return 0;
+    stk::SineWave *sine = (stk::SineWave *) dataPointer;
+    auto *samples = (stk::StkFloat *) outputBuffer;
+    for ( unsigned int i=0; i<nBufferFrames; i++ ){
+        try {
+            *samples++ = sine->tick();
+        } catch (stk::StkError &error) {
+            error.printMessage();
+        }
+    }
+    return 0;
 }
 
 MainWindow::~MainWindow()
