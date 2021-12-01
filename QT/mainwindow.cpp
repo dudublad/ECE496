@@ -14,12 +14,6 @@ MainWindow::MainWindow(QWidget *parent)
     setup_FrequencyBox(600);
 }
 
-int tick( void *outputBuffer, void *inputBuffer, unsigned int nBufferFrames,
-         double streamTime, RtAudioStreamStatus status, void *dataPointer );
-
-int tickFile( void *outputBuffer, void *inputBuffer, unsigned int nBufferFrames,
-         double streamTime, RtAudioStreamStatus status, void *userData );
-
 void MainWindow::setup_STK() {
 
     // RtAudio API setup
@@ -112,18 +106,15 @@ void MainWindow::playFile(QString file){
 
 void MainWindow::playSine(){
     if (dac.isStreamOpen()) dac.closeStream();
-    dac.openStream( &streamParameters, NULL, audioFormat, stk::Stk::sampleRate(), &bufferFrames, &tick, (void *) &sineWave);
+    dac.openStream( &streamParameters, NULL, audioFormat, stk::Stk::sampleRate(), &bufferFrames, &tickSine, (void *) &sineWave);
     dac.startStream();
 }
 
 void MainWindow::on_stopSound_clicked(bool){
-    dac.closeStream();
-    input.closeFile();
+    if (dac.isStreamOpen()) dac.closeStream();
+    if (input.isOpen()) input.closeFile();
 }
 
-// This tick() function handles sample computation only.  It will be
-// called automatically when the system needs a new buffer of audio
-// samples.
 int tickFile( void *outputBuffer, void *inputBuffer, unsigned int nBufferFrames,
          double streamTime, RtAudioStreamStatus status, void *userData )
 {
@@ -135,7 +126,7 @@ int tickFile( void *outputBuffer, void *inputBuffer, unsigned int nBufferFrames,
   return 0;
 }
 
-int tick( void *outputBuffer, void *inputBuffer, unsigned int nBufferFrames,
+int tickSine( void *outputBuffer, void *inputBuffer, unsigned int nBufferFrames,
          double streamTime, RtAudioStreamStatus status, void *dataPointer )
 {
   stk::SineWave *sine = (stk::SineWave *) dataPointer;

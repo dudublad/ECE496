@@ -14,6 +14,17 @@ QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
 
+// function delclarations TODO: REMOVE
+// This tick() function handles sample computation only.  It will be
+// called automatically when the system needs a new buffer of audio
+// samples once the buffer has been filled or is empty initially.
+// tickSine creates a buffer for sine, tickfile creates a buffer for an audio file
+int tickSine( void *outputBuffer, void *inputBuffer, unsigned int nBufferFrames,
+         double streamTime, RtAudioStreamStatus status, void *dataPointer );
+
+int tickFile( void *outputBuffer, void *inputBuffer, unsigned int nBufferFrames,
+         double streamTime, RtAudioStreamStatus status, void *userData );
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
