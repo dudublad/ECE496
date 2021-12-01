@@ -23,7 +23,8 @@ HEADERS += \
     QT/timedomain.h \
     external/ECE496-Backend/inc/TestClass.h \
     $$files(external/ECE496-Backend/stk/include/*.h) \
-    $$files(external/ECE496-Backend/stk/src/include/*.h)
+    $$files(external/ECE496-Backend/stk/src/include/*.h) \
+    libs/inc/fftw3.h
 
 FORMS += \
     QT/mainwindow.ui
@@ -54,3 +55,11 @@ LIBS += \
     -ldsound \
     -lws2_32 \
     -luser32
+
+win32: LIBS += -L$$PWD/libs/lib/ -llibfftw3-3
+
+INCLUDEPATH += $$PWD/libs/inc
+DEPENDPATH += $$PWD/libs/inc
+
+win32:!win32-g++: PRE_TARGETDEPS += $$PWD/libs/lib/libfftw3-3.lib
+else:win32-g++: PRE_TARGETDEPS += $$PWD/libs/lib/liblibfftw3-3.a
