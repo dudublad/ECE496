@@ -9,6 +9,8 @@
 #include <SineWave.h>
 #include <RtAudio.h>
 #include <FileWvIn.h>
+#include "frequencydomaindisplay.h"
+#include "recordedsounddisplay.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
