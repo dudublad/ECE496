@@ -30,7 +30,7 @@ public:
     /*
      * Non signaled functions
      */
-    void setFrequency();
+    void setFrequency(int freq);
 
     QGridLayout* frequencyLayout;
 
