@@ -33,7 +33,7 @@ void SineWaveDisplay::frequencySliderStop(int value)
     //changes frequency according to what is in the slider
     frequencyLabel->setText(QString::number(value) + "Hz");
     waveFrequency = value;
-    std::cout << "current value: " << value << std::endl;
+    //std::cout << "current value: " << value << std::endl;
     //Clear the graph so that generateSineWave() is not
     //Accessing the same file
     //TODO: Better method for this
