@@ -48,7 +48,6 @@ private:
 private slots:
     // Interaction Functions
     void on_FrequencySlider_valueChanged(int value);
-    void on_playButton_clicked(bool);
     void on_playSineButton_clicked(bool);
 
     // Stops all sound currently playing

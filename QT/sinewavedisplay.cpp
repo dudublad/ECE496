@@ -6,7 +6,7 @@ SineWaveDisplay::SineWaveDisplay(QWidget *parent) : SoundDisplay(parent)
     waveFrequency = 20;
 
     // Creating subwidgets
-    frequencySlider = new QSlider(this);
+    frequencySlider = new QSlider(Qt::Horizontal,this);
 
     // TODO: make this into a spinbox
     frequencyLabel = new QLabel(this);
@@ -17,12 +17,17 @@ SineWaveDisplay::SineWaveDisplay(QWidget *parent) : SoundDisplay(parent)
     frequencySlider->setMinimum(20);
     frequencySlider->setMaximum(20000);
     frequencySlider->setSingleStep(100);
+
+    //Label inits
+    frequencyLabel->setText(QString::number(waveFrequency) + "Hz");
+    titleLabel->setText("Set Wave Frequency");
+    titleLabel->setAlignment(Qt::AlignCenter);
     // connecting signals
     connect(frequencySlider,SIGNAL(valueChanged(int)),this,SLOT(frequencySliderStop(int)));
     // Adding the frequency controls to the layout
 
     mainLayout->addLayout(frequencyLayout);
-    frequencyLayout->addWidget(frequencyLabel,0,0);
+    frequencyLayout->addWidget(titleLabel,0,0,Qt::AlignCenter);
     frequencyLayout->addWidget(frequencySlider,1,0);
     frequencyLayout->addWidget(frequencyLabel,1,1);
     frequencyLayout->addWidget(playButton,1,2);
@@ -38,7 +43,6 @@ void SineWaveDisplay::frequencySliderStop(int value)
     //Accessing the same file
     //TODO: Better method for this
 //    drawWaveFromFile("");
-
 //    generateSineWav(file);
 //    drawWaveFromFile(file);
 //    playSine();

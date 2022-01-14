@@ -24,8 +24,11 @@ SoundDisplay::SoundDisplay(QWidget *parent)
     domainLayout = new QHBoxLayout(this);
     buttonLayout = new QHBoxLayout(this);
     mainLayout->addLayout(domainLayout);
-    domainLayout->addWidget(timeDomain);
-    domainLayout->addWidget(frequencyDisplay);
+
+    // To change sizes of timeDOmain or freq Domain,
+    // change the numbers, they're ratios within the layout
+    domainLayout->addWidget(timeDomain,2);
+    domainLayout->addWidget(frequencyDisplay,1);
     mainLayout->addLayout(buttonLayout);
     buttonLayout->addWidget(playButton);
     buttonLayout->addWidget(stopButton);
@@ -39,7 +42,7 @@ SoundDisplay::~SoundDisplay()
 
 void SoundDisplay::changeFile(QString path)
 {
-    //implement me
+    selectedFile = path;
 }
 
 
@@ -52,12 +55,12 @@ void SoundDisplay::onPlayButtonClicked()
     // Projects->Run->Working Directory
     drawWaveFromFile(selectedFile);
     //playFile(file);
-    std::cout << "Play Button Finished" << std::endl;
+    //std::cout << "Play Button Finished" << std::endl;
 }
 
 void SoundDisplay::playFile()
 {
-    //play selectedFile member
+    //IMPLEMENT ME
     std::cout << "haha lol" << std::endl;
 }
 

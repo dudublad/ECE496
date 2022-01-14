@@ -17,9 +17,9 @@
    <widget class="QWidget" name="verticalLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>190</x>
-      <y>480</y>
-      <width>401</width>
+      <x>620</x>
+      <y>120</y>
+      <width>231</width>
       <height>81</height>
      </rect>
     </property>
@@ -70,46 +70,20 @@
    <widget class="RecordedSoundDisplay" name="recordedSoundDisplay" native="true">
     <property name="geometry">
      <rect>
-      <x>90</x>
+      <x>70</x>
       <y>40</y>
-      <width>511</width>
-      <height>231</height>
+      <width>531</width>
+      <height>181</height>
      </rect>
     </property>
-   </widget>
-   <widget class="QWidget" name="horizontalLayoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>100</x>
-      <y>370</y>
-      <width>581</width>
-      <height>80</height>
-     </rect>
-    </property>
-    <layout class="QHBoxLayout" name="horizontalLayout">
-     <item>
-      <widget class="QPushButton" name="stopSound">
-       <property name="text">
-        <string>Stop</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="playButton">
-       <property name="text">
-        <string>Play Imperial March</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
    </widget>
    <widget class="QWidget" name="horizontalLayoutWidget_2">
     <property name="geometry">
      <rect>
-      <x>580</x>
-      <y>390</y>
-      <width>331</width>
-      <height>251</height>
+      <x>640</x>
+      <y>430</y>
+      <width>171</width>
+      <height>91</height>
      </rect>
     </property>
     <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -121,13 +95,23 @@
      </item>
     </layout>
    </widget>
-   <widget class="SineWaveDisplay" name="widget" native="true">
+   <widget class="SineWaveDisplay" name="sineWaveDisplay" native="true">
     <property name="geometry">
      <rect>
-      <x>40</x>
-      <y>270</y>
-      <width>551</width>
-      <height>311</height>
+      <x>70</x>
+      <y>220</y>
+      <width>531</width>
+      <height>191</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="OutputSoundDisplay" name="outputSoundDisplay" native="true">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>410</y>
+      <width>531</width>
+      <height>141</height>
      </rect>
     </property>
    </widget>
@@ -167,6 +151,12 @@
    <class>SineWaveDisplay</class>
    <extends>QWidget</extends>
    <header>sinewavedisplay.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>OutputSoundDisplay</class>
+   <extends>QWidget</extends>
+   <header>outputsounddisplay.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

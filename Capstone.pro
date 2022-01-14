@@ -13,6 +13,7 @@ SOURCES += \
     QT/frequencydomaindisplay.cpp \
     QT/main.cpp \
     QT/mainwindow.cpp \
+    QT/outputsounddisplay.cpp \
     QT/qcustomplot.cpp \
     QT/recordedsounddisplay.cpp \
     QT/sinewavedisplay.cpp \
@@ -24,6 +25,7 @@ SOURCES += \
 HEADERS += \
     QT/frequencydomaindisplay.h \
     QT/mainwindow.h \
+    QT/outputsounddisplay.h \
     QT/qcustomplot.h \
     QT/recordedsounddisplay.h \
     QT/sinewavedisplay.h \

@@ -43,22 +43,6 @@ void MainWindow::drawWaveFromFile(QString file)
     //ui->timeDomainInput->plot();
 }
 
-void MainWindow::on_playButton_clicked(bool)
-{
-
-    // Get current cursor position when it exists
-    // If this following section is not loading the sound file
-    // Ensure that you have the right working directory set under
-    // Projects->Run->Working Directory
-    QString currentDirectory = QDir::currentPath();
-    //std::cout << "Play Button Pushed, currentDir =" << currentDirectory.toStdString() << std::endl;
-    QString file = currentDirectory + "/audio_files/ImperialMarch60.wav";
-    drawWaveFromFile(file);
-
-    playFile(file);
-    //std::cout << "Play Button Finished" << std::endl;
-}
-
 void MainWindow::on_playSineButton_clicked(bool) {
 
     QString currentDirectory = QDir::currentPath();
