@@ -45,7 +45,8 @@ void SineWaveDisplay::frequencySliderStop(int value)
 
 }
 
-void SineWaveDisplay::setFrequency()
+void SineWaveDisplay::setFrequency(int freq)
 {
     //nothing for now
+    waveFrequency = freq;
 }
