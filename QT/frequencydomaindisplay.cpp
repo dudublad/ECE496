@@ -38,7 +38,7 @@ void FrequencyDomainDisplay::plot()
     }
     else
     {
-        xAxis->setRange(QCPRange(0,vec.size()));
+        xAxis->setRange(QCPRange(-1,1));
     }
     //end
     replot();
