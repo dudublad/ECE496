@@ -2,6 +2,9 @@
 
 SineWaveDisplay::SineWaveDisplay(QWidget *parent) : SoundDisplay(parent)
 {
+
+    //DO NOT MESS WITH THE LAYOUTS, THEY ARE VERY SENSITIVE AND PRONE TO BREAKING
+
     // initializing data attributes
     waveFrequency = 20;
 
@@ -11,7 +14,7 @@ SineWaveDisplay::SineWaveDisplay(QWidget *parent) : SoundDisplay(parent)
     // TODO: make this into a spinbox
     frequencyLabel = new QLabel(this);
     titleLabel = new QLabel(this);
-    frequencyLayout = new QGridLayout(this);
+    frequencyLayout = new QVBoxLayout(this);
     // setting up frequency slider
     frequencySlider->setValue(waveFrequency);
     frequencySlider->setMinimum(20);
@@ -26,11 +29,16 @@ SineWaveDisplay::SineWaveDisplay(QWidget *parent) : SoundDisplay(parent)
     connect(frequencySlider,SIGNAL(valueChanged(int)),this,SLOT(frequencySliderStop(int)));
     // Adding the frequency controls to the layout
 
+
+    frequencyLayout->addWidget(titleLabel);
+
+    frequencyControlLayout = new QHBoxLayout(this);
+    frequencyControlLayout->addWidget(stopButton);
+    frequencyControlLayout->addWidget(frequencySlider);
+    frequencyControlLayout->addWidget(frequencyLabel);
+    frequencyControlLayout->addWidget(playButton);
+    frequencyLayout->addLayout(frequencyControlLayout);
     mainLayout->addLayout(frequencyLayout);
-    frequencyLayout->addWidget(titleLabel,0,0,Qt::AlignCenter);
-    frequencyLayout->addWidget(frequencySlider,1,0);
-    frequencyLayout->addWidget(frequencyLabel,1,1);
-    frequencyLayout->addWidget(playButton,1,2);
 }
 
 void SineWaveDisplay::frequencySliderStop(int value)

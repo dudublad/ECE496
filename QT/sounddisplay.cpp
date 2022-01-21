@@ -30,8 +30,6 @@ SoundDisplay::SoundDisplay(QWidget *parent)
     domainLayout->addWidget(timeDomain,2);
     domainLayout->addWidget(frequencyDisplay,1);
     mainLayout->addLayout(buttonLayout);
-    buttonLayout->addWidget(playButton);
-    buttonLayout->addWidget(stopButton);
 }
 
 SoundDisplay::~SoundDisplay()

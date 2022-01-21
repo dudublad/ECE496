@@ -32,7 +32,11 @@ public:
      */
     void setFrequency(int freq);
 
-    QGridLayout* frequencyLayout;
+    // Where the title and the control panel live
+    QVBoxLayout* frequencyLayout;
+
+    // Contains the buttons on the frequency Layout
+    QHBoxLayout* frequencyControlLayout;
 
 public slots:
     void frequencySliderStop(int value);

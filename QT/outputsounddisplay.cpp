@@ -2,7 +2,8 @@
 
 OutputSoundDisplay::OutputSoundDisplay(QWidget *parent) : SoundDisplay(parent)
 {
-
+    buttonLayout->addWidget(playButton);
+    buttonLayout->addWidget(stopButton);
 }
 
 /*

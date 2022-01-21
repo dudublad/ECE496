@@ -7,6 +7,8 @@ RecordedSoundDisplay::RecordedSoundDisplay(QWidget *parent) : SoundDisplay(paren
     // init
     chooseFileButton = new QPushButton("Choose a new File",this);
     connect(chooseFileButton,SIGNAL(clicked()),this,SLOT(chooseFile()));
+    buttonLayout->addWidget(playButton);
+    buttonLayout->addWidget(stopButton);
     buttonLayout->addWidget(chooseFileButton);
 
 

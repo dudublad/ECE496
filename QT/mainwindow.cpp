@@ -39,7 +39,7 @@ void MainWindow::on_FrequencySlider_valueChanged(int value) {
 
 void MainWindow::drawWaveFromFile(QString file)
 {
-    ui->timeDomainInput->setSource(file);
+    //ui->timeDomainInput->setSource(file);
     //ui->timeDomainInput->plot();
 }
 
