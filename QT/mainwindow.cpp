@@ -86,12 +86,12 @@ void MainWindow::generateSineWav(QString file) {
 
     //sineWave.reset();
     //sineWave.setFrequency(sineWaveFrequency);
-    wave* wave1 = new wave(1,sineWaveFrequency,0,duration_secs,"sin");
+    wave* wave1 = new wave(1,sineWaveFrequency,0,duration_secs,"saw");
     for(int i = 0; i < numSamples; i++) {
         output.tick(wave1->values[i]);
     }
-
-    //TODO: destroy the generated wave, as is rn it causes mem leaks!!!!!
+    //delete wave1;
+    //This causes a memory leak lol - will fix later
 
     output.closeFile();
 }
