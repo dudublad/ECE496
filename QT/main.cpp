@@ -16,8 +16,6 @@ int main(int argc, char *argv[])
         test[n] = sin(2*M_PI*f*0.00002267573);
     }
 
-
-
     QApplication a(argc, argv);
     MainWindow w;
     w.show();

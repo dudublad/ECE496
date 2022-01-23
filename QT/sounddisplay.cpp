@@ -30,6 +30,7 @@ SoundDisplay::SoundDisplay(QWidget *parent)
     domainLayout->addWidget(timeDomain,2);
     domainLayout->addWidget(frequencyDisplay,1);
     mainLayout->addLayout(buttonLayout);
+
 }
 
 SoundDisplay::~SoundDisplay()
@@ -41,6 +42,7 @@ SoundDisplay::~SoundDisplay()
 void SoundDisplay::changeFile(QString path)
 {
     selectedFile = path;
+    this->soundFile = AudioFile(path);
 }
 
 
@@ -52,14 +54,14 @@ void SoundDisplay::onPlayButtonClicked()
     // Ensure that you have the right working directory set under
     // Projects->Run->Working Directory
     drawWaveFromFile(selectedFile);
-    //playFile(file);
+    this->soundFile.PlayAudioFile();
     //std::cout << "Play Button Finished" << std::endl;
 }
 
 void SoundDisplay::playFile()
 {
     //IMPLEMENT ME
-    std::cout << "haha lol" << std::endl;
+    this->soundFile.PlayAudioFile();
 }
 
 void SoundDisplay::stopFile()
