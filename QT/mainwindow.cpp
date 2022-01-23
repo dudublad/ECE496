@@ -3,8 +3,10 @@
 
 #include <Stk.h>
 #include "FileWvOut.h"
+#include "../external/ECE496-Backend/src/wave.h"
 
 #include <iostream>
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -82,11 +84,14 @@ void MainWindow::generateSineWav(QString file) {
     // Open a 16-bit, one-channel WAV formatted output file
     output.openFile(file.toStdString(), 1, stk::FileWrite::FILE_WAV, stk::Stk::STK_SINT16);
 
-    sineWave.reset();
-    sineWave.setFrequency(sineWaveFrequency);
+    //sineWave.reset();
+    //sineWave.setFrequency(sineWaveFrequency);
+    wave* wave1 = new wave(1,sineWaveFrequency,0,duration_secs,"sin");
     for(int i = 0; i < numSamples; i++) {
-        output.tick( sineWave.tick() );
+        output.tick(wave1->values[i]);
     }
+
+    //TODO: destroy the generated wave, as is rn it causes mem leaks!!!!!
 
     output.closeFile();
 }
