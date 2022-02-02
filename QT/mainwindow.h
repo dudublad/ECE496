@@ -34,7 +34,6 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-    void drawWaveFromFile(QString file);
 
     //Adds the controller which manages interactions on the main window
 
@@ -42,12 +41,9 @@ private:
     //Setup functions
     //Called upon initialization
     void setup_STK();
-    void setup_FrequencyBox(int initialFrequency);
 
 
 private slots:
-    // Interaction Functions
-    void on_FrequencySlider_valueChanged(int value);
     void on_playSineButton_clicked(bool);
 
     // Stops all sound currently playing

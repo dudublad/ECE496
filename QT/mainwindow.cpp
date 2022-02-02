@@ -11,7 +11,6 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     setup_STK();
-    setup_FrequencyBox(600);
 }
 
 void MainWindow::setup_STK() {
@@ -25,23 +24,6 @@ void MainWindow::setup_STK() {
     stk::Stk::setSampleRate(stkFrequency);
 }
 
-void MainWindow::setup_FrequencyBox(int initialFrequency) {
-    ui->FrequencySlider->setMinimum(20);
-    ui->FrequencySlider->setMaximum(22050);
-    ui->FrequencySlider->setSingleStep(100);
-    ui->FrequencySlider->setValue(initialFrequency);
-}
-
-void MainWindow::on_FrequencySlider_valueChanged(int value) {
-    ui->FrequencyLabel->setText(QString::number(value) + "Hz");
-    sineWaveFrequency = value;
-}
-
-void MainWindow::drawWaveFromFile(QString file)
-{
-    //ui->timeDomainInput->setSource(file);
-    //ui->timeDomainInput->plot();
-}
 
 void MainWindow::on_playSineButton_clicked(bool) {
 
@@ -51,10 +33,8 @@ void MainWindow::on_playSineButton_clicked(bool) {
     //Clear the graph so that generateSineWave() is not
     //Accessing the same file
     //TODO: Better method for this
-    drawWaveFromFile("");
 
     generateSineWav(file);
-    drawWaveFromFile(file);
     playSine();
 }
 
