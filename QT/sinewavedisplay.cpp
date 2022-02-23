@@ -46,14 +46,21 @@ void SineWaveDisplay::frequencySliderStop(int value)
     //changes frequency according to what is in the slider
     frequencyLabel->setText(QString::number(value) + "Hz");
     waveFrequency = value;
+    sinWave->setFrequency(value);
     //std::cout << "current value: " << value << std::endl;
     //Clear the graph so that generateSineWave() is not
     //Accessing the same file
     //TODO: Better method for this
-//    drawWaveFromFile("");
-//    generateSineWav(file);
-//    drawWaveFromFile(file);
-//    playSine();
+
+    QString currentDirectory = QDir::currentPath();
+    QString file = currentDirectory + "/audio_files/gen_sine.wav";
+
+    sinWave->generateSine();
+    sinWave->setFilePath(file);
+
+    changeFile(file);
+    drawWaveFromFile(file);
+
 
 }
 

@@ -13,6 +13,7 @@ SoundDisplay::SoundDisplay(QWidget *parent)
     playButton = new QPushButton("Play",this);
     timeDomain = new TimeDomain(this);
     frequencyDisplay = new FrequencyDomainDisplay(this);
+
     //connect(button,&QPushButton::clicked,insert);
     connect(playButton,SIGNAL(clicked()),this,SLOT(onPlayButtonClicked()));
     connect(stopButton,SIGNAL(clicked()),this,SLOT(stopFile()));
@@ -35,14 +36,20 @@ SoundDisplay::SoundDisplay(QWidget *parent)
 
 SoundDisplay::~SoundDisplay()
 {
-    //destructor, if we cant get the freeing to work
-    // just straight up start leaking memory
+    delete stopButton;
+    delete playButton;
+    delete timeDomain;
+    delete frequencyDisplay;
+    delete soundFile;
+    delete mainLayout;
+    delete domainLayout;
+    delete buttonLayout;
 }
 
 void SoundDisplay::changeFile(QString path)
 {
     selectedFile = path;
-    this->soundFile = AudioFile(path);
+    this->soundFile = new AudioFile(path);
 }
 
 
@@ -54,14 +61,14 @@ void SoundDisplay::onPlayButtonClicked()
     // Ensure that you have the right working directory set under
     // Projects->Run->Working Directory
     drawWaveFromFile(selectedFile);
-    this->soundFile.PlayAudioFile();
+    this->soundFile->PlayAudioFile();
     //std::cout << "Play Button Finished" << std::endl;
 }
 
 void SoundDisplay::playFile()
 {
     //IMPLEMENT ME
-    this->soundFile.PlayAudioFile();
+    this->soundFile->PlayAudioFile();
 }
 
 void SoundDisplay::stopFile()

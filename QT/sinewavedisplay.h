@@ -2,6 +2,7 @@
 #define SINEWAVEDISPLAY_H
 
 #include "sounddisplay.h"
+#include "external/ECE496-Backend/src/audiosine.h"
 
 class SineWaveDisplay : public SoundDisplay
 {
@@ -17,6 +18,7 @@ public:
     /*
     * Subwidgets custom to SineWave
     */
+    audioSine sinWave;
 
     // Says set Frequency over top the slider and other label
     QLabel* titleLabel;

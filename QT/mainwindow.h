@@ -3,12 +3,8 @@
 
 #include <QtMultimedia/QAudioInput>
 #include <QBuffer>
-#include "qcustomplot.h"
 #include <QMainWindow>
-#include "timedomain.h"
-#include "frequencydomaindisplay.h"
-#include "recordedsounddisplay.h"
-#include "external/ECE496-Backend/src/audiosine.h"
+#include "external/ECE496-Backend/src/audioconfig.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -21,6 +17,7 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    AudioConfig* audioConf = new AudioConfig;
 
 private:
     Ui::MainWindow *ui;
