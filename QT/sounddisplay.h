@@ -28,7 +28,7 @@ public:
     // Volume of the played sound, Scale: 0-100
     int volume;
 
-    AudioFile* soundFile;
+    AudioFile* soundFile = nullptr;
 
     /*
      * Widgets

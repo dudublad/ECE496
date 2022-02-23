@@ -40,7 +40,11 @@ SoundDisplay::~SoundDisplay()
     delete playButton;
     delete timeDomain;
     delete frequencyDisplay;
-    delete soundFile;
+
+    if(soundFile) {
+        delete soundFile;
+    }
+
     delete mainLayout;
     delete domainLayout;
     delete buttonLayout;
@@ -49,7 +53,10 @@ SoundDisplay::~SoundDisplay()
 void SoundDisplay::changeFile(QString path)
 {
     selectedFile = path;
-    this->soundFile = new AudioFile(path);
+    if(soundFile) {
+        delete soundFile;
+        this->soundFile = new AudioFile(path);
+    }
 }
 
 
