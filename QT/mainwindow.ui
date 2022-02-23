@@ -14,59 +14,6 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QWidget" name="verticalLayoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>620</x>
-      <y>120</y>
-      <width>231</width>
-      <height>81</height>
-     </rect>
-    </property>
-    <layout class="QVBoxLayout" name="verticalLayout">
-     <item>
-      <widget class="QLabel" name="label">
-       <property name="font">
-        <font>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>Set Sine Wave Frequency</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <layout class="QHBoxLayout" name="FrequencyBox">
-       <item>
-        <widget class="QSlider" name="FrequencySlider">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="FrequencyLabel">
-         <property name="text">
-          <string>600 Hz</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="playSineButton">
-         <property name="text">
-          <string>Play Sine Wave</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-    </layout>
-   </widget>
    <widget class="RecordedSoundDisplay" name="recordedSoundDisplay" native="true">
     <property name="geometry">
      <rect>
@@ -76,24 +23,6 @@
       <height>181</height>
      </rect>
     </property>
-   </widget>
-   <widget class="QWidget" name="horizontalLayoutWidget_2">
-    <property name="geometry">
-     <rect>
-      <x>640</x>
-      <y>430</y>
-      <width>171</width>
-      <height>91</height>
-     </rect>
-    </property>
-    <layout class="QHBoxLayout" name="horizontalLayout_2">
-     <item>
-      <widget class="FrequencyDomainDisplay" name="frequencyDomain" native="true"/>
-     </item>
-     <item>
-      <widget class="TimeDomain" name="timeDomainInput" native="true"/>
-     </item>
-    </layout>
    </widget>
    <widget class="SineWaveDisplay" name="sineWaveDisplay" native="true">
     <property name="geometry">
@@ -129,18 +58,6 @@
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>TimeDomain</class>
-   <extends>QWidget</extends>
-   <header>timedomain.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>FrequencyDomainDisplay</class>
-   <extends>QWidget</extends>
-   <header>frequencydomaindisplay.h</header>
-   <container>1</container>
-  </customwidget>
   <customwidget>
    <class>RecordedSoundDisplay</class>
    <extends>QWidget</extends>
