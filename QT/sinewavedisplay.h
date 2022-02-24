@@ -40,8 +40,13 @@ public:
     // Contains the buttons on the frequency Layout
     QHBoxLayout* frequencyControlLayout;
 
+private:
+    void plotAndPlay();
+
 public slots:
-    void frequencySliderStop(int value);
+    void frequencySliderChange(int value);
+    void frequencySliderStop();
+    void onPlayButtonClicked();
 
 };
 

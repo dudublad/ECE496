@@ -73,7 +73,7 @@ public slots:
     void stopFile();
 
 private slots:
-    void onPlayButtonClicked();
+    virtual void onPlayButtonClicked();
     //
 };
 

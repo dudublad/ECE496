@@ -28,7 +28,8 @@ SineWaveDisplay::SineWaveDisplay(QWidget *parent) : SoundDisplay(parent)
     titleLabel->setText("Set Wave Frequency");
     titleLabel->setAlignment(Qt::AlignCenter);
     // connecting signals
-    connect(frequencySlider,SIGNAL(valueChanged(int)),this,SLOT(frequencySliderStop(int)));
+    connect(frequencySlider,SIGNAL(valueChanged(int)),this,SLOT(frequencySliderChange(int)));
+    connect(frequencySlider,SIGNAL(sliderReleased()),this,SLOT(frequencySliderStop()));
     // Adding the frequency controls to the layout
 
 
@@ -43,28 +44,38 @@ SineWaveDisplay::SineWaveDisplay(QWidget *parent) : SoundDisplay(parent)
     mainLayout->addLayout(frequencyLayout);
 }
 
-void SineWaveDisplay::frequencySliderStop(int value)
+void SineWaveDisplay::plotAndPlay()
+{
+    QString currentDirectory = QDir::currentPath();
+    QString file = currentDirectory + "/audio_files/gen_sine.wav";
+
+    //Clear the graph so that generateSineWave() is not
+    //Accessing the same file
+    //TODO: Better method for this
+    drawWaveFromFile("");
+
+    sinWave->setFilePath(file);
+    sinWave->setFrequency(waveFrequency);
+    sinWave->generateSine();
+
+    drawWaveFromFile(file);
+}
+
+void SineWaveDisplay::frequencySliderChange(int value)
 {
     //changes frequency according to what is in the slider
     frequencyLabel->setText(QString::number(value) + "Hz");
     waveFrequency = value;
+}
 
-    //std::cout << "current value: " << value << std::endl;
-    //Clear the graph so that generateSineWave() is not
-    //Accessing the same file
-    //TODO: Better method for this
+void SineWaveDisplay::frequencySliderStop()
+{
+    plotAndPlay();
+}
 
-    QString currentDirectory = QDir::currentPath();
-    QString file = currentDirectory + "/audio_files/gen_sine.wav";
-
-    sinWave->setFilePath(file);
-    sinWave->setFrequency(value);
-    sinWave->generateSine();
-
-    changeFile(file);
-    drawWaveFromFile(file);
-
-
+void SineWaveDisplay::onPlayButtonClicked()
+{
+    plotAndPlay();
 }
 
 void SineWaveDisplay::setFrequency(int freq)

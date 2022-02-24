@@ -68,7 +68,7 @@ void SoundDisplay::onPlayButtonClicked()
     // Ensure that you have the right working directory set under
     // Projects->Run->Working Directory
     drawWaveFromFile(selectedFile);
-    this->soundFile->PlayAudioFile();
+//    this->soundFile->PlayAudioFile();
     //std::cout << "Play Button Finished" << std::endl;
 }
 
