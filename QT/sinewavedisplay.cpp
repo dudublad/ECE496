@@ -3,10 +3,6 @@
 SineWaveDisplay::SineWaveDisplay(QWidget *parent) : SoundDisplay(parent)
 {
 
-    //DO NOT MESS WITH THE LAYOUTS, THEY ARE VERY SENSITIVE AND PRONE TO BREAKING
-
-    sinWave = new audioSine();
-
     // initializing data attributes
     waveFrequency = 20;
 
@@ -47,18 +43,21 @@ SineWaveDisplay::SineWaveDisplay(QWidget *parent) : SoundDisplay(parent)
 void SineWaveDisplay::plotAndPlay()
 {
     QString currentDirectory = QDir::currentPath();
-    QString file = currentDirectory + "/audio_files/gen_sine.wav";
-
+    QString file = currentDirectory + "/audio_files/dgen_sine.wav";
+    //changes frequency according to what is in the slider
+    frequencyLabel->setText(QString::number(waveFrequency) + "Hz");
+    sinWave.setFrequency(waveFrequency);
+    //std::cout << "current value: " << value << std::endl;
     //Clear the graph so that generateSineWave() is not
     //Accessing the same file
-    //TODO: Better method for this
-    drawWaveFromFile("");
 
-    sinWave->setFilePath(file);
-    sinWave->setFrequency(waveFrequency);
-    sinWave->generateSine();
+    sinWave.setFilePath(file);
+    sinWave.setFrequency(waveFrequency);
+    sinWave.generateSine();
 
     drawWaveFromFile(file);
+    sinWave.openFile(sinWave.getFilePath());
+    sinWave.startStream();
 }
 
 void SineWaveDisplay::frequencySliderChange(int value)

@@ -18,7 +18,7 @@ public:
     /*
     * Subwidgets custom to SineWave
     */
-    audioSine* sinWave;
+    audioSine sinWave;
 
     // Says set Frequency over top the slider and other label
     QLabel* titleLabel;

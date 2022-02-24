@@ -40,11 +40,6 @@ SoundDisplay::~SoundDisplay()
     delete playButton;
     delete timeDomain;
     delete frequencyDisplay;
-
-    if(soundFile) {
-        delete soundFile;
-    }
-
     delete mainLayout;
     delete domainLayout;
     delete buttonLayout;
@@ -53,10 +48,7 @@ SoundDisplay::~SoundDisplay()
 void SoundDisplay::changeFile(QString path)
 {
     selectedFile = path;
-    if(soundFile) {
-        delete soundFile;
-        this->soundFile = new AudioFile(path);
-    }
+    this->soundFile.openFile(path);
 }
 
 
@@ -68,19 +60,17 @@ void SoundDisplay::onPlayButtonClicked()
     // Ensure that you have the right working directory set under
     // Projects->Run->Working Directory
     drawWaveFromFile(selectedFile);
-//    this->soundFile->PlayAudioFile();
+    if (this->soundFile.dac.isStreamRunning()){
+       this->soundFile.setStreamTime(0);
+    }
+    this->soundFile.startStream();
     //std::cout << "Play Button Finished" << std::endl;
-}
-
-void SoundDisplay::playFile()
-{
-    //IMPLEMENT ME
-    this->soundFile->PlayAudioFile();
 }
 
 void SoundDisplay::stopFile()
 {
     // stops the file and the cursor
+    this->soundFile.closeStream();
 }
 
 void SoundDisplay::drawWaveFromFile(QString file)

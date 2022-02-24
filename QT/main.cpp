@@ -2,11 +2,13 @@
 #include "TestClass.h"
 #include <iostream>
 #include "fftw3.h"
+#include "Stk.h"
 
 #include <QApplication>
 
 int main(int argc, char *argv[])
 {
+    stk::Stk::setSampleRate(44100.0);
     //Testing the backend. TODO: Remove
     TestClass::testHelloWorld();
 

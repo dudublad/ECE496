@@ -28,7 +28,7 @@ public:
     // Volume of the played sound, Scale: 0-100
     int volume;
 
-    AudioFile* soundFile = nullptr;
+    AudioFile soundFile;
 
     /*
      * Widgets
@@ -65,9 +65,6 @@ public:
 public slots:
     //Draws the file
     void drawWaveFromFile(QString file);
-
-    // Plays the file stored in the selectedFile attributes
-    void playFile();
 
     // Stops the file stored in the selectedFile from playing
     void stopFile();
