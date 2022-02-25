@@ -5,7 +5,7 @@
 #include "timedomain.h"
 #include "frequencydomaindisplay.h"
 #include <iostream>
-#include "external/ECE496-Backend/src/audiofile.h"
+#include "backend/audiofile.h"
 
 class SoundDisplay : public QWidget
 {
