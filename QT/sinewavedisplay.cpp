@@ -38,28 +38,31 @@ SineWaveDisplay::SineWaveDisplay(QWidget *parent) : SoundDisplay(parent)
     frequencyControlLayout->addWidget(playButton);
     frequencyLayout->addLayout(frequencyControlLayout);
     mainLayout->addLayout(frequencyLayout);
+
+
+    //Setup Sine wave
+    QString file = QDir::currentPath() + "/audio_files/gen_sine.wav";
+    sinWave.setFilePath(file);
+    //changes frequency according to what is in the slider
+    sinWave.setFrequency(waveFrequency);
+    plotWave();
 }
 
-void SineWaveDisplay::plotAndPlay()
+void SineWaveDisplay::plotWave()
 {
-    QString file = QDir::currentPath() + "/audio_files/gen_sine.wav";
-    //changes frequency according to what is in the slider
-    frequencyLabel->setText(QString::number(waveFrequency) + "Hz");
-    sinWave.setFrequency(waveFrequency);
-
-    //Clear the graph so that generateSineWave() is not
+    //Clear the graph so that generateSine() is not
     //Accessing the same file
     drawWaveFromFile("");
-
-    sinWave.setFilePath(file);
-    sinWave.setFrequency(waveFrequency);
     sinWave.generateSine();
 
-    //sinWave.setFilePath() generates a filepath with a specific id
-    file = sinWave.getFilePath();
-
+    QString file = sinWave.getFilePath();
     drawWaveFromFile(file);
-    sinWave.openFile(sinWave.getFilePath());
+}
+
+void SineWaveDisplay::playSound()
+{
+    QString file = sinWave.getFilePath();
+    sinWave.openFile(file);
     sinWave.startStream();
 }
 
@@ -72,12 +75,20 @@ void SineWaveDisplay::frequencySliderChange(int value)
 
 void SineWaveDisplay::frequencySliderStop()
 {
-    plotAndPlay();
+    //changes frequency according to what is in the slider
+    sinWave.setFrequency(waveFrequency);
+
+    plotWave();
+
+    if(sinWave.isPlaying())
+    {
+        playSound();
+    }
 }
 
 void SineWaveDisplay::onPlayButtonClicked()
 {
-    plotAndPlay();
+    playSound();
 }
 
 void SineWaveDisplay::setFrequency(int freq)

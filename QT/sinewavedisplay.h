@@ -41,7 +41,8 @@ public:
     QHBoxLayout* frequencyControlLayout;
 
 private:
-    void plotAndPlay();
+    void plotWave();
+    void playSound();
 
 public slots:
     void frequencySliderChange(int value);
