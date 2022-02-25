@@ -3,8 +3,6 @@
 SineWaveDisplay::SineWaveDisplay(QWidget *parent) : SoundDisplay(parent)
 {
 
-    //DO NOT MESS WITH THE LAYOUTS, THEY ARE VERY SENSITIVE AND PRONE TO BREAKING
-
     // initializing data attributes
     waveFrequency = 20;
 
@@ -26,7 +24,8 @@ SineWaveDisplay::SineWaveDisplay(QWidget *parent) : SoundDisplay(parent)
     titleLabel->setText("Set Wave Frequency");
     titleLabel->setAlignment(Qt::AlignCenter);
     // connecting signals
-    connect(frequencySlider,SIGNAL(valueChanged(int)),this,SLOT(frequencySliderStop(int)));
+    connect(frequencySlider,SIGNAL(valueChanged(int)),this,SLOT(frequencySliderChange(int)));
+    connect(frequencySlider,SIGNAL(sliderReleased()),this,SLOT(frequencySliderStop()));
     // Adding the frequency controls to the layout
 
 
@@ -39,22 +38,57 @@ SineWaveDisplay::SineWaveDisplay(QWidget *parent) : SoundDisplay(parent)
     frequencyControlLayout->addWidget(playButton);
     frequencyLayout->addLayout(frequencyControlLayout);
     mainLayout->addLayout(frequencyLayout);
+
+
+    //Setup Sine wave
+    QString file = QDir::currentPath() + "/audio_files/gen_sine.wav";
+    sinWave.setFilePath(file);
+    //changes frequency according to what is in the slider
+    sinWave.setFrequency(waveFrequency);
+    plotWave();
 }
 
-void SineWaveDisplay::frequencySliderStop(int value)
+void SineWaveDisplay::plotWave()
+{
+    //Clear the graph so that generateSine() is not
+    //Accessing the same file
+    drawWaveFromFile("");
+    sinWave.generateSine();
+
+    QString file = sinWave.getFilePath();
+    drawWaveFromFile(file);
+}
+
+void SineWaveDisplay::playSound()
+{
+    QString file = sinWave.getFilePath();
+    sinWave.openFile(file);
+    sinWave.startStream();
+}
+
+void SineWaveDisplay::frequencySliderChange(int value)
 {
     //changes frequency according to what is in the slider
     frequencyLabel->setText(QString::number(value) + "Hz");
     waveFrequency = value;
-    //std::cout << "current value: " << value << std::endl;
-    //Clear the graph so that generateSineWave() is not
-    //Accessing the same file
-    //TODO: Better method for this
-//    drawWaveFromFile("");
-//    generateSineWav(file);
-//    drawWaveFromFile(file);
-//    playSine();
+}
 
+void SineWaveDisplay::frequencySliderStop()
+{
+    //changes frequency according to what is in the slider
+    sinWave.setFrequency(waveFrequency);
+
+    plotWave();
+
+    if(sinWave.isPlaying())
+    {
+        playSound();
+    }
+}
+
+void SineWaveDisplay::onPlayButtonClicked()
+{
+    playSound();
 }
 
 void SineWaveDisplay::setFrequency(int freq)

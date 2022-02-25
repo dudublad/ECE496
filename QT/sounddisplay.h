@@ -5,6 +5,8 @@
 #include "timedomain.h"
 #include "frequencydomaindisplay.h"
 #include <iostream>
+#include "external/ECE496-Backend/src/audiofile.h"
+
 class SoundDisplay : public QWidget
 {
     Q_OBJECT
@@ -25,6 +27,8 @@ public:
 
     // Volume of the played sound, Scale: 0-100
     int volume;
+
+    AudioFile soundFile;
 
     /*
      * Widgets
@@ -62,14 +66,11 @@ public slots:
     //Draws the file
     void drawWaveFromFile(QString file);
 
-    // Plays the file stored in the selectedFile attributes
-    void playFile();
-
     // Stops the file stored in the selectedFile from playing
     void stopFile();
 
 private slots:
-    void onPlayButtonClicked();
+    virtual void onPlayButtonClicked();
     //
 };
 

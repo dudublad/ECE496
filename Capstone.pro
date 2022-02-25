@@ -20,7 +20,10 @@ SOURCES += \
     QT/sounddisplay.cpp \
     QT/timedomain.cpp \
     external/ECE496-Backend/src/TestClass.cpp \
-    $$files(external/ECE496-Backend/stk/src/*.cpp)
+    $$files(external/ECE496-Backend/stk/src/*.cpp) \
+    external/ECE496-Backend/src/audioconfig.cpp \
+    external/ECE496-Backend/src/audiofile.cpp \
+    external/ECE496-Backend/src/audiosine.cpp
 
 HEADERS += \
     QT/frequencydomaindisplay.h \
@@ -34,6 +37,9 @@ HEADERS += \
     external/ECE496-Backend/inc/TestClass.h \
     $$files(external/ECE496-Backend/stk/include/*.h) \
     $$files(external/ECE496-Backend/stk/src/include/*.h) \
+    external/ECE496-Backend/src/audioconfig.h \
+    external/ECE496-Backend/src/audiofile.h \
+    external/ECE496-Backend/src/audiosine.h \
     libs/inc/fftw3.h
 
 FORMS += \
