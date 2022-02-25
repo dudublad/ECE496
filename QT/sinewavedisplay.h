@@ -2,7 +2,7 @@
 #define SINEWAVEDISPLAY_H
 
 #include "sounddisplay.h"
-#include "external/ECE496-Backend/src/audiosine.h"
+#include "audiosine.h"
 
 class SineWaveDisplay : public SoundDisplay
 {

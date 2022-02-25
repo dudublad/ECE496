@@ -19,12 +19,8 @@ SOURCES += \
     QT/sinewavedisplay.cpp \
     QT/sounddisplay.cpp \
     QT/timedomain.cpp \
-    external/ECE496-Backend/src/TestClass.cpp \
-    $$files(external/ECE496-Backend/stk/src/*.cpp) \
-    external/ECE496-Backend/src/wave.cpp \
-    external/ECE496-Backend/src/audioconfig.cpp \
-    external/ECE496-Backend/src/audiofile.cpp \
-    external/ECE496-Backend/src/audiosine.cpp
+    $$files(stk/src/*.cpp) \
+    $$files(backend/*.cpp) \
 
 HEADERS += \
     QT/frequencydomaindisplay.h \
@@ -36,12 +32,9 @@ HEADERS += \
     QT/sounddisplay.h \
     QT/timedomain.h \
     external/ECE496-Backend/inc/TestClass.h \
-    $$files(external/ECE496-Backend/stk/include/*.h) \
-    $$files(external/ECE496-Backend/stk/src/include/*.h) \
-    external/ECE496-Backend/src/wave.h \
-    external/ECE496-Backend/src/audioconfig.h \
-    external/ECE496-Backend/src/audiofile.h \
-    external/ECE496-Backend/src/audiosine.h \
+    $$files(stk/include/*.h) \
+    $$files(stk/src/include/*.h) \
+    $$files(backend/*.h) \
     libs/inc/fftw3.h
 
 FORMS += \
@@ -60,9 +53,9 @@ DISTFILES += \
     external/ECE496-Backend/README.md
 
 INCLUDEPATH += \
-    $$PWD/external/ECE496-Backend/inc/ \
-    $$PWD/external/ECE496-Backend/stk/include/ \
-    $$PWD/external/ECE496-Backend/stk/src/include/
+    $$PWD/backend/ \
+    $$PWD/stk/include/ \
+    $$PWD/src/include/
 
 DEFINES += \
     __WINDOWS_DS__ \

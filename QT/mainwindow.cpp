@@ -3,7 +3,6 @@
 
 #include <Stk.h>
 #include "FileWvOut.h"
-#include "../external/ECE496-Backend/src/wave.h"
 
 #include <iostream>
 
