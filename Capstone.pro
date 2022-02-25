@@ -11,6 +11,7 @@ CONFIG += c++11
 
 SOURCES += \
     QT/frequencydomaindisplay.cpp \
+    QT/inputscrollview.cpp \
     QT/main.cpp \
     QT/mainwindow.cpp \
     QT/outputsounddisplay.cpp \
@@ -27,6 +28,7 @@ SOURCES += \
 
 HEADERS += \
     QT/frequencydomaindisplay.h \
+    QT/inputscrollview.h \
     QT/mainwindow.h \
     QT/outputsounddisplay.h \
     QT/qcustomplot.h \

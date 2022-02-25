@@ -79,6 +79,5 @@ void SineWaveDisplay::onPlayButtonClicked()
 
 void SineWaveDisplay::setFrequency(int freq)
 {
-    //nothing for now
     waveFrequency = freq;
 }

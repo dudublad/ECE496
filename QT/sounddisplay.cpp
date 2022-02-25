@@ -41,8 +41,8 @@ SoundDisplay::~SoundDisplay()
     delete timeDomain;
     delete frequencyDisplay;
     delete mainLayout;
-    delete domainLayout;
-    delete buttonLayout;
+    //delete domainLayout;
+    //delete buttonLayout;
 }
 
 void SoundDisplay::changeFile(QString path)
