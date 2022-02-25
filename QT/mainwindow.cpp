@@ -3,8 +3,10 @@
 
 #include <Stk.h>
 #include "FileWvOut.h"
+#include "../external/ECE496-Backend/src/wave.h"
 
 #include <iostream>
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
