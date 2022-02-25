@@ -42,18 +42,21 @@ SineWaveDisplay::SineWaveDisplay(QWidget *parent) : SoundDisplay(parent)
 
 void SineWaveDisplay::plotAndPlay()
 {
-    QString currentDirectory = QDir::currentPath();
-    QString file = currentDirectory + "/audio_files/dgen_sine.wav";
+    QString file = QDir::currentPath() + "/audio_files/gen_sine.wav";
     //changes frequency according to what is in the slider
     frequencyLabel->setText(QString::number(waveFrequency) + "Hz");
     sinWave.setFrequency(waveFrequency);
-    //std::cout << "current value: " << value << std::endl;
+
     //Clear the graph so that generateSineWave() is not
     //Accessing the same file
+    drawWaveFromFile("");
 
     sinWave.setFilePath(file);
     sinWave.setFrequency(waveFrequency);
     sinWave.generateSine();
+
+    //sinWave.setFilePath() generates a filepath with a specific id
+    file = sinWave.getFilePath();
 
     drawWaveFromFile(file);
     sinWave.openFile(sinWave.getFilePath());
