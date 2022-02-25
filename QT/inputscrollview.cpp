@@ -19,7 +19,7 @@ InputScrollView::InputScrollView(QWidget *parent) : QWidget(parent)
     topLayout = new QVBoxLayout(this);
     scrollLayout = new QVBoxLayout(this);
     inputButtonLayout = new QHBoxLayout(this);
-    inputSubScrollLayout = new QVBoxLayout(this);
+    inputSubScrollLayout = new QVBoxLayout(scrollAreaInputContainer);
     //Layout and Widget position setup
     inputButtonLayout->addWidget(addRecordedInputButton);
     inputButtonLayout->addWidget(addSineWaveButton);
@@ -40,7 +40,7 @@ InputScrollView::InputScrollView(QWidget *parent) : QWidget(parent)
     }
     scrollAreaInputContainer->setLayout(inputSubScrollLayout);
     scrollArea->setWidget(scrollAreaInputContainer);
-
+    scrollArea->setWidgetResizable(true);
     updateScrollArea();
 }
 
@@ -112,6 +112,7 @@ void InputScrollView::addInput(SoundInputType inputType)
 
     updateScrollArea();
     // add new input to scrollarea
+    fprintf(stderr,"Current number of Inputs: %lld",inputs.size());
 }
 
 void InputScrollView::removeInputByIndex(int index)
