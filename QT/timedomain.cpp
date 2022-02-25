@@ -106,7 +106,7 @@ qreal TimeDomain::getPeakValue(const QAudioFormat &format)
         }
         if(format.sampleFormat() == QAudioFormat::Float)
         {
-            peak = 1.0003;
+            peak = 1;
         }
         if(format.sampleFormat() == QAudioFormat::UInt8)
         {

@@ -2,11 +2,13 @@
 #include "TestClass.h"
 #include <iostream>
 #include "fftw3.h"
+#include "Stk.h"
 
 #include <QApplication>
 
 int main(int argc, char *argv[])
 {
+    stk::Stk::setSampleRate(44100.0);
     //Testing the backend. TODO: Remove
     TestClass::testHelloWorld();
 
@@ -15,8 +17,6 @@ int main(int argc, char *argv[])
     for(int n = 0; n < 44100; n++){
         test[n] = sin(2*M_PI*f*0.00002267573*n);
     }
-
-
 
     QApplication a(argc, argv);
     MainWindow w;

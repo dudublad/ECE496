@@ -10,22 +10,38 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    QT/frequencydomaindisplay.cpp \
     QT/main.cpp \
     QT/mainwindow.cpp \
+    QT/outputsounddisplay.cpp \
     QT/qcustomplot.cpp \
+    QT/recordedsounddisplay.cpp \
+    QT/sinewavedisplay.cpp \
+    QT/sounddisplay.cpp \
     QT/timedomain.cpp \
     external/ECE496-Backend/src/TestClass.cpp \
     $$files(external/ECE496-Backend/stk/src/*.cpp) \
-    external/ECE496-Backend/src/wave.cpp
+    external/ECE496-Backend/src/wave.cpp \
+    external/ECE496-Backend/src/audioconfig.cpp \
+    external/ECE496-Backend/src/audiofile.cpp \
+    external/ECE496-Backend/src/audiosine.cpp
 
 HEADERS += \
+    QT/frequencydomaindisplay.h \
     QT/mainwindow.h \
+    QT/outputsounddisplay.h \
     QT/qcustomplot.h \
+    QT/recordedsounddisplay.h \
+    QT/sinewavedisplay.h \
+    QT/sounddisplay.h \
     QT/timedomain.h \
     external/ECE496-Backend/inc/TestClass.h \
     $$files(external/ECE496-Backend/stk/include/*.h) \
     $$files(external/ECE496-Backend/stk/src/include/*.h) \
     external/ECE496-Backend/src/wave.h \
+    external/ECE496-Backend/src/audioconfig.h \
+    external/ECE496-Backend/src/audiofile.h \
+    external/ECE496-Backend/src/audiosine.h \
     libs/inc/fftw3.h
 
 FORMS += \
