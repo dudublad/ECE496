@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QScrollArea>
+#include <QPushButton>
 #include "sounddisplay.h"
 #include "sinewavedisplay.h"
 #include "recordedsounddisplay.h"
@@ -44,7 +45,7 @@ public:
     enum SoundInputType {recordedSound,sineWave};
 
 public slots:
-    void addInput(SoundInputType inputType);
+    void addInput(InputScrollView::SoundInputType inputType);
 private:
     QVector<SoundDisplay*> inputs;
     //private members

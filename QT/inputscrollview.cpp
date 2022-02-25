@@ -10,9 +10,8 @@ InputScrollView::InputScrollView(QWidget *parent) : QWidget(parent)
     scrollAreaInputContainer = new QWidget(this);
 
     //Connections
-    auto enumSineWave = SoundInputType::sineWave;
-    connect(addRecordedInputButton,SIGNAL(clicked()),this, SLOT(addInput(SoundInputType SoundInputType::recordedSound)));
-    connect(addSineWaveButton,SIGNAL(clicked()),this,SLOT(addInput(SoundInputType enumSineWave)));
+    connect(addRecordedInputButton,&QPushButton::clicked,[this](){ addInput(InputScrollView::SoundInputType::recordedSound);});
+    connect(addSineWaveButton,&QPushButton::clicked,[this](){ addInput(InputScrollView::SoundInputType::sineWave);});
 
 
     //Layout Declarations
