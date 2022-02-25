@@ -6,102 +6,43 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>865</width>
+    <height>646</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QWidget" name="horizontalLayoutWidget">
+   <widget class="RecordedSoundDisplay" name="recordedSoundDisplay" native="true">
     <property name="geometry">
      <rect>
-      <x>110</x>
-      <y>280</y>
-      <width>401</width>
-      <height>80</height>
-     </rect>
-    </property>
-    <layout class="QHBoxLayout" name="horizontalLayout">
-     <item>
-      <widget class="QPushButton" name="stopSound">
-       <property name="text">
-        <string>Stop</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="playButton">
-       <property name="text">
-        <string>Play Imperial March</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="playSineButton">
-       <property name="text">
-        <string>Play Sine Wave</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
-   <widget class="TimeDomain" name="timeDomainInput" native="true">
-    <property name="geometry">
-     <rect>
-      <x>50</x>
-      <y>80</y>
-      <width>539</width>
-      <height>159</height>
+      <x>70</x>
+      <y>40</y>
+      <width>531</width>
+      <height>181</height>
      </rect>
     </property>
    </widget>
-   <widget class="QWidget" name="verticalLayoutWidget">
+   <widget class="SineWaveDisplay" name="sineWaveDisplay" native="true">
     <property name="geometry">
      <rect>
-      <x>110</x>
-      <y>360</y>
-      <width>401</width>
-      <height>81</height>
+      <x>70</x>
+      <y>220</y>
+      <width>531</width>
+      <height>191</height>
      </rect>
     </property>
-    <layout class="QVBoxLayout" name="verticalLayout">
-     <item>
-      <widget class="QLabel" name="label">
-       <property name="font">
-        <font>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>Set Sine Wave Frequency</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <layout class="QHBoxLayout" name="FrequencyBox">
-       <item>
-        <widget class="QSlider" name="FrequencySlider">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="FrequencyLabel">
-         <property name="text">
-          <string>600 Hz</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-    </layout>
+   </widget>
+   <widget class="OutputSoundDisplay" name="outputSoundDisplay" native="true">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>410</y>
+      <width>531</width>
+      <height>141</height>
+     </rect>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -109,8 +50,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
-     <height>20</height>
+     <width>865</width>
+     <height>25</height>
     </rect>
    </property>
   </widget>
@@ -118,9 +59,21 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>TimeDomain</class>
+   <class>RecordedSoundDisplay</class>
    <extends>QWidget</extends>
-   <header>timedomain.h</header>
+   <header>recordedsounddisplay.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>SineWaveDisplay</class>
+   <extends>QWidget</extends>
+   <header>sinewavedisplay.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>OutputSoundDisplay</class>
+   <extends>QWidget</extends>
+   <header>outputsounddisplay.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
