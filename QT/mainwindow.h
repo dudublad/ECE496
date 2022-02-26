@@ -17,7 +17,6 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-    AudioConfig* audioConf = new AudioConfig;
 
 private:
     Ui::MainWindow *ui;
