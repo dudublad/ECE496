@@ -1,17 +1,18 @@
-#ifndef AUDIOSINE_H
-#define AUDIOSINE_H
+#ifndef AUDIOWAVE_H
+#define AUDIOWAVE_H
 
 #include "SineWave.h"
 #include "FileWvOut.h"
 #include "audiofile.h"
 #include "QStringList"
+#include "wave.h"
 
-class audioSine: public AudioFile
+class audioWave: public AudioFile
 {
 public:
 
     // assigns an id to object
-    audioSine();
+    audioWave();
 
     // change sine frequency (aka pitch)
     void setFrequency(float freq);
@@ -28,13 +29,12 @@ public:
     void generateSine();
 
 private:
-    stk::SineWave sineWave;
+    wave gen_wave;
     QString filePath;
     stk::FileWvOut output;
-    float durationSecs = 0.1F;
 
     static int id;
     const int currentId;
 };
 
-#endif // AUDIOSINE_H
+#endif // AUDIOWAVE_H

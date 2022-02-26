@@ -31,7 +31,6 @@ HEADERS += \
     QT/sinewavedisplay.h \
     QT/sounddisplay.h \
     QT/timedomain.h \
-    external/ECE496-Backend/inc/TestClass.h \
     $$files(stk/include/*.h) \
     $$files(stk/src/include/*.h) \
     $$files(backend/*.h) \

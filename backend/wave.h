@@ -1,11 +1,3 @@
-#ifndef fSampling
-    #define fSampling = 44100;
-#endif
-
-#ifndef tSampling
-    #define tSampling = 0.00002267573;
-#endif
-
 #ifndef M_PI
     #define M_PI 3.14159265358979323846
 #endif
@@ -17,6 +9,12 @@
 #include <math.h>
 #include <cmath>
 
+typedef enum {
+    Wave_Sin,
+    Wave_Square,
+    Wave_SawTooth
+} WaveType;
+
 class wave
 {       
     private:
@@ -25,28 +23,37 @@ class wave
         double phase;
         double duration;
         //int size;
-        std::string type;
+        WaveType type;
+
+        void generateSin(int size);
+        void generateSquare(int size);
+        void generateSawtooth(int size);
 
     public:
     //Constructors
         wave();
         wave(double amplitude_in, double frequency_in,
-             double phase_in, double duration_in, std::string type_in);
+             double phase_in, double duration_in, WaveType type_in);
         ~wave();
      //TEMP!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
      //TODO: make values private & accessible w a function
-        double* values;
+        double* values = NULL;
     //Set private values
         void setFrequency(double frequency);
         void setAmplitude(double amplitude);
         void setPhase(double phase);
         void setDuration(double duration);
-        void setType(std::string type);
+        void setType(WaveType type);
+
+    //Getters
+        double getFrequency();
+        double getAmplitude();
+        double getPhase();
+        double getDuration();
+        WaveType getType();
+
     //Generate Wave Functions
         void generate();
-        void generateSin(int size);
-        void generateSquare(int size);
-        void generateSawtooth(int size);
 };
 
 #endif // WAVE_H

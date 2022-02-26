@@ -1,19 +1,28 @@
 #include "wave.h"
 #include <math.h>
 #include <iostream>
+#include <Stk.h>
+
+#include <QtDebug>
 
 //Constructors
 wave::wave(){
     //TODO: How to set default values for a class
+    frequency = 20;
+    amplitude = 1;
+    duration = 2;
+    phase = 0;
+    type = Wave_Sin;
+    values = NULL;
 }
 wave::wave(double amplitude_in, double frequency_in,
-           double phase_in, double duration_in, std::string type_in){
+           double phase_in, double duration_in, WaveType type_in){
     amplitude = amplitude_in;
     frequency = frequency_in;
     phase = phase_in;
     duration = duration_in;
     type = type_in;
-    int size = ceil(duration * 44100);
+    int size = ceil(duration * stk::Stk::sampleRate());
     values = new double[size];
 
     generate();
@@ -41,29 +50,53 @@ void wave::setDuration(double duration_in){
     //limit?
     duration = duration_in;
 }
-void wave::setType(std::string type_in){
-    if(type_in == "sin" || type_in == "square"
-            || type_in == "saw") type = type_in;
-    if(type_in == "sawtooth") type = "saw";
+void wave::setType(WaveType type_in){
+    if(type_in == Wave_Sin || type_in == Wave_Square
+            || type_in == Wave_SawTooth)
+        type = type_in;
+}
+
+//Getters
+double wave::getFrequency()
+{
+    return frequency;
+}
+double wave::getAmplitude()
+{
+    return amplitude;
+}
+double wave::getPhase()
+{
+    return phase;
+}
+double wave::getDuration()
+{
+    return duration;
+}
+WaveType wave::getType()
+{
+    return type;
 }
 
 //Generators
 void wave::generate(){
+    qDebug() << "wave::generate()";
+
     //Clear previous values
     if(values != NULL) delete[] values;
 
     //TODO: fix #define so this can use fSampling
-    int size = ceil(duration * 44100);
+    int size = ceil(duration * stk::Stk::sampleRate());
     values = new double[size];
 
     //Generate based on wave type
-    if(type == "sin"){
+    if(type == Wave_Sin){
         generateSin(size);
     }
-    else if (type == "square"){
+    else if (type == Wave_Square){
         generateSquare(size);
     }
-    else if (type == "saw"){
+    else if (type == Wave_SawTooth){
         generateSawtooth(size);
     }
     else{
@@ -74,20 +107,20 @@ void wave::generate(){
 void wave::generateSin(int size){
     for(int i = 0; i < size; i++){
         //TODO: tSampling is not working here for some reason idk
-        values[i] = amplitude*sin((2*M_PI*frequency*0.00002267573*i) + phase);
+        values[i] = amplitude*sin((2*M_PI*frequency* (1.0 / stk::Stk::sampleRate()) *i) + phase);
     }
 }
 
 void wave::generateSquare(int size){
     for(int i = 0; i < size; i++){
         //TODO: tSampling is not working here for some reason idk
-        double temp = sin((2*M_PI*frequency*0.00002267573*i) + phase);
+        double temp = sin((2*M_PI*frequency* (1.0 / stk::Stk::sampleRate()) *i) + phase);
         temp > 0 ? values[i] = amplitude : values[i] = amplitude *-1;
     }
 }
 
 void wave::generateSawtooth(int size){
-    double n = 44100/frequency;
+    double n = stk::Stk::sampleRate()/frequency;
     for(int i = 0; i < size; i++){
         values[i] = 2*((amplitude*(fmod(i + n*(phase/(2*M_PI)),n)))/n
                        - 0.5*amplitude);
