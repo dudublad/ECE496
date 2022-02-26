@@ -69,6 +69,7 @@ LIBS += \
     -luser32
 
 win32: LIBS += -L$$PWD/libs/lib/ -llibfftw3-3
+LIBS += -L"$$PWD/libs/dll" -llibfftw3-3
 
 INCLUDEPATH += $$PWD/libs/inc
 DEPENDPATH += $$PWD/libs/inc
