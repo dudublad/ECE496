@@ -2,7 +2,7 @@
 #define SINEWAVEDISPLAY_H
 
 #include "sounddisplay.h"
-#include "audiosine.h"
+#include "audioWave.h"
 
 class SineWaveDisplay : public SoundDisplay
 {
@@ -18,7 +18,7 @@ public:
     /*
     * Subwidgets custom to SineWave
     */
-    audioSine sinWave;
+    audioWave wave;
 
     // Says set Frequency over top the slider and other label
     QLabel* titleLabel;
@@ -29,16 +29,13 @@ public:
     // The frequency Slider
     QSlider* frequencySlider;
 
-    /*
-     * Non signaled functions
-     */
-    void setFrequency(int freq);
-
     // Where the title and the control panel live
     QVBoxLayout* frequencyLayout;
 
     // Contains the buttons on the frequency Layout
     QHBoxLayout* frequencyControlLayout;
+
+    QComboBox* waveTypeSelector;
 
 private:
     void plotWave();
@@ -48,6 +45,7 @@ public slots:
     void frequencySliderChange(int value);
     void frequencySliderStop();
     void onPlayButtonClicked();
+    void waveTypeIndexChanged(int index);
 
 };
 

@@ -3,8 +3,6 @@
 #include <iostream>
 #include <Stk.h>
 
-#include <QtDebug>
-
 //Constructors
 wave::wave(){
     //TODO: How to set default values for a class
@@ -80,7 +78,6 @@ WaveType wave::getType()
 
 //Generators
 void wave::generate(){
-    qDebug() << "wave::generate()";
 
     //Clear previous values
     if(values != NULL) delete[] values;

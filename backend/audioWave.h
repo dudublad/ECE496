@@ -20,6 +20,9 @@ public:
     // change length of sine wave file generation
     void setDuration(float len);
 
+    // change the wave type
+    void setWaveType(WaveType type);
+
     // set the file path of location of generated file
     void setFilePath(QString filePath);
 

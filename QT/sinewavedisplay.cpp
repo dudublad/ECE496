@@ -39,12 +39,19 @@ SineWaveDisplay::SineWaveDisplay(QWidget *parent) : SoundDisplay(parent)
     frequencyLayout->addLayout(frequencyControlLayout);
     mainLayout->addLayout(frequencyLayout);
 
+    waveTypeSelector = new QComboBox(this);
+    waveTypeSelector->insertItem(Wave_Sin, "Sine Wave");
+    waveTypeSelector->insertItem(Wave_Square, "Square Wave");
+    waveTypeSelector->insertItem(Wave_SawTooth, "Sawtooth Wave");
+    connect(waveTypeSelector,SIGNAL(currentIndexChanged(int)),this,SLOT(waveTypeIndexChanged(int)));
+    frequencyControlLayout->addWidget(waveTypeSelector);
+
 
     //Setup Sine wave
     QString file = QDir::currentPath() + "/audio_files/gen_sine.wav";
-    sinWave.setFilePath(file);
+    wave.setFilePath(file);
     //changes frequency according to what is in the slider
-    sinWave.setFrequency(waveFrequency);
+    wave.setFrequency(waveFrequency);
     plotWave();
 }
 
@@ -53,17 +60,17 @@ void SineWaveDisplay::plotWave()
     //Clear the graph so that generateSine() is not
     //Accessing the same file
     drawWaveFromFile("");
-    sinWave.generateSine();
+    wave.generateSine();
 
-    QString file = sinWave.getFilePath();
+    QString file = wave.getFilePath();
     drawWaveFromFile(file);
 }
 
 void SineWaveDisplay::playSound()
 {
-    QString file = sinWave.getFilePath();
-    sinWave.openFile(file);
-    sinWave.startStream();
+    QString file = wave.getFilePath();
+    wave.openFile(file);
+    wave.startStream();
 }
 
 void SineWaveDisplay::frequencySliderChange(int value)
@@ -76,11 +83,23 @@ void SineWaveDisplay::frequencySliderChange(int value)
 void SineWaveDisplay::frequencySliderStop()
 {
     //changes frequency according to what is in the slider
-    sinWave.setFrequency(waveFrequency);
+    wave.setFrequency(waveFrequency);
 
     plotWave();
 
-    if(sinWave.isPlaying())
+    if(wave.isPlaying())
+    {
+        playSound();
+    }
+}
+
+void SineWaveDisplay::waveTypeIndexChanged(int index)
+{
+    wave.setWaveType((WaveType) index);
+
+    plotWave();
+
+    if(wave.isPlaying())
     {
         playSound();
     }
@@ -89,10 +108,4 @@ void SineWaveDisplay::frequencySliderStop()
 void SineWaveDisplay::onPlayButtonClicked()
 {
     playSound();
-}
-
-void SineWaveDisplay::setFrequency(int freq)
-{
-    //nothing for now
-    waveFrequency = freq;
 }

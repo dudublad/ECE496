@@ -14,6 +14,10 @@ void audioWave::setDuration(float len){
     gen_wave.setDuration(len);
 }
 
+void audioWave::setWaveType(WaveType type) {
+    gen_wave.setType(type);
+}
+
 void audioWave::setFilePath(QString filePath){
     QStringList dotSplit = filePath.split(QLatin1Char('.'));
     this->filePath = "";
