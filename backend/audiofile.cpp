@@ -27,6 +27,7 @@ void AudioFile::changeVolume(float volume){
 }
 
 AudioFile::~AudioFile(){
+    this->closeStream();
     this->input.closeFile();
 }
 

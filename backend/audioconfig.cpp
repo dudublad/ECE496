@@ -16,18 +16,24 @@ RtAudioFormat AudioConfig::getAudioFormat(){
 }
 
 bool AudioConfig::isPlaying(){
+    return this->dac.isStreamRunning();
+}
+
+bool AudioConfig::isOpen(){
     return this->dac.isStreamOpen();
 }
 
 void AudioConfig::closeStream(){
-    if (this->isPlaying()){
+    if (this->isOpen()){
         this->dac.closeStream();
     }
 }
 
 void AudioConfig::startStream(){
     try {
-        this->dac.startStream();
+        if (this->isOpen() && !this->isPlaying()){
+            this->dac.startStream();
+        }
     }  catch (RtAudioError e) {
         e.printMessage();
     }
@@ -35,7 +41,9 @@ void AudioConfig::startStream(){
 }
 
 void AudioConfig::pauseStream(){
-    if (this->isPlaying()){
+    std::cout << this->isPlaying() << std::endl;
+    if (this->isOpen() && this->isPlaying()){
+        std::cout << "should be pausing" << std::endl;
         this->dac.stopStream();
     }
 }

@@ -1,14 +1,14 @@
-#ifndef SINEWAVEDISPLAY_H
-#define SINEWAVEDISPLAY_H
+#ifndef WAVEDISPLAY_H
+#define WAVEDISPLAY_H
 
 #include "sounddisplay.h"
-#include "audioWave.h"
+#include "wavegenerator.h"
 
-class SineWaveDisplay : public SoundDisplay
+class WaveDisplay : public SoundDisplay
 {
     Q_OBJECT
 public:
-    SineWaveDisplay(QWidget *parent);
+    WaveDisplay(QWidget *parent);
 
     /*
      *  Data attributes
@@ -18,7 +18,7 @@ public:
     /*
     * Subwidgets custom to SineWave
     */
-    audioWave wave;
+    WaveGenerator wave;
 
     // Says set Frequency over top the slider and other label
     QLabel* titleLabel;
@@ -49,4 +49,4 @@ public slots:
 
 };
 
-#endif // SINEWAVEDISPLAY_H
+#endif // WAVEDISPLAY_H

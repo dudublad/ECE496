@@ -7,7 +7,7 @@
 
 int main(int argc, char *argv[])
 {
-    stk::Stk::setSampleRate(140000.0);
+    stk::Stk::setSampleRate(132300.0);
 
     QVector<double>test = QVector<double>(44100);
     double f=1;

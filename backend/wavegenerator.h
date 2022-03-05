@@ -1,18 +1,18 @@
-#ifndef AUDIOWAVE_H
-#define AUDIOWAVE_H
+#ifndef WAVEGENERATOR_H
+#define WAVEGENERATOR_H
 
 #include "SineWave.h"
 #include "FileWvOut.h"
 #include "audiofile.h"
 #include "QStringList"
-#include "wave.h"
+#include "waveoscillator.h"
 
-class audioWave: public AudioFile
+class WaveGenerator
 {
 public:
 
     // assigns an id to object
-    audioWave();
+    WaveGenerator();
 
     // change sine frequency (aka pitch)
     void setFrequency(float freq);
@@ -26,13 +26,14 @@ public:
     // set the file path of location of generated file
     void setFilePath(QString filePath);
 
+    // obtain the generated wave filepath
     QString getFilePath();
 
     // generate the sine.wav file
     void generateSine();
 
 private:
-    wave gen_wave;
+    WaveOscillator gen_wave;
     QString filePath;
     stk::FileWvOut output;
 
@@ -40,4 +41,4 @@ private:
     const int currentId;
 };
 
-#endif // AUDIOWAVE_H
+#endif // WAVEGENERATOR_H

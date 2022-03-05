@@ -1,13 +1,10 @@
-#ifndef M_PI
-    #define M_PI 3.14159265358979323846
-#endif
-
-#ifndef WAVE_H
-#define WAVE_H
+#ifndef WAVEOSCILLATOR_H
+#define WAVEOSCILLATOR_H
 
 #include <string>
 #include <math.h>
 #include <cmath>
+#include <QtMath>
 
 typedef enum {
     Wave_Sin,
@@ -15,7 +12,7 @@ typedef enum {
     Wave_SawTooth
 } WaveType;
 
-class wave
+class WaveOscillator
 {       
     private:
         double frequency;
@@ -31,10 +28,10 @@ class wave
 
     public:
     //Constructors
-        wave();
-        wave(double amplitude_in, double frequency_in,
+        WaveOscillator();
+        WaveOscillator(double amplitude_in, double frequency_in,
              double phase_in, double duration_in, WaveType type_in);
-        ~wave();
+        ~WaveOscillator();
      //TEMP!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
      //TODO: make values private & accessible w a function
         double* values = NULL;
@@ -56,4 +53,4 @@ class wave
         void generate();
 };
 
-#endif // WAVE_H
+#endif // WAVEOSCILLATOR_H
