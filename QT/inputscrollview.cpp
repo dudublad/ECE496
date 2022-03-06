@@ -129,3 +129,4 @@ void InputScrollView::createOutputFile()
 {
     //creates an output file so the output can read it
 }
+

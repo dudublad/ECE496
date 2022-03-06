@@ -10,7 +10,7 @@ RecordedSoundDisplay::RecordedSoundDisplay(QWidget *parent) : SoundDisplay(paren
     buttonLayout->addWidget(playButton);
     buttonLayout->addWidget(stopButton);
     buttonLayout->addWidget(chooseFileButton);
-
+    buttonLayout->addWidget(toggleEffectPanelButton);
 
 }
 void RecordedSoundDisplay::chooseFile()

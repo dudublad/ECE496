@@ -36,6 +36,7 @@ SineWaveDisplay::SineWaveDisplay(QWidget *parent) : SoundDisplay(parent)
     frequencyControlLayout->addWidget(frequencySlider);
     frequencyControlLayout->addWidget(frequencyLabel);
     frequencyControlLayout->addWidget(playButton);
+    frequencyControlLayout->addWidget(toggleEffectPanelButton);
     frequencyLayout->addLayout(frequencyControlLayout);
     mainLayout->addLayout(frequencyLayout);
 }

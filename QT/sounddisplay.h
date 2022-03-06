@@ -6,6 +6,7 @@
 #include "frequencydomaindisplay.h"
 #include <iostream>
 #include "external/ECE496-Backend/src/audiofile.h"
+#include "effectpanel.h"
 
 class SoundDisplay : public QWidget
 {
@@ -39,11 +40,17 @@ public:
     // Stop button that will stop the audio and stops the cursor from advancing
     QPushButton* stopButton;
 
+    // Button that toggles the effect panel
+    QPushButton* toggleEffectPanelButton;
+
     // Time domain which displayed the entire sound wave
     TimeDomain* timeDomain;
 
     // Frequency domain which displays the fft of the audio at the selected cursor time
     FrequencyDomainDisplay* frequencyDisplay;
+
+    // Where the buttons for the effects are located
+    EffectPanel* effectPanel;
 
 
     /*
@@ -59,15 +66,23 @@ public:
     // The layout of button control panel
     QHBoxLayout* buttonLayout;
 
+    // Effect Panel Layout
+    QGridLayout* effectLayout;
+
+
     /*
      * Functions
      */
+
 public slots:
     //Draws the file
     void drawWaveFromFile(QString file);
 
     // Stops the file stored in the selectedFile from playing
     void stopFile();
+
+    //
+    void toggleEffectPanel();
 
 private slots:
     virtual void onPlayButtonClicked();

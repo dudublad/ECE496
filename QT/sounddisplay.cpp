@@ -11,12 +11,15 @@ SoundDisplay::SoundDisplay(QWidget *parent)
     //create everything?
     stopButton = new QPushButton("Stop",this);
     playButton = new QPushButton("Play",this);
+    toggleEffectPanelButton = new QPushButton("Toggle Effects Panel",this);
     timeDomain = new TimeDomain(this);
     frequencyDisplay = new FrequencyDomainDisplay(this);
+    //effectPanel = new EffectPanel(this);
 
     //connect(button,&QPushButton::clicked,insert);
     connect(playButton,SIGNAL(clicked()),this,SLOT(onPlayButtonClicked()));
     connect(stopButton,SIGNAL(clicked()),this,SLOT(stopFile()));
+    connect(toggleEffectPanelButton,SIGNAL(clicked()),this, SLOT(toggleEffectPanel()));
     /*
      * Layout adding and declarations
      */
@@ -24,13 +27,14 @@ SoundDisplay::SoundDisplay(QWidget *parent)
     //ATTENTION: this could be error prone
     domainLayout = new QHBoxLayout(this);
     buttonLayout = new QHBoxLayout(this);
+    effectLayout = new QGridLayout(this);
     mainLayout->addLayout(domainLayout);
-
-    // To change sizes of timeDOmain or freq Domain,
+    // To change sizes of timeDomain or freq Domain,
     // change the numbers, they're ratios within the layout
     domainLayout->addWidget(timeDomain,2);
     domainLayout->addWidget(frequencyDisplay,1);
     mainLayout->addLayout(buttonLayout);
+    //mainLayout->addLayout(effectLayout);
 
 }
 
@@ -40,6 +44,7 @@ SoundDisplay::~SoundDisplay()
     delete playButton;
     delete timeDomain;
     delete frequencyDisplay;
+    delete effectPanel;
     delete mainLayout;
     //delete domainLayout;
     //delete buttonLayout;
@@ -76,6 +81,18 @@ void SoundDisplay::stopFile()
 void SoundDisplay::drawWaveFromFile(QString file)
 {
     timeDomain->setSource(file);
+}
+
+void SoundDisplay::toggleEffectPanel()
+{
+    if (effectPanel->isVisible() == false)
+    {
+        effectPanel->setVisible(true);
+    }
+    else
+    {
+        effectPanel->setVisible(false);
+    }
 }
 
 

@@ -10,6 +10,7 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    QT/effectpanel.cpp \
     QT/frequencydomaindisplay.cpp \
     QT/inputscrollview.cpp \
     QT/main.cpp \
@@ -27,6 +28,7 @@ SOURCES += \
     external/ECE496-Backend/src/audiosine.cpp
 
 HEADERS += \
+    QT/effectpanel.h \
     QT/frequencydomaindisplay.h \
     QT/inputscrollview.h \
     QT/mainwindow.h \

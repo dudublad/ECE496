@@ -42,7 +42,7 @@ public:
     QWidget* scrollAreaInputContainer;
 
     //constants
-    enum SoundInputType {recordedSound,sineWave};
+    enum SoundInputType {recordedSound,sineWave, squareWave, sawtoothWave};
 
 public slots:
     void addInput(InputScrollView::SoundInputType inputType);

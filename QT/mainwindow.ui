@@ -14,43 +14,16 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="RecordedSoundDisplay" name="recordedSoundDisplay" native="true">
-    <property name="geometry">
-     <rect>
-      <x>70</x>
-      <y>40</y>
-      <width>411</width>
-      <height>181</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="SineWaveDisplay" name="sineWaveDisplay" native="true">
-    <property name="geometry">
-     <rect>
-      <x>70</x>
-      <y>220</y>
-      <width>411</width>
-      <height>191</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="OutputSoundDisplay" name="outputSoundDisplay" native="true">
-    <property name="geometry">
-     <rect>
-      <x>70</x>
-      <y>410</y>
-      <width>411</width>
-      <height>141</height>
-     </rect>
-    </property>
-   </widget>
+   <property name="layoutDirection">
+    <enum>Qt::LeftToRight</enum>
+   </property>
    <widget class="InputScrollView" name="inputScrollView" native="true">
     <property name="geometry">
      <rect>
-      <x>490</x>
+      <x>110</x>
       <y>20</y>
-      <width>361</width>
-      <height>451</height>
+      <width>621</width>
+      <height>541</height>
      </rect>
     </property>
    </widget>
@@ -68,24 +41,6 @@
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>RecordedSoundDisplay</class>
-   <extends>QWidget</extends>
-   <header>recordedsounddisplay.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>SineWaveDisplay</class>
-   <extends>QWidget</extends>
-   <header>sinewavedisplay.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>OutputSoundDisplay</class>
-   <extends>QWidget</extends>
-   <header>outputsounddisplay.h</header>
-   <container>1</container>
-  </customwidget>
   <customwidget>
    <class>InputScrollView</class>
    <extends>QWidget</extends>
