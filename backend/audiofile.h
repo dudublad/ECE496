@@ -30,7 +30,7 @@ private:
     float volume = 1;
 
     // the buffer
-    unsigned int bufferFrames = stk::RT_BUFFER_SIZE;
+    unsigned int bufferFrames = stk::RT_BUFFER_SIZE * 3;
 
     // the file itself as an stk input
     stk::FileWvIn input;

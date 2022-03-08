@@ -16,11 +16,11 @@ SOURCES += \
     QT/outputsounddisplay.cpp \
     QT/qcustomplot.cpp \
     QT/recordedsounddisplay.cpp \
-    QT/sinewavedisplay.cpp \
     QT/sounddisplay.cpp \
     QT/timedomain.cpp \
     $$files(stk/src/*.cpp) \
     $$files(backend/*.cpp) \
+    QT/wavedisplay.cpp
 
 HEADERS += \
     QT/frequencydomaindisplay.h \
@@ -28,13 +28,12 @@ HEADERS += \
     QT/outputsounddisplay.h \
     QT/qcustomplot.h \
     QT/recordedsounddisplay.h \
-    QT/sinewavedisplay.h \
     QT/sounddisplay.h \
     QT/timedomain.h \
-    external/ECE496-Backend/inc/TestClass.h \
     $$files(stk/include/*.h) \
     $$files(stk/src/include/*.h) \
     $$files(backend/*.h) \
+    QT/wavedisplay.h \
     libs/inc/fftw3.h
 
 FORMS += \

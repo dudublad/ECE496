@@ -22,6 +22,9 @@ public:
     // determines if current instance of RT audio stream is playing
     bool isPlaying();
 
+    // determins if the current stream is open
+    bool isOpen();
+
     // closes the stream
     void closeStream();
 

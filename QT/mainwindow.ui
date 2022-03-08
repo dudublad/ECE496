@@ -24,7 +24,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="SineWaveDisplay" name="sineWaveDisplay" native="true">
+   <widget class="WaveDisplay" name="waveDisplay" native="true">
     <property name="geometry">
      <rect>
       <x>70</x>
@@ -51,7 +51,7 @@
      <x>0</x>
      <y>0</y>
      <width>865</width>
-     <height>25</height>
+     <height>20</height>
     </rect>
    </property>
   </widget>
@@ -65,9 +65,9 @@
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>SineWaveDisplay</class>
+   <class>WaveDisplay</class>
    <extends>QWidget</extends>
-   <header>sinewavedisplay.h</header>
+   <header>wavedisplay.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>

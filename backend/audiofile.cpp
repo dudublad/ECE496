@@ -13,6 +13,7 @@ void AudioFile::openFile(QString filePath){
 
     this->input.setRate((double) (this->input.getFileRate() / stk::Stk::sampleRate()));
 
+    //TODO: FIX SAMPLING RATE FOR SOUND
     try {
         this->dac.openStream(this->getStreamParams(), NULL, this->getAudioFormat(),
                              (unsigned int) stk::Stk::sampleRate(), &this->bufferFrames, &tickFile, (void*)&this->input);
@@ -26,6 +27,7 @@ void AudioFile::changeVolume(float volume){
 }
 
 AudioFile::~AudioFile(){
+    this->closeStream();
     this->input.closeFile();
 }
 
