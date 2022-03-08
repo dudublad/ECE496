@@ -48,24 +48,16 @@ SineWaveDisplay::SineWaveDisplay(QWidget *parent, int id) : SoundDisplay(parent)
     //mainLayout->addLayout(frequencyLayout);
 }
 
-void SineWaveDisplay::plotAndPlay()
-{
-    QString currentDirectory = QDir::currentPath();
-    QString file = currentDirectory + "/audio_files/dgen_sine.wav";
-    //changes frequency according to what is in the slider
-    frequencyLabel->setValue(waveFrequency);
-    sinWave.setFrequency(waveFrequency);
-    //std::cout << "current value: " << value << std::endl;
-    //Clear the graph so that generateSineWave() is not
-    //Accessing the same file
-
-    //Setup Sine wave
-    QString file = QDir::currentPath() + "/audio_files/gen_sine.wav";
-    sinWave.setFilePath(file);
-    //changes frequency according to what is in the slider
-    sinWave.setFrequency(waveFrequency);
-    plotWave();
-}
+//void SineWaveDisplay::plotAndPlay()
+//{
+//    //Setup Sine wave
+//    QString file = QDir::currentPath() + "/audio_files/gen_sine.wav";
+//    sinWave.setFilePath(file);
+//    //changes frequency according to what is in the slider
+//    frequencyLabel->setValue(waveFrequency);
+//    sinWave.setFrequency(waveFrequency);
+//    plotWave();
+//}
 
 void SineWaveDisplay::plotWave()
 {
@@ -121,5 +113,5 @@ void SineWaveDisplay::onSpinBoxChanged(double value)
     fprintf(stderr,"ring ring calling \n");
     waveFrequency = convertedValue;
     frequencySlider->setValue(convertedValue);
-    plotAndPlay();
+    //plotAndPlay();
 }
