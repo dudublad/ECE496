@@ -3,7 +3,6 @@
 
 #include "sounddisplay.h"
 #include <QFileDialog>
-#include <iostream>
 class RecordedSoundDisplay : public SoundDisplay
 {
     Q_OBJECT

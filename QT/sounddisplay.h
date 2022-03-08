@@ -20,6 +20,7 @@ public:
     /*
      * Data members
      */
+
     // cursor which tracks at what point we are in the sound
     double cursor;
 
@@ -61,7 +62,14 @@ public:
     // Where the buttons for the effects are located
     EffectPanel* effectPanel;
 
+    // Placeholder Widget that holds the buttons so layouts can be used
     QWidget *buttonHolder;
+
+    // Controls the volume for that one
+    QSlider* volumeSlider;
+
+    // Label for Volume
+    QLabel *volumeLabel;
 
     /*
      * Layouts
@@ -96,6 +104,8 @@ public slots:
 
     // Triggered when remove input button is pushed
     void removeInputButtonPushed();
+
+    void volumeChanged(int volume);
 
 private slots:
     virtual void onPlayButtonClicked();

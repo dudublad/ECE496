@@ -46,6 +46,20 @@ WaveDisplay::WaveDisplay(QWidget *parent, int id) : SoundDisplay(parent)
     // frequencyControlLayout->addWidget(playButton);
     // frequencyLayout->addLayout(frequencyControlLayout);
     // mainLayout->addLayout(frequencyLayout);
+//    buttonLayout->addWidget(playButton,0,0,Qt::AlignCenter);
+//    buttonLayout->addWidget(stopButton,1,0,Qt::AlignCenter);
+//    buttonLayout->addWidget(toggleEffectPanelButton,2,0,Qt::AlignCenter);
+//    buttonLayout->addWidget(titleLabel,0,1,Qt::AlignCenter);
+//    buttonLayout->addWidget(frequencySlider,1,1,Qt::AlignCenter);
+//    buttonLayout->addWidget(frequencyLabel,2,1,Qt::AlignCenter);
+//    buttonLayout->addWidget(removeInputButton,3,0,Qt::AlignCenter);
+//    buttonLayout->addWidget(volumeLabel,)
+
+    waveTypeSelector = new QComboBox(this);
+    waveTypeSelector->insertItem(Wave_Sin, "Sine Wave");
+    waveTypeSelector->insertItem(Wave_Square, "Square Wave");
+    waveTypeSelector->insertItem(Wave_SawTooth, "Sawtooth Wave");
+    connect(waveTypeSelector,SIGNAL(currentIndexChanged(int)),this,SLOT(waveTypeIndexChanged(int)));
     buttonLayout->addWidget(playButton,0,0,Qt::AlignCenter);
     buttonLayout->addWidget(stopButton,1,0,Qt::AlignCenter);
     buttonLayout->addWidget(toggleEffectPanelButton,2,0,Qt::AlignCenter);
@@ -53,13 +67,9 @@ WaveDisplay::WaveDisplay(QWidget *parent, int id) : SoundDisplay(parent)
     buttonLayout->addWidget(frequencySlider,1,1,Qt::AlignCenter);
     buttonLayout->addWidget(frequencyLabel,2,1,Qt::AlignCenter);
     buttonLayout->addWidget(removeInputButton,3,0,Qt::AlignCenter);
-
-    waveTypeSelector = new QComboBox(this);
-    waveTypeSelector->insertItem(Wave_Sin, "Sine Wave");
-    waveTypeSelector->insertItem(Wave_Square, "Square Wave");
-    waveTypeSelector->insertItem(Wave_SawTooth, "Sawtooth Wave");
-    connect(waveTypeSelector,SIGNAL(currentIndexChanged(int)),this,SLOT(waveTypeIndexChanged(int)));
     buttonLayout->addWidget(waveTypeSelector,3,1,Qt::AlignCenter);
+    buttonLayout->addWidget(volumeLabel,4,0,Qt::AlignCenter);
+    buttonLayout->addWidget(volumeSlider,4,1,Qt::AlignCenter);
 
 
     //Setup Sine wave
@@ -131,5 +141,5 @@ void WaveDisplay::onSpinBoxChanged(double value)
     fprintf(stderr,"ring ring calling \n");
     waveFrequency = convertedValue;
     frequencySlider->setValue(convertedValue);
-    //plotAndPlay();
+    plotWave();
 }

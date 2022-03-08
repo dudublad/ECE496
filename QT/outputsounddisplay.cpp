@@ -6,6 +6,8 @@ OutputSoundDisplay::OutputSoundDisplay(QWidget *parent) : SoundDisplay(parent)
     buttonLayout->addWidget(playButton);
     buttonLayout->addWidget(stopButton);
     buttonLayout->addWidget(toggleEffectPanelButton);
+    buttonLayout->addWidget(volumeLabel);
+    buttonLayout->addWidget(volumeSlider);
 }
 
 /*

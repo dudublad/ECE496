@@ -7,7 +7,6 @@ SoundDisplay::SoundDisplay(QWidget *parent)
     cursor = 0.0;
     volume = 50;
     selectedFile = "";
-
     //create everything?
     stopButton = new QPushButton("Stop",this);
     playButton = new QPushButton("Play",this);
@@ -16,10 +15,24 @@ SoundDisplay::SoundDisplay(QWidget *parent)
     frequencyDisplay = new FrequencyDomainDisplay(this);
     effectPanel = new EffectPanel(this);
     idLabel = new QLabel(this);
+    volumeSlider = new QSlider(Qt::Horizontal,this);
+    volumeLabel = new QLabel(this);
+
+    // Volume Slider config
+    volumeSlider->setMaximum(100);
+    volumeSlider->setMinimum(0);
+    volumeSlider->setTickInterval(1);
+    volumeSlider->setValue(volume);
+
+    volumeLabel->setText(QString::fromStdString("Volume: " + std::to_string(volume)));
     //connect(button,&QPushButton::clicked,insert);
+
+    // Connecting to slots
     connect(playButton,SIGNAL(clicked()),this,SLOT(onPlayButtonClicked()));
     connect(stopButton,SIGNAL(clicked()),this,SLOT(stopFile()));
     connect(toggleEffectPanelButton,SIGNAL(clicked()),this, SLOT(toggleEffectPanel()));
+    connect(volumeSlider,SIGNAL(valueChanged(int)),this,SLOT(volumeChanged(int)));
+
     /*
      * Layout adding and declarations
      */
@@ -101,6 +114,14 @@ void SoundDisplay::removeInputButtonPushed()
 {
     this->setVisible(false);
     // emit signal to inputScrollView to remove
+}
+
+void SoundDisplay::volumeChanged(int changedVolume)
+{
+    volume = changedVolume;
+    volumeLabel->setText(QString::fromStdString("Volume: " + std::to_string(volume)));
+    // Call other function which actually changes volume
+    //change the volume
 }
 
 

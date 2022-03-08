@@ -10,6 +10,7 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    QT/effectdialog.cpp \
     QT/effectpanel.cpp \
     QT/frequencydomaindisplay.cpp \
     QT/inputscrollview.cpp \
@@ -25,6 +26,7 @@ SOURCES += \
     QT/wavedisplay.cpp
 
 HEADERS += \
+    QT/effectdialog.h \
     QT/effectpanel.h \
     QT/frequencydomaindisplay.h \
     QT/inputscrollview.h \

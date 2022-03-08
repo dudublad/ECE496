@@ -31,7 +31,7 @@ InputScrollView::InputScrollView(QWidget *parent) : QWidget(parent)
     topLayout->addLayout(scrollLayout,5);
     topLayout->addLayout(inputButtonLayout,1);
     topLayout->addLayout(outputLayout,2);
-
+    setLayout(topLayout);
     // Creating beginning area
     auto tempSineWaveDisplay = new WaveDisplay(this,nextInputId);
     nextInputId++;
