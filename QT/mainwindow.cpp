@@ -16,7 +16,4 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete ui;
-
-    //TODO: find out why this corrupts the heap
-    //delete audioConf;
 }

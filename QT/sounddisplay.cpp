@@ -77,7 +77,7 @@ void SoundDisplay::onPlayButtonClicked()
 void SoundDisplay::stopFile()
 {
     // stops the file and the cursor
-    this->soundFile.closeStream();
+    this->soundFile.pauseStream();
 }
 
 void SoundDisplay::drawWaveFromFile(QString file)

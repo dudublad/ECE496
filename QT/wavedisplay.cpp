@@ -1,6 +1,6 @@
-#include "sinewavedisplay.h"
+#include "wavedisplay.h"
 
-SineWaveDisplay::SineWaveDisplay(QWidget *parent, int id) : SoundDisplay(parent)
+WaveDisplay::WaveDisplay(QWidget *parent, int id) : SoundDisplay(parent)
 {
 
     int MAX_FREQ = 20000;
@@ -37,7 +37,15 @@ SineWaveDisplay::SineWaveDisplay(QWidget *parent, int id) : SoundDisplay(parent)
     // Adding the frequency controls to the layout
 
 
-    //frequencyLayout->addWidget(titleLabel);
+    // frequencyLayout->addWidget(titleLabel);
+
+    // frequencyControlLayout = new QHBoxLayout(this);
+    // frequencyControlLayout->addWidget(stopButton);
+    // frequencyControlLayout->addWidget(frequencySlider);
+    // frequencyControlLayout->addWidget(frequencyLabel);
+    // frequencyControlLayout->addWidget(playButton);
+    // frequencyLayout->addLayout(frequencyControlLayout);
+    // mainLayout->addLayout(frequencyLayout);
     buttonLayout->addWidget(playButton,0,0,Qt::AlignCenter);
     buttonLayout->addWidget(stopButton,1,0,Qt::AlignCenter);
     buttonLayout->addWidget(toggleEffectPanelButton,2,0,Qt::AlignCenter);
@@ -45,69 +53,79 @@ SineWaveDisplay::SineWaveDisplay(QWidget *parent, int id) : SoundDisplay(parent)
     buttonLayout->addWidget(frequencySlider,1,1,Qt::AlignCenter);
     buttonLayout->addWidget(frequencyLabel,2,1,Qt::AlignCenter);
     buttonLayout->addWidget(removeInputButton,3,0,Qt::AlignCenter);
-    //mainLayout->addLayout(frequencyLayout);
+
+    waveTypeSelector = new QComboBox(this);
+    waveTypeSelector->insertItem(Wave_Sin, "Sine Wave");
+    waveTypeSelector->insertItem(Wave_Square, "Square Wave");
+    waveTypeSelector->insertItem(Wave_SawTooth, "Sawtooth Wave");
+    connect(waveTypeSelector,SIGNAL(currentIndexChanged(int)),this,SLOT(waveTypeIndexChanged(int)));
+    buttonLayout->addWidget(waveTypeSelector,3,1,Qt::AlignCenter);
+
+
+    //Setup Sine wave
+    QString file = QDir::currentPath() + "/audio_files/gen_sine.wav";
+    wave.setFilePath(file);
+    //changes frequency according to what is in the slider
+    wave.setFrequency(waveFrequency);
+    plotWave();
 }
 
-//void SineWaveDisplay::plotAndPlay()
-//{
-//    //Setup Sine wave
-//    QString file = QDir::currentPath() + "/audio_files/gen_sine.wav";
-//    sinWave.setFilePath(file);
-//    //changes frequency according to what is in the slider
-//    frequencyLabel->setValue(waveFrequency);
-//    sinWave.setFrequency(waveFrequency);
-//    plotWave();
-//}
-
-void SineWaveDisplay::plotWave()
+void WaveDisplay::plotWave()
 {
     //Clear the graph so that generateSine() is not
     //Accessing the same file
     drawWaveFromFile("");
-    sinWave.generateSine();
+    wave.generateSine();
 
-    QString file = sinWave.getFilePath();
+    QString file = wave.getFilePath();
     drawWaveFromFile(file);
 }
 
-void SineWaveDisplay::playSound()
+void WaveDisplay::playSound()
 {
-    QString file = sinWave.getFilePath();
-    sinWave.openFile(file);
-    sinWave.startStream();
+    QString file = wave.getFilePath();
+    this->soundFile.openFile(file);
+    this->soundFile.startStream();
 }
 
-void SineWaveDisplay::frequencySliderChange(int value)
+void WaveDisplay::frequencySliderChange(int value)
 {
     //changes frequency according to what is in the slider
     frequencyLabel->setValue(value);
     waveFrequency = value;
 }
 
-void SineWaveDisplay::frequencySliderStop()
+void WaveDisplay::frequencySliderStop()
 {
     //changes frequency according to what is in the slider
-    sinWave.setFrequency(waveFrequency);
+    wave.setFrequency(waveFrequency);
 
     plotWave();
 
-    if(sinWave.isPlaying())
+    if(this->soundFile.isPlaying())
     {
         playSound();
     }
 }
 
-void SineWaveDisplay::onPlayButtonClicked()
+void WaveDisplay::waveTypeIndexChanged(int index)
+{
+    wave.setWaveType((WaveType) index);
+
+    plotWave();
+
+    if(this->soundFile.isPlaying())
+    {
+        playSound();
+    }
+}
+
+void WaveDisplay::onPlayButtonClicked()
 {
     playSound();
 }
 
-void SineWaveDisplay::setFrequency(int freq)
-{
-    waveFrequency = freq;
-}
-
-void SineWaveDisplay::onSpinBoxChanged(double value)
+void WaveDisplay::onSpinBoxChanged(double value)
 {
     int convertedValue = (int)value;
     fprintf(stderr,"ring ring calling \n");
