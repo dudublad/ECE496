@@ -7,6 +7,7 @@
 #include <iostream>
 #include "external/ECE496-Backend/src/audiofile.h"
 #include "effectpanel.h"
+#include <string>
 
 class SoundDisplay : public QWidget
 {
@@ -29,6 +30,9 @@ public:
     // Volume of the played sound, Scale: 0-100
     int volume;
 
+    // Id value for use in parent classes,id for output is always 0
+    int inputId;
+
     AudioFile soundFile;
 
     /*
@@ -43,6 +47,12 @@ public:
     // Button that toggles the effect panel
     QPushButton* toggleEffectPanelButton;
 
+    // Button that deletes the input
+    QPushButton* removeInputButton;
+
+    // Label that displays current id
+    QLabel* idLabel;
+
     // Time domain which displayed the entire sound wave
     TimeDomain* timeDomain;
 
@@ -52,22 +62,23 @@ public:
     // Where the buttons for the effects are located
     EffectPanel* effectPanel;
 
+    QWidget *buttonHolder;
 
     /*
      * Layouts
      */
 
     // The layout of the entire widget
-    QVBoxLayout* mainLayout;
+    QHBoxLayout* mainLayout;
 
     // The layout of the time/frequency domain section
     QHBoxLayout* domainLayout;
 
     // The layout of button control panel
-    QHBoxLayout* buttonLayout;
+    QGridLayout* buttonLayout;
 
     // Effect Panel Layout
-    QGridLayout* effectLayout;
+    //QGridLayout* effectLayout;
 
 
     /*
@@ -81,8 +92,11 @@ public slots:
     // Stops the file stored in the selectedFile from playing
     void stopFile();
 
-    //
+    //Toggles the visibility of the Effect Panel on the right
     void toggleEffectPanel();
+
+    // Triggered when remove input button is pushed
+    void removeInputButtonPushed();
 
 private slots:
     virtual void onPlayButtonClicked();

@@ -8,7 +8,7 @@ class SineWaveDisplay : public SoundDisplay
 {
     Q_OBJECT
 public:
-    SineWaveDisplay(QWidget *parent);
+    SineWaveDisplay(QWidget *parent, int id);
 
     /*
      *  Data attributes
@@ -24,7 +24,7 @@ public:
     QLabel* titleLabel;
 
     // Displays the current slider frequency setting
-    QLabel* frequencyLabel;
+    QDoubleSpinBox* frequencyLabel;
 
     // The frequency Slider
     QSlider* frequencySlider;
@@ -47,6 +47,7 @@ public slots:
     void frequencySliderChange(int value);
     void frequencySliderStop();
     void onPlayButtonClicked();
+    void onSpinBoxChanged(double value);
 
 };
 

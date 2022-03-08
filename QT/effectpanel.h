@@ -27,6 +27,7 @@ public:
 
 public slots:
     void filterButtonPressed();
+    void noiseButtonPressed();
 };
 
 #endif // EFFECTPANEL_H

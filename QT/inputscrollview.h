@@ -7,6 +7,7 @@
 #include "sounddisplay.h"
 #include "sinewavedisplay.h"
 #include "recordedsounddisplay.h"
+#include "outputsounddisplay.h"
 
 class InputScrollView : public QWidget
 {
@@ -24,12 +25,13 @@ public:
     QPushButton* addRecordedInputButton;
     QPushButton* addSineWaveButton;
     QScrollArea* scrollArea;
+    OutputSoundDisplay* output;
 
     //Layouts
     QVBoxLayout* topLayout; // Top Level Layout for this class
     QVBoxLayout* scrollLayout; // Holds the scrollable area
     QHBoxLayout* inputButtonLayout; // Holds the buttons to add inputs
-
+    QHBoxLayout* outputLayout;
     /*
      * The layout for the scroll area input container
      * When adding new inputs, the inputs should be added to this layout
@@ -44,8 +46,12 @@ public:
     //constants
     enum SoundInputType {recordedSound,sineWave, squareWave, sawtoothWave};
 
+    // ID value current count
+    int nextInputId;
+
 public slots:
     void addInput(InputScrollView::SoundInputType inputType);
+    void updateOutput();
 private:
     QVector<SoundDisplay*> inputs;
     //private members

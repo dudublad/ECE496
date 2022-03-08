@@ -14,8 +14,8 @@ SoundDisplay::SoundDisplay(QWidget *parent)
     toggleEffectPanelButton = new QPushButton("Toggle Effects Panel",this);
     timeDomain = new TimeDomain(this);
     frequencyDisplay = new FrequencyDomainDisplay(this);
-    //effectPanel = new EffectPanel(this);
-
+    effectPanel = new EffectPanel(this);
+    idLabel = new QLabel(this);
     //connect(button,&QPushButton::clicked,insert);
     connect(playButton,SIGNAL(clicked()),this,SLOT(onPlayButtonClicked()));
     connect(stopButton,SIGNAL(clicked()),this,SLOT(stopFile()));
@@ -23,19 +23,21 @@ SoundDisplay::SoundDisplay(QWidget *parent)
     /*
      * Layout adding and declarations
      */
-    mainLayout = new QVBoxLayout(this);
+    mainLayout = new QHBoxLayout(this);
     //ATTENTION: this could be error prone
     domainLayout = new QHBoxLayout(this);
-    buttonLayout = new QHBoxLayout(this);
-    effectLayout = new QGridLayout(this);
-    mainLayout->addLayout(domainLayout);
+    buttonLayout = new QGridLayout(this);
+    //effectLayout = new QGridLayout(this);
+    mainLayout->addLayout(buttonLayout,1);
+    mainLayout->addLayout(domainLayout,4);
     // To change sizes of timeDomain or freq Domain,
     // change the numbers, they're ratios within the layout
-    domainLayout->addWidget(timeDomain,2);
-    domainLayout->addWidget(frequencyDisplay,1);
-    mainLayout->addLayout(buttonLayout);
+    //domainLayout->addWidget(buttonHolder,1);
+    domainLayout->addWidget(timeDomain,4);
+    domainLayout->addWidget(frequencyDisplay,2);
+    domainLayout->addWidget(effectPanel,2);
     //mainLayout->addLayout(effectLayout);
-
+    //this->setStyleSheet("border: 1px solid blue");
 }
 
 SoundDisplay::~SoundDisplay()
@@ -93,6 +95,12 @@ void SoundDisplay::toggleEffectPanel()
     {
         effectPanel->setVisible(false);
     }
+}
+
+void SoundDisplay::removeInputButtonPushed()
+{
+    this->setVisible(false);
+    // emit signal to inputScrollView to remove
 }
 
 
