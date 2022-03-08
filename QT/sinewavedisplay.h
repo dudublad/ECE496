@@ -2,7 +2,7 @@
 #define SINEWAVEDISPLAY_H
 
 #include "sounddisplay.h"
-#include "external/ECE496-Backend/src/audiosine.h"
+#include "audiosine.h"
 
 class SineWaveDisplay : public SoundDisplay
 {
@@ -41,7 +41,8 @@ public:
     QHBoxLayout* frequencyControlLayout;
 
 private:
-    void plotAndPlay();
+    void plotWave();
+    void playSound();
 
 public slots:
     void frequencySliderChange(int value);

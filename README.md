@@ -2,22 +2,6 @@
 
 Sound Synthesizer for Learning Purposes
 
-Initializing submodules
-
-```
-git submodule init
-git submodule update
-
-cd external/ECE496-Backend
-git submodule init
-git submodule sync
-git submodule update
-```
-
-Updated submodule:
-
-Submodules can be updated recusively by running `git submodule update -- recursive` from the current directory
-
 ### Setting QT's working directory
 In order to open and modify files within our project, we need to set the correct working directory in QT.
 

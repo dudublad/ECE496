@@ -4,7 +4,7 @@
 #include <QtMultimedia/QAudioInput>
 #include <QBuffer>
 #include <QMainWindow>
-#include "external/ECE496-Backend/src/audioconfig.h"
+#include "audioconfig.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
