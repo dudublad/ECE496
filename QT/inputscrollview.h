@@ -5,7 +5,7 @@
 #include <QScrollArea>
 #include <QPushButton>
 #include "sounddisplay.h"
-#include "sinewavedisplay.h"
+#include "wavedisplay.h"
 #include "recordedsounddisplay.h"
 #include "outputsounddisplay.h"
 

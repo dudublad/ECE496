@@ -5,7 +5,7 @@ InputScrollView::InputScrollView(QWidget *parent) : QWidget(parent)
     //Declare children
     nextInputId = 1;
     addRecordedInputButton = new QPushButton("Add Input",this);
-    addSineWaveButton = new QPushButton("Add Sine Wave",this);
+    addSineWaveButton = new QPushButton("Add Wave",this);
     scrollArea = new QScrollArea(this);
     scrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
     scrollAreaInputContainer = new QWidget(this);
@@ -33,7 +33,7 @@ InputScrollView::InputScrollView(QWidget *parent) : QWidget(parent)
     topLayout->addLayout(outputLayout,2);
 
     // Creating beginning area
-    auto tempSineWaveDisplay = new SineWaveDisplay(this,nextInputId);
+    auto tempSineWaveDisplay = new WaveDisplay(this,nextInputId);
     nextInputId++;
     auto tempRecordedSoundDisplay = new RecordedSoundDisplay(this,nextInputId);
     nextInputId++;
@@ -107,7 +107,7 @@ void InputScrollView::addInput(SoundInputType inputType)
     }
     else if(inputType == SoundInputType::sineWave)
     {
-        SineWaveDisplay* toInsert = new SineWaveDisplay(this,nextInputId);
+        WaveDisplay* toInsert = new WaveDisplay(this,nextInputId);
         //toInsert->inputId = nextInputId;
         nextInputId++;
         inputs.append(toInsert);
