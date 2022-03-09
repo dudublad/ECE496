@@ -23,7 +23,8 @@ SOURCES += \
     QT/timedomain.cpp \
     $$files(stk/src/*.cpp) \
     $$files(backend/*.cpp) \
-    QT/wavedisplay.cpp
+    QT/wavedisplay.cpp \
+    backend/fft.cpp
 
 HEADERS += \
     QT/effectdialog.h \
@@ -41,6 +42,7 @@ HEADERS += \
     $$files(stk/src/include/*.h) \
     $$files(backend/*.h) \
     QT/wavedisplay.h \
+    backend/fft.h \
     libs/inc/fftw3.h
 
 FORMS += \
