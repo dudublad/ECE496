@@ -32,6 +32,7 @@ HEADERS += \
     QT/inputscrollview.h \
     QT/mainwindow.h \
     QT/outputsounddisplay.h \
+    QT/programenums.h \
     QT/qcustomplot.h \
     QT/recordedsounddisplay.h \
     QT/sounddisplay.h \

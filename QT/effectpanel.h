@@ -4,6 +4,9 @@
 #include <QWidget>
 #include <QGridLayout>
 #include <QPushButton>
+#include "effectdialog.h"
+#include "programenums.h"
+#include <iostream>
 class EffectPanel : public QWidget
 {
     Q_OBJECT

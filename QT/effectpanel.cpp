@@ -26,6 +26,31 @@ EffectPanel::~EffectPanel()
 
 void EffectPanel::filterButtonPressed()
 {
+    QVector<InputInfo> inputs;
+    InputInfo tempFilterInfo;
+    tempFilterInfo.type = InputType::Int;
+    tempFilterInfo.label = "Gib ints pls";
+    tempFilterInfo.maximum = 100;
+    tempFilterInfo.minimum = 0;
+    inputs.append(tempFilterInfo);
+    InputInfo secondTemp;
+    secondTemp.type = InputType::Choice;
+    secondTemp.label = "The Illusion of Choice";
+    QStringList choicesList = QStringList() << "Milk 3%" << "Milk 1%";
+    secondTemp.choices = choicesList;
+    inputs.append(secondTemp);
+    EffectDialog tempDialog = EffectDialog(this,inputs);
+    std::cout << "its running " << std::endl;
+    if(tempDialog.exec() == QDialog::Accepted)
+    {
+        auto tempEntries = tempDialog.getEntries();
+        std::cout << "entries secured " << tempEntries.size() << std::endl;
+        for(int i = 0; i < tempEntries.size();i++)
+        {
+            std::cout << "big reveal " << tempEntries[i].toStdString() << std::endl;
+        }
+    }
+    //fires an effect dialog
     //Pop up a QInputDialog for the filter Button Menu
 }
 

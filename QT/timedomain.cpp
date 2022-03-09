@@ -15,7 +15,7 @@ TimeDomain::TimeDomain(QWidget *parent)
     setMinimumHeight(100);
     connect(decoder, SIGNAL(bufferReady()), this, SLOT(setBuffer()));
     connect(decoder, SIGNAL(finished()), this, SLOT(plot()));
-
+    //connect(decoder, SIGNAL(finished()),parent, SIGNAL(decodeDone()));
 }
 
 TimeDomain::~TimeDomain()
