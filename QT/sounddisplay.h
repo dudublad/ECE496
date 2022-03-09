@@ -8,6 +8,8 @@
 #include "backend/audiofile.h"
 #include "effectpanel.h"
 #include <string>
+#include <QAudioDecoder>
+#include "fft.h"
 class SoundDisplay : public QWidget
 {
     Q_OBJECT

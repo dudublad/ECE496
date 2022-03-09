@@ -18,6 +18,14 @@ public:
     // Sets a new file source for the decoder which will automatically run setBuffer and plot when complete
     void setSource(const QString &fileName);
 
+    QString currentFile;
+    QAudioDecoder *decoder;
+    QAudioBuffer buffer;
+    QVector<double> samples;
+    QCPGraph *wavePlot;
+    int sampleRate;
+    double sampleScale;
+
 public slots:
     // Sets the samples in the samples attribute with information from the decoder when decoding completes
     void setBuffer();
@@ -34,12 +42,5 @@ public slots:
 private:
     // Gets the peak value of the specific audio format
     qreal getPeakValue(const QAudioFormat& format);
-    QString currentFile;
-    QAudioDecoder *decoder;
-    QAudioBuffer buffer;
-    QVector<double> samples;
-    QCPGraph *wavePlot;
-    int sampleRate;
-    double sampleScale;
 };
 #endif

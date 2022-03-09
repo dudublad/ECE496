@@ -32,6 +32,9 @@ SoundDisplay::SoundDisplay(QWidget *parent)
     connect(stopButton,SIGNAL(clicked()),this,SLOT(stopFile()));
     connect(toggleEffectPanelButton,SIGNAL(clicked()),this, SLOT(toggleEffectPanel()));
     connect(volumeSlider,SIGNAL(valueChanged(int)),this,SLOT(volumeChanged(int)));
+    connect(timeDomain->decoder,&QAudioDecoder::finished,[this](){frequencyDisplay->setCoefficients(fft(timeDomain->samples));});
+    //connect(addSineWaveButton,&QPushButton::clicked,[this](){ addInput(InputScrollView::SoundInputType::sineWave);});
+
 
     /*
      * Layout adding and declarations
