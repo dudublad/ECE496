@@ -51,6 +51,7 @@ SoundDisplay::SoundDisplay(QWidget *parent)
     domainLayout->addWidget(effectPanel,2);
     //mainLayout->addLayout(effectLayout);
     //this->setStyleSheet("border: 1px solid blue");
+    setLayout(mainLayout);
 }
 
 SoundDisplay::~SoundDisplay()
@@ -120,6 +121,8 @@ void SoundDisplay::volumeChanged(int changedVolume)
 {
     volume = changedVolume;
     volumeLabel->setText(QString::fromStdString("Volume: " + std::to_string(volume)));
+    double scaledVolume = (double)(volume)/100;
+    this->soundFile.changeVolume(scaledVolume);
     // Call other function which actually changes volume
     //change the volume
 }
