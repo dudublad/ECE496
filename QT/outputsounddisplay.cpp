@@ -46,7 +46,11 @@ void OutputSoundDisplay::generateOutput()
     std::cout << "OutputSoundDisplay: Clearing output Buffer\n";
     outputBuf.clear();
     std::cout << "OutputSoundDisplay: Updating Buffer\n";
+
     yScaling = 1.0;
+    yMax = 1.0;
+    yMin = -1.0;
+
     for(int i = 0; i < inputs->size(); i++) {
         SoundDisplay* input = (*inputs)[i];
         if(input != nullptr && input->isVisible()) {

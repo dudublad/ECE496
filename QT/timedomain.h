@@ -6,6 +6,9 @@
 #include  <iostream>
 class QAudioDecoder;
 
+#define START_INPUT_ID 1
+#define OUTPU_ID 0
+
 // Class used to display the time domain plot of a signal, inherits the QCustomPlot functionality
 class TimeDomain : public QCustomPlot
 {

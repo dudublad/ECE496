@@ -16,8 +16,7 @@ public:
     // Functions
     InputScrollView(QWidget *parent);
     ~InputScrollView();
-    void removeInput(SoundDisplay* input);
-    void removeInputByIndex(int index);
+
     void createOutputFile();
     void updateScrollArea();
 
@@ -52,6 +51,9 @@ public:
 public slots:
     void addInput(InputScrollView::SoundInputType inputType);
     void updateOutput();
+    void removeInput(SoundDisplay* input);
+    void removeInputByIndex(int index);
+    void inputRemoved();
 private:
     QVector<SoundDisplay*> inputs;
     //private members
