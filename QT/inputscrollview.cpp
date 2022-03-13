@@ -9,7 +9,7 @@ InputScrollView::InputScrollView(QWidget *parent) : QWidget(parent)
     scrollArea = new QScrollArea(this);
     scrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
     scrollAreaInputContainer = new QWidget(this);
-    output = new OutputSoundDisplay(this);
+    output = new OutputSoundDisplay(&this->inputs, this);
     //Connections
     connect(addRecordedInputButton,&QPushButton::clicked,[this](){ addInput(InputScrollView::SoundInputType::recordedSound);});
     connect(addSineWaveButton,&QPushButton::clicked,[this](){ addInput(InputScrollView::SoundInputType::sineWave);});
@@ -34,8 +34,10 @@ InputScrollView::InputScrollView(QWidget *parent) : QWidget(parent)
     setLayout(topLayout);
     // Creating beginning area
     auto tempSineWaveDisplay = new WaveDisplay(this,nextInputId);
+    connect(tempSineWaveDisplay->timeDomain, SIGNAL(plotStarted()), this, SLOT(updateOutput()));
     nextInputId++;
     auto tempRecordedSoundDisplay = new RecordedSoundDisplay(this,nextInputId);
+    connect(tempRecordedSoundDisplay->timeDomain, SIGNAL(plotStarted()), this, SLOT(updateOutput()));
     nextInputId++;
     inputs.append(tempRecordedSoundDisplay);
     inputs.append(tempSineWaveDisplay);
@@ -47,15 +49,15 @@ InputScrollView::InputScrollView(QWidget *parent) : QWidget(parent)
     scrollArea->setWidget(scrollAreaInputContainer);
     scrollArea->setWidgetResizable(true);
     updateScrollArea();
+
+    output->generateOutput();
 }
 
 InputScrollView::~InputScrollView()
 {
-    while(inputs.size() > 0)
-    {
-        //TODO: this also corrupts the heap
-        const auto toErase = inputs.erase(inputs.begin());
-        //delete toErase;
+    for(int i = 0; i < inputs.size(); i++) {
+        delete inputs[i];
+        inputs[i] = nullptr;
     }
     delete inputButtonLayout;
     delete scrollLayout;
@@ -99,6 +101,9 @@ void InputScrollView::addInput(SoundInputType inputType)
     {
         RecordedSoundDisplay* toInsert = new RecordedSoundDisplay(this,nextInputId);
         //toInsert->inputId = nextInputId;
+
+        connect(toInsert->timeDomain, SIGNAL(plotStarted()), this, SLOT(updateOutput()));
+
         nextInputId++;
         inputs.append(toInsert);
 
@@ -109,6 +114,10 @@ void InputScrollView::addInput(SoundInputType inputType)
     {
         WaveDisplay* toInsert = new WaveDisplay(this,nextInputId);
         //toInsert->inputId = nextInputId;
+
+        connect(toInsert->timeDomain, SIGNAL(plotStarted()), this, SLOT(updateOutput()));
+//        connect(toInsert->timeDomain->decoder, SIGNAL(QAudioDecoder::finished()), this, SLOT(updateOutput()));
+//        connect(toInsert->timeDomain->decoder,&QAudioDecoder::finished,[this](){updateOutput();});
         nextInputId++;
         inputs.append(toInsert);
 
@@ -138,8 +147,9 @@ void InputScrollView::removeInput(SoundDisplay* input)
 
 void InputScrollView::updateOutput()
 {
-
+    std::cout << "InputScrollView::updateOutput()\n";
     // up dates the output sound display
+    this->output->generateOutput();
 }
 
 void InputScrollView::createOutputFile()
