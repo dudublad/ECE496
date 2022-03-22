@@ -9,7 +9,7 @@
 //window_type should be one of: "rect", "hann", "hamm", "bart", "black"
 //window default should be "rect"
 //returns empty vector for error
-QVector<double> generateFIRCoeff(double fc1, double fc2, std::string filter_type, std::string window_type){
+QVector<double> generateFIRCoeff(double fc1, double fc2, FilterType filter_type, std::string window_type){
     double fs = stk::Stk::sampleRate();
     int M = 20; //TODO: this should be num_taps
 
@@ -37,12 +37,24 @@ QVector<double> generateFIRCoeff(double fc1, double fc2, std::string filter_type
 //---------GENERATOR FUNCTIONS---------------------
 
 //Decides which generator to call
-QVector<double> generate_fc(double ft1, double ft2, int M, std::string filter_type){
-    if(filter_type == "LPF") return generateLPF(ft1, M);
-    if(filter_type == "HPF") return generateHPF(ft1, M);
-    if(filter_type == "BPF") return generateBPF(ft1, ft2, M);
-    if(filter_type == "BSF") return generateBSF(ft1, ft2, M);
-    return QVector<double>(); //default  returns empty vector
+QVector<double> generate_fc(double ft1, double ft2, int M, FilterType filter_type){
+
+    switch(filter_type){
+    case LPF:
+        return generateLPF(ft1, M);
+        break;
+    case HPF:
+        return generateHPF(ft1, M);
+        break;
+    case BPF:
+        return generateBPF(ft1, ft2, M);
+        break;
+    case BSF:
+        return generateBSF(ft1, ft2, M);
+        break;
+    default:
+        return QVector<double>(); //default  returns empty vector
+    }
 }
 
 QVector<double> generateLPF(double ft, int M){
@@ -136,8 +148,8 @@ QVector<double> window_black(QVector<double> input, int M){
 
 //HPF, BPF and BSFs must have odd size (even M)
 //This is because of the implicit use of an all-pass filter
-int MCheck(int M, std::string filter_type){
-    if(M%2 && filter_type != "LPF"){
+int MCheck(int M, FilterType filter_type){
+    if(M%2 && filter_type != LPF){
         M+=1; //keep this print statement, as this addressess a user-input error
         std::cout << "For a " << filter_type << ", order must be an even number!\nThe order has been changed to " << M << "\n";
     }
@@ -148,7 +160,7 @@ double my_sinc(int i, int M, double f){
     return sin(2*M_PI*f*(i - M/2))/(M_PI*(i - M/2));
 }
 
-void printCoeffs(QVector<double> input, std::string filter_type){
+void printCoeffs(QVector<double> input, FilterType filter_type){
     std::cout << filter_type <<" coeffs:";
     //Sampling sinc function, with substitiution of M/2 (div by 0 case)
     for(int i = 0; i < input.size(); i++){
