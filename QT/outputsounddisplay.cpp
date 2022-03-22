@@ -77,9 +77,6 @@ void OutputSoundDisplay::generateOutput()
                         outputBuf[j] += inputFile.tick();
                     }
 
-                    if(abs(outputBuf[j]) > yScaling){
-                        yScaling = abs(outputBuf[j]);
-                    }
                     if(outputBuf[j] > yMax) {
                         yMax = outputBuf[j];
                     }
@@ -88,6 +85,7 @@ void OutputSoundDisplay::generateOutput()
                     }
                 }
 
+                //Sets the scaling to normalize the .wav file
                 if(abs(yMax) > yScaling || abs(yMin) > yScaling) {
                     if(abs(yMax) > abs(yMin)) {
                         yScaling = abs(yMax);
