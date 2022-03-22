@@ -35,8 +35,8 @@ void EffectPanel::filterButtonPressed()
     inputs.append(tempFilterInfo);
     InputInfo secondTemp;
     secondTemp.type = InputType::Choice;
-    secondTemp.label = "The Illusion of Choice";
-    QStringList choicesList = QStringList() << "Milk 3%" << "Milk 1%";
+    secondTemp.label = "Filter Type";
+    QStringList choicesList = QStringList() << "Low Pass Filter" << "High Pass Filer" << "Band Pass Filer" << "Band Stop Filer";
     secondTemp.choices = choicesList;
     inputs.append(secondTemp);
     EffectDialog tempDialog = EffectDialog(this,inputs);
