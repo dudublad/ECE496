@@ -12,10 +12,10 @@ private:
 
     //Output values
     QVector<double> outputBuf;
+    QString filepath;
 
     void generateOutputFile();
-
-    QString filepath;
+    void playSound();
 
 public:
     OutputSoundDisplay(QVector<SoundDisplay*>* input_vec, QWidget *parent);
@@ -23,6 +23,7 @@ public:
 
 public slots:
     void generateOutput();
+    void onPlayButtonClicked();
 };
 
 #endif // OUTPUTSOUNDDISPLAY_H

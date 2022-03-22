@@ -118,3 +118,14 @@ void OutputSoundDisplay::generateOutput()
     drawWaveFromFile(filepath);
     std::cout << "OutputSoundDisplay: Done Drawing\n";
 }
+
+void OutputSoundDisplay::playSound()
+{
+    this->soundFile.openFile(filepath);
+    this->soundFile.startStream();
+}
+
+void OutputSoundDisplay::onPlayButtonClicked()
+{
+    playSound();
+}
