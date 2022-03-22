@@ -43,6 +43,7 @@ HEADERS += \
     $$files(stk/src/include/*.h) \
     $$files(backend/*.h) \
     QT/wavedisplay.h \
+    backend/generatefircoeff.h \
     backend/fft.h \
     backend/generatefircoeff.h \
     libs/inc/fftw3.h

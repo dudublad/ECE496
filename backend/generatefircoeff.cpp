@@ -2,11 +2,9 @@
 #include <Stk.h>
 
 //Coef generation function - call this one
-//output:
-//vector of coefficients (see stk::FIR class for use)
 //inputs:
 //for lpf/hpf, fc1 = cutoff frequency, fc2 = 0
-//for bpf/bsp, fc2 = lower cutoff, fc2 = upper cutoff
+//for bpf/bsp, fc1 = lower cutoff, fc2 = upper cutoff
 //filter_type should be one of: "LPF", "HPF", "BPF, "BSF"
 //window_type should be one of: "rect", "hann", "hamm", "bart", "black"
 //window default should be "rect"
