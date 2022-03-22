@@ -1,5 +1,6 @@
 #ifndef FREQUENCYDOMAINDISPLAY_H
 #define FREQUENCYDOMAINDISPLAY_H
+
 #include "qcustomplot.h"
 
 class FrequencyDomainDisplay : public QCustomPlot
@@ -15,6 +16,7 @@ public:
 
     // Sets FFT coefficients for to display on the graph
     void setCoefficients(QVector<double> coeffs);
+    void setSamples(QVector<double> samples);
 private:
     QVector<double> coefficients;
     QCPGraph *fftPlot;

@@ -23,10 +23,22 @@ void FrequencyDomainDisplay::setCoefficients(QVector<double> coeffs)
     plot();
 }
 
-void FrequencyDomainDisplay::plot()
+void FrequencyDomainDisplay::setSamples(QVector<double> samples)
 {
 
-    QVector<double> vec(coefficients.size());
+}
+
+void FrequencyDomainDisplay::plot()
+{
+    int numCoeffs = coefficients.size();
+    QVector<double> vec(numCoeffs);
+    for(int i = 1;i < numCoeffs;i++)
+    {
+       vec[i] = i;
+    }
+
+    //TODO: Show negative side of frequency display
+
     fftPlot->addData(vec, coefficients);
 
     yAxis->setRange(QCPRange(0, 1));

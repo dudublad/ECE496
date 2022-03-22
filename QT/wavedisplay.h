@@ -8,7 +8,7 @@ class WaveDisplay : public SoundDisplay
 {
     Q_OBJECT
 public:
-    WaveDisplay(QWidget *parent);
+    WaveDisplay(QWidget *parent, int id);
 
     /*
      *  Data attributes
@@ -24,7 +24,7 @@ public:
     QLabel* titleLabel;
 
     // Displays the current slider frequency setting
-    QLabel* frequencyLabel;
+    QDoubleSpinBox* frequencyLabel;
 
     // The frequency Slider
     QSlider* frequencySlider;
@@ -45,6 +45,7 @@ public slots:
     void frequencySliderChange(int value);
     void frequencySliderStop();
     void onPlayButtonClicked();
+    void onSpinBoxChanged(double value);
     void waveTypeIndexChanged(int index);
 
 };

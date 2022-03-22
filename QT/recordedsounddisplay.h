@@ -3,12 +3,11 @@
 
 #include "sounddisplay.h"
 #include <QFileDialog>
-#include <iostream>
 class RecordedSoundDisplay : public SoundDisplay
 {
     Q_OBJECT
 public:
-    RecordedSoundDisplay(QWidget *parent);
+    RecordedSoundDisplay(QWidget *parent, int id);
 
     /*
      * Subwidgets custom to RecordedSound
