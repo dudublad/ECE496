@@ -105,6 +105,9 @@ void OutputSoundDisplay::generateOutput()
         return;
     }
 
+    //Stop playing audio, if playing
+    this->stopFile();
+
     //Clear the graph so that generateSine() is not
     //Accessing the same file
     drawWaveFromFile("");
