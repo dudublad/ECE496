@@ -31,6 +31,7 @@ WaveDisplay::WaveDisplay(QWidget *parent, int id) : SoundDisplay(parent)
     titleLabel->setAlignment(Qt::AlignCenter);
     // connecting signals
     connect(frequencySlider,SIGNAL(valueChanged(int)),this,SLOT(frequencySliderChange(int)));
+    connect(playButton,SIGNAL(clicked()),this,SLOT(onPlayButtonClicked()));
     connect(frequencySlider,SIGNAL(sliderReleased()),this,SLOT(frequencySliderStop()));
     connect(frequencyLabel,SIGNAL(valueChanged(double)),this,SLOT(onSpinBoxChanged(double)));
     connect(removeInputButton,SIGNAL(clicked()),this,SLOT(removeInputButtonPushed()));
