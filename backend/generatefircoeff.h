@@ -12,6 +12,8 @@ typedef enum {
 } FilterType;
 
 //Coef generation function - call this one
+//output:
+//vector of floats - FIR filter coefficients (see stk::FIR)
 //inputs:
 //for lpf/hpf, fc1 = cutoff frequency, fc2 = 0
 //for bpf/bsp, fc1 = lower cutoff, fc2 = upper cutoff
@@ -22,6 +24,7 @@ typedef enum {
 QVector<double> generateFIRCoeff(double fc1, double fc2, std::string filter_type, std::string window_type);
 
 
+//IGNORE THESE --------------------------------------------
 //Specific generator functions
 //Do not call these!
 QVector<double> generate_fc(double ft1, double ft2, int M, std::string filter_type);
