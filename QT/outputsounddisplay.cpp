@@ -37,10 +37,7 @@ void OutputSoundDisplay::generateOutput()
         return;
     }
 
-    //Clear the graph so that generateSine() is not
-    //Accessing the same file
-    drawWaveFromFile("");
-    if(inputs->size() == 0)
+    if(inputs->size() <= 0)
         return;
 
     std::cout << "OutputSoundDisplay: Clearing output Buffer\n";
@@ -68,7 +65,10 @@ void OutputSoundDisplay::generateOutput()
                     error.printMessage();
                 }
 
-                int numSamples = inputFile.getSize();
+                std::cout << "OutputSoundDisplay: Opened file; size = " << inputFile.getSize()
+                          << " fileRate = " << inputFile.getFileRate() << std::endl;
+
+                int numSamples = inputFile.getSize() * (stk::Stk::sampleRate()/inputFile.getFileRate());
                 for(int j = 0; j < numSamples; j++){
                     if(j >= outputBuf.size()){
                         outputBuf.push_back(inputFile.tick());
@@ -88,7 +88,7 @@ void OutputSoundDisplay::generateOutput()
                     }
                 }
 
-                if(abs(yMax) > yScaling || abs(yMin > yScaling)) {
+                if(abs(yMax) > yScaling || abs(yMin) > yScaling) {
                     if(abs(yMax) > abs(yMin)) {
                         yScaling = abs(yMax);
                     }
@@ -106,6 +106,10 @@ void OutputSoundDisplay::generateOutput()
         std::cout << "OutputSoundDisplay: Output Buffer is empty\n";
         return;
     }
+
+    //Clear the graph so that generateSine() is not
+    //Accessing the same file
+    drawWaveFromFile("");
 
     std::cout << "OutputSoundDisplay: Generating File\n";
     generateOutputFile();
