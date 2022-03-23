@@ -24,6 +24,7 @@ SOURCES += \
     $$files(stk/src/*.cpp) \
     $$files(backend/*.cpp) \
     QT/wavedisplay.cpp \
+    backend/generatefircoeff.cpp \
     backend/fft.cpp
 
 HEADERS += \
@@ -42,7 +43,9 @@ HEADERS += \
     $$files(stk/src/include/*.h) \
     $$files(backend/*.h) \
     QT/wavedisplay.h \
+    backend/generatefircoeff.h \
     backend/fft.h \
+    backend/generatefircoeff.h \
     libs/inc/fftw3.h
 
 FORMS += \
