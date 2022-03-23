@@ -5,6 +5,7 @@
 #include <QWidget>
 #include <QCheckBox>
 #include <QVBoxLayout>
+#include <QPushButton>
 
 /*
  * This is the panel anchored to the top of the screen
@@ -26,8 +27,14 @@ class TutorialPanel : public QWidget
 public:
     TutorialPanel(QWidget *parent, int tutorialNumber);
     ~TutorialPanel();
-    void updatePanel();
-    QVector<QCheckBox> checkboxes;
+
+    //Updates the text contained in the tutorial Panel
+    void updatePanel(QStringList objectives);
+
+    // Returns true if all objectives have been completed, false otherwise
+    bool getObjectiveStatus();
+    QVector<QCheckBox*> checkboxes;
+    QPushButton* submitObjectivesButton;
     QVBoxLayout* objectivesLayout;
 };
 
