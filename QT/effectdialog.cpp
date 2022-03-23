@@ -2,6 +2,8 @@
 
 
 /*
+ * DEPRICATED
+ *
  * Please read for EffectDialog usage:
  * Create a QVector of InputInfos, specify the type you want
  * the label next to the entry box and if applicable, the choices
@@ -75,6 +77,26 @@ EffectDialog::EffectDialog(QWidget *parent,QVector<InputInfo> inputs) : QDialog(
 
     setLayout(formLayout);
     setMinimumSize(200,200);
+}
+
+EffectDialog::EffectDialog() {
+    dialogBox = new QDialog(this);
+    formLayout = new QFormLayout(this);
+}
+
+EffectDialog::~EffectDialog() {
+    if(dialogBox) {
+        delete dialogBox;
+        dialogBox = nullptr;
+    }
+    if(formLayout){
+        delete formLayout;
+        formLayout = nullptr;
+    }
+    if(dialogButtons){
+        delete dialogButtons;
+        dialogButtons = nullptr;
+    }
 }
 
 QStringList EffectDialog::getEntries()

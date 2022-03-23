@@ -12,6 +12,7 @@ CONFIG += c++11
 SOURCES += \
     QT/effectdialog.cpp \
     QT/effectpanel.cpp \
+    QT/filterdialog.cpp \
     QT/frequencydomaindisplay.cpp \
     QT/inputscrollview.cpp \
     QT/main.cpp \
@@ -30,6 +31,7 @@ SOURCES += \
 HEADERS += \
     QT/effectdialog.h \
     QT/effectpanel.h \
+    QT/filterdialog.h \
     QT/frequencydomaindisplay.h \
     QT/inputscrollview.h \
     QT/mainwindow.h \
