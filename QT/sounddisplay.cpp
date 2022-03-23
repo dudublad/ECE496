@@ -99,6 +99,9 @@ void SoundDisplay::stopFile()
 
 void SoundDisplay::drawWaveFromFile(QString file)
 {
+    timeDomain->yScaling = yScaling;
+    timeDomain->yMax = yMax;
+    timeDomain->yMin = yMin;
     timeDomain->setSource(file);
 }
 
