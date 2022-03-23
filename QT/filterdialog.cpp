@@ -60,6 +60,7 @@ FilterDialog::FilterDialog()
 
     setLayout(formLayout);
     setMinimumSize(200,200);
+
 }
 
 FilterDialog::~FilterDialog()
@@ -98,6 +99,7 @@ void FilterDialog::filterTypeChanged(int type)
     set_cutoff_2->setVisible(cutoff_high_visible);
 
     //TODO: Implemnt backend changes
+    this->filter.setFilterType(type);
 }
 
 void FilterDialog::windowTypeChanged(int type)
@@ -105,6 +107,7 @@ void FilterDialog::windowTypeChanged(int type)
     windowType = (WindowType) type;
     std::cout << "Window Type Changed to: " << type << std::endl;
     //TODO: Implemnt backend changes
+    this->filter.setWindowType(type);
 }
 
 void FilterDialog::cutoff_low_changed(double cutoff)

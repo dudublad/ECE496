@@ -25,6 +25,7 @@ SOURCES += \
     $$files(stk/src/*.cpp) \
     $$files(backend/*.cpp) \
     QT/wavedisplay.cpp \
+    backend/audiofilter.cpp \
     backend/generatefircoeff.cpp \
     backend/fft.cpp
 
@@ -45,6 +46,7 @@ HEADERS += \
     $$files(stk/src/include/*.h) \
     $$files(backend/*.h) \
     QT/wavedisplay.h \
+    backend/audiofilter.h \
     backend/generatefircoeff.h \
     backend/fft.h \
     backend/generatefircoeff.h \
