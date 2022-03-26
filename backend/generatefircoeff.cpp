@@ -1,4 +1,5 @@
 #include "generatefircoeff.h"
+#include "fft.h"
 
 //Coef generation function - call this one
 //inputs:
@@ -21,10 +22,8 @@ std::vector<double> generateFirCoeff::generateFIRCoeff(double fc1, double fc2, F
     printCoeffs(filter, filter_type);
 
     //Returns windowed filter (defualt is rectuangular - unchanged)
-    return window_fc(filter, M, window_type);
-
-    //default returns empty Vector
-    //return std::vector<double>();
+    filter = window_fc(filter, M, window_type);
+    return filter;
 }
 
 void generateFirCoeff::setM(int newM){
@@ -33,6 +32,15 @@ void generateFirCoeff::setM(int newM){
 
 //reference: http://www.labbookpages.co.uk/audio/firWindowing.html
 //-----------------------------------------------------------------------
+
+std::vector<double> generateFirCoeff::generateFIRPlot(double fc1, double fc2, FilterType filter_type, WindowType window_type){
+    std::vector<double> tdomain(1000,0);
+    std::vector<double> coeffs  = generateFIRCoeff(fc1, fc2, filter_type, window_type);
+    for(int i = 0; i < coeffs.size(); i++){
+        tdomain[i] = coeffs[i];
+    }
+    return fft_v(tdomain);
+}
 
 //---------GENERATOR FUNCTIONS---------------------
 
