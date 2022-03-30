@@ -38,6 +38,10 @@ void TimeDomain::setSource(const QString &fileName)
     }
 }
 
+QString TimeDomain::getSourceFile() {
+    return currentFile;
+}
+
 void TimeDomain::setBuffer()
 {
     //std::cout << "Setting Buffer" << std::endl;
@@ -45,14 +49,13 @@ void TimeDomain::setBuffer()
     QAudioFormat format = buffer.format();
     qreal peak = getPeakValue(format);
     sampleRate = format.sampleRate();
-    sampleScale = 1.0;
 
     //CHECK in case of error constData may come in different Types
     const qint16 *data = buffer.constData<qint16>();
     int count = buffer.sampleCount();
     for (int i=0; i<count; i++){
         double val = data[i]/peak;
-        samples.append(val);
+        samples.append(yScaling * val);
     }
     //std::cout << "Setting Buffer Exited" << std::endl;
 }
@@ -60,24 +63,25 @@ void TimeDomain::setBuffer()
 // Sample rate in hertz
 void TimeDomain::appendSamples(QVector<double> incomingSamples,int sample_rate)
 {
-    sampleScale = 1.0;
     samples.clear();
     sampleRate = sample_rate;
+    std::cout << "appending samples. yscaling = " << yScaling << std::endl;
     for( int i = 0; i< incomingSamples.length(); i++)
     {
-        samples.append(incomingSamples[i]);
+        samples.append(yScaling * incomingSamples[i]);
     }
 }
 
 void TimeDomain::plot()
 {
     std::cout << "Plotting" << std::endl;
+    emit plotStarted();
     QVector<double> vec(samples.size());
     std::cout << "Samples size is " << samples.size() << std::endl;
     for (int i=0; i<vec.size(); i++)
         vec[i] = i*sampleScale/sampleRate;
     wavePlot->addData(vec, samples);
-    yAxis->setRange(QCPRange(-1, 1));
+    yAxis->setRange(QCPRange(yMin, yMax));
     if(vec.size() > 0)
     {
         xAxis->setRange(QCPRange(0, vec.last()));
@@ -87,6 +91,7 @@ void TimeDomain::plot()
         xAxis->setRange(QCPRange(0,vec.size()));
     }
     replot();
+    emit plotFinished();
     std::cout << "Plot exited" << std::endl;
 }
 
