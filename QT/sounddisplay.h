@@ -58,9 +58,6 @@ public:
     // Button that deletes the input
     QPushButton* removeInputButton;
 
-    // Label that displays current id
-    QLabel* idLabel;
-
     // Time domain which displayed the entire sound wave
     TimeDomain* timeDomain;
 
