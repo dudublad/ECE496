@@ -1,5 +1,6 @@
 #ifndef FREQUENCYDOMAINDISPLAY_H
 #define FREQUENCYDOMAINDISPLAY_H
+
 #include "qcustomplot.h"
 
 class FrequencyDomainDisplay : public QCustomPlot

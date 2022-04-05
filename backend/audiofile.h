@@ -22,6 +22,8 @@ public:
     // changes current volume of opened file
     void changeVolume(float volume);
 
+    stk::FileWvIn getInputFile();
+
     ~AudioFile();
 
 private:

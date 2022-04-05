@@ -2,15 +2,20 @@
 
 // Uses parent constructor
 
-RecordedSoundDisplay::RecordedSoundDisplay(QWidget *parent) : SoundDisplay(parent)
+RecordedSoundDisplay::RecordedSoundDisplay(QWidget *parent, int id) : SoundDisplay(parent)
 {
     // init
     chooseFileButton = new QPushButton("Choose a new File",this);
+    removeInputButton = new QPushButton("Remove Input",this);
     connect(chooseFileButton,SIGNAL(clicked()),this,SLOT(chooseFile()));
-    buttonLayout->addWidget(playButton);
-    buttonLayout->addWidget(stopButton);
-    buttonLayout->addWidget(chooseFileButton);
-
+    connect(removeInputButton,SIGNAL(clicked()),this,SLOT(removeInputButtonPushed()));
+    buttonLayout->addWidget(playButton,0,0,Qt::AlignCenter);
+    buttonLayout->addWidget(stopButton,1,0,Qt::AlignCenter);
+    buttonLayout->addWidget(chooseFileButton,0,1,Qt::AlignCenter);
+    buttonLayout->addWidget(toggleEffectPanelButton,1,1,Qt::AlignCenter);
+    buttonLayout->addWidget(removeInputButton,2,1,Qt::AlignCenter);
+    buttonLayout->addWidget(volumeLabel,3,0,Qt::AlignCenter);
+    buttonLayout->addWidget(volumeSlider,3,1,Qt::AlignCenter);
 
 }
 void RecordedSoundDisplay::chooseFile()
@@ -28,5 +33,6 @@ void RecordedSoundDisplay::chooseFile()
     }
     std::cout << "returned file name = " << selectedFile.toStdString() << std::endl;
     changeFile(selectedFile);
+    drawWaveFromFile(selectedFile);
 
 }
