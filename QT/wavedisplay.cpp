@@ -43,8 +43,7 @@ WaveDisplay::WaveDisplay(QWidget *parent, int id) : SoundDisplay(parent)
     // connecting signals
     connect(frequencySlider,SIGNAL(valueChanged(int)),this,SLOT(frequencySliderChange(int)));
     connect(playButton,SIGNAL(clicked()),this,SLOT(onPlayButtonClicked()));
-    connect(frequencySlider,SIGNAL(sliderReleased()),this,SLOT(frequencySliderStop()));
-    connect(frequencyLabel,SIGNAL(valueChanged(double)),this,SLOT(onSpinBoxChanged(double)));
+    connect(frequencyLabel,SIGNAL(valueChanged(int)),this,SLOT(onSpinBoxChanged(int)));
     connect(removeInputButton,SIGNAL(clicked()),this,SLOT(removeInputButtonPushed()));
     connect(generateButton,SIGNAL(clicked()),this,SLOT(generateButtonPushed()));
     connect(amplitudeSlider,SIGNAL(sliderReleased()),this,SLOT(amplitudeSliderStop()));
@@ -118,14 +117,9 @@ void WaveDisplay::playSound()
 void WaveDisplay::frequencySliderChange(int value)
 {
     //changes frequency according to what is in the slider
-    frequencyLabel->setValue(value);
-    waveFrequency = value;
-}
-
-void WaveDisplay::frequencySliderStop()
-{
-    //changes frequency according to what is in the slider
-    wave.setFrequency(waveFrequency);
+    if(frequencyLabel->value() != value) {
+        frequencyLabel->setValue(value);
+    }
 }
 
 void WaveDisplay::waveTypeIndexChanged(int index)
@@ -144,13 +138,13 @@ void WaveDisplay::onPlayButtonClicked()
 
 void WaveDisplay::onSpinBoxChanged(int value)
 {
-    int convertedValue = (int)value;
-    wave.setFrequency(convertedValue);
-    frequencySlider->setValue(convertedValue);
+    waveFrequency = value;
+    frequencySlider->setValue(value);
 }
 
 void WaveDisplay::generateButtonPushed()
 {
+    wave.setFrequency(waveFrequency);
     plotWave();
     emit waveGenerated(waveFrequency);
 }

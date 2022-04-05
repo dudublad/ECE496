@@ -53,7 +53,6 @@ private:
 
 public slots:
     void frequencySliderChange(int value);
-    void frequencySliderStop();
     void onPlayButtonClicked();
     void onSpinBoxChanged(int value);
     void waveTypeIndexChanged(int index);
