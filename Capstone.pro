@@ -24,6 +24,8 @@ SOURCES += \
     QT/timedomain.cpp \
     $$files(stk/src/*.cpp) \
     $$files(backend/*.cpp) \
+    QT/tutorialcontroller.cpp \
+    QT/tutorialpanel.cpp \
     QT/wavedisplay.cpp \
     backend/audiofilter.cpp \
     backend/generatefircoeff.cpp \
@@ -45,6 +47,8 @@ HEADERS += \
     $$files(stk/include/*.h) \
     $$files(stk/src/include/*.h) \
     $$files(backend/*.h) \
+    QT/tutorialcontroller.h \
+    QT/tutorialpanel.h \
     QT/wavedisplay.h \
     backend/audiofilter.h \
     backend/generatefircoeff.h \

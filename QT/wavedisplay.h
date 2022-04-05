@@ -15,6 +15,8 @@ public:
      */
     int waveFrequency;
 
+    double amplitude;
+
     /*
     * Subwidgets custom to SineWave
     */
@@ -24,7 +26,7 @@ public:
     QLabel* titleLabel;
 
     // Displays the current slider frequency setting
-    QDoubleSpinBox* frequencyLabel;
+    QSpinBox* frequencyLabel;
 
     // The frequency Slider
     QSlider* frequencySlider;
@@ -37,6 +39,14 @@ public:
 
     QComboBox* waveTypeSelector;
 
+    // The Button that generates the wave
+    QPushButton* generateButton;
+
+    //
+    QLabel* amplitudeLabel;
+
+    QSlider* amplitudeSlider;
+
 private:
     void plotWave();
     void playSound();
@@ -45,9 +55,14 @@ public slots:
     void frequencySliderChange(int value);
     void frequencySliderStop();
     void onPlayButtonClicked();
-    void onSpinBoxChanged(double value);
+    void onSpinBoxChanged(int value);
     void waveTypeIndexChanged(int index);
+    void generateButtonPushed();
+    void amplitudeSliderChange(int value);
+    void amplitudeSliderStop();
 
+signals:
+    void waveGenerated(int waveFrequency);
 };
 
 #endif // WAVEDISPLAY_H

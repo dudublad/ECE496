@@ -9,11 +9,12 @@ RecordedSoundDisplay::RecordedSoundDisplay(QWidget *parent, int id) : SoundDispl
     removeInputButton = new QPushButton("Remove Input",this);
     connect(chooseFileButton,SIGNAL(clicked()),this,SLOT(chooseFile()));
     connect(removeInputButton,SIGNAL(clicked()),this,SLOT(removeInputButtonPushed()));
+    connect(playButton,SIGNAL(clicked()),this,SLOT(onPlayButtonClicked()));
     buttonLayout->addWidget(playButton,0,0,Qt::AlignCenter);
     buttonLayout->addWidget(stopButton,1,0,Qt::AlignCenter);
     buttonLayout->addWidget(chooseFileButton,0,1,Qt::AlignCenter);
     buttonLayout->addWidget(toggleEffectPanelButton,1,1,Qt::AlignCenter);
-    buttonLayout->addWidget(removeInputButton,2,1,Qt::AlignCenter);
+    buttonLayout->addWidget(removeInputButton,2,0,Qt::AlignCenter);
     buttonLayout->addWidget(volumeLabel,3,0,Qt::AlignCenter);
     buttonLayout->addWidget(volumeSlider,3,1,Qt::AlignCenter);
 

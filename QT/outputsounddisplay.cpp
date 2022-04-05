@@ -2,6 +2,7 @@
 
 OutputSoundDisplay::OutputSoundDisplay(QVector<SoundDisplay*>* input_vec, QWidget *parent) : SoundDisplay(parent)
 {
+    connect(playButton,SIGNAL(clicked()),this,SLOT(onPlayButtonClicked()));
     inputId = 0;
     buttonLayout->addWidget(playButton);
     buttonLayout->addWidget(stopButton);
@@ -26,6 +27,8 @@ void OutputSoundDisplay::generateOutputFile() {
 
     outputFile.closeFile();
 }
+
+#define OUTPUT_PLOT_TIME_LIMIT_S 10
 
 /*
  * Called when its inputs are updated
@@ -69,7 +72,7 @@ void OutputSoundDisplay::generateOutput()
                           << " fileRate = " << inputFile.getFileRate() << std::endl;
 
                 int numSamples = inputFile.getSize() * (stk::Stk::sampleRate()/inputFile.getFileRate());
-                for(int j = 0; j < numSamples; j++){
+                for(int j = 0; j < numSamples && j < OUTPUT_PLOT_TIME_LIMIT_S*stk::Stk::sampleRate(); j++){
                     if(j >= outputBuf.size()){
                         outputBuf.push_back(inputFile.tick());
                     }
