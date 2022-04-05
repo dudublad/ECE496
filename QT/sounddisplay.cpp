@@ -14,7 +14,6 @@ SoundDisplay::SoundDisplay(QWidget *parent)
     timeDomain = new TimeDomain(this);
     frequencyDisplay = new FrequencyDomainDisplay(this);
     effectPanel = new EffectPanel(this);
-    idLabel = new QLabel(this);
     volumeSlider = new QSlider(Qt::Horizontal,this);
     volumeLabel = new QLabel(this);
 
@@ -99,6 +98,9 @@ void SoundDisplay::stopFile()
 
 void SoundDisplay::drawWaveFromFile(QString file)
 {
+    timeDomain->yScaling = yScaling;
+    timeDomain->yMax = yMax;
+    timeDomain->yMin = yMin;
     timeDomain->setSource(file);
 }
 

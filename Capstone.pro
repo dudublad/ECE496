@@ -12,6 +12,7 @@ CONFIG += c++11
 SOURCES += \
     QT/effectdialog.cpp \
     QT/effectpanel.cpp \
+    QT/filterdialog.cpp \
     QT/frequencydomaindisplay.cpp \
     QT/inputscrollview.cpp \
     QT/main.cpp \
@@ -26,11 +27,13 @@ SOURCES += \
     QT/tutorialcontroller.cpp \
     QT/tutorialpanel.cpp \
     QT/wavedisplay.cpp \
+    backend/generatefircoeff.cpp \
     backend/fft.cpp
 
 HEADERS += \
     QT/effectdialog.h \
     QT/effectpanel.h \
+    QT/filterdialog.h \
     QT/frequencydomaindisplay.h \
     QT/inputscrollview.h \
     QT/mainwindow.h \
@@ -46,7 +49,9 @@ HEADERS += \
     QT/tutorialcontroller.h \
     QT/tutorialpanel.h \
     QT/wavedisplay.h \
+    backend/generatefircoeff.h \
     backend/fft.h \
+    backend/generatefircoeff.h \
     libs/inc/fftw3.h
 
 FORMS += \
