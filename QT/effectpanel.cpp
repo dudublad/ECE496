@@ -1,4 +1,5 @@
 #include "effectpanel.h"
+#include "filterdialog.h"
 
 EffectPanel::EffectPanel(QWidget *parent) : QWidget(parent)
 {
@@ -26,21 +27,7 @@ EffectPanel::~EffectPanel()
 
 void EffectPanel::filterButtonPressed()
 {
-    QVector<InputInfo> inputs;
-    InputInfo tempFilterInfo;
-    tempFilterInfo.type = InputType::Int;
-    tempFilterInfo.label = "Gib ints pls";
-    tempFilterInfo.maximum = 100;
-    tempFilterInfo.minimum = 0;
-    inputs.append(tempFilterInfo);
-    InputInfo secondTemp;
-    secondTemp.type = InputType::Choice;
-    secondTemp.label = "Filter Type";
-    QStringList choicesList = QStringList() << "Low Pass Filter" << "High Pass Filer" << "Band Pass Filer" << "Band Stop Filer";
-    secondTemp.choices = choicesList;
-    inputs.append(secondTemp);
-    EffectDialog tempDialog = EffectDialog(this,inputs);
-    std::cout << "its running " << std::endl;
+    FilterDialog tempDialog = FilterDialog();
     if(tempDialog.exec() == QDialog::Accepted)
     {
         auto tempEntries = tempDialog.getEntries();

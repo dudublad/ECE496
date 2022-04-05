@@ -1,6 +1,8 @@
 #ifndef PROGRAMENUMS_H
 #define PROGRAMENUMS_H
 
+#include <QStringList>
+
 typedef enum {
     Int,
     Double,

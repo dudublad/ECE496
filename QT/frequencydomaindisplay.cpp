@@ -23,11 +23,6 @@ void FrequencyDomainDisplay::setCoefficients(QVector<double> coeffs)
     plot();
 }
 
-void FrequencyDomainDisplay::setSamples(QVector<double> samples)
-{
-
-}
-
 void FrequencyDomainDisplay::plot()
 {
     int numCoeffs = coefficients.size();

@@ -14,7 +14,6 @@ SoundDisplay::SoundDisplay(QWidget *parent)
     timeDomain = new TimeDomain(this);
     frequencyDisplay = new FrequencyDomainDisplay(this);
     effectPanel = new EffectPanel(this);
-    idLabel = new QLabel(this);
     volumeSlider = new QSlider(Qt::Horizontal,this);
     volumeLabel = new QLabel(this);
 

@@ -18,7 +18,12 @@ class EffectDialog : public QDialog
 public:
 
     // Include the enums for choices in this file
+    //DEPRICATED
     EffectDialog(QWidget *parent,QVector<InputInfo> inputs);
+
+    //Create an empty dialog
+    EffectDialog();
+    ~EffectDialog();
 
     /*
      * Functions
@@ -26,17 +31,17 @@ public:
     //gets the values from the dialog after done
     QStringList getEntries();
 
-    QFormLayout* formLayout;
+    QFormLayout* formLayout = nullptr;
 
     //SubWidgets
-    QDialog* dialogBox;
+    QDialog* dialogBox = nullptr;
 public slots:
 
-private:
+protected:
     QList<QDoubleSpinBox*> fields;
     QList<QComboBox*> choiceFields;
     QList<QLabel*> labels;
-    QDialogButtonBox* dialogButtons;
+    QDialogButtonBox* dialogButtons = nullptr;
 };
 
 #endif // EFFECTDIALOG_H
