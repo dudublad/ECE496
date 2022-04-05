@@ -32,7 +32,7 @@ public:
     void updatePanel(QStringList objectives);
 
     // Returns true if all objectives have been completed, false otherwise
-    bool getObjectiveStatus();
+    bool getObjectivesStatus();
     QVector<QCheckBox*> checkboxes;
     QPushButton* submitObjectivesButton;
     QVBoxLayout* objectivesLayout;

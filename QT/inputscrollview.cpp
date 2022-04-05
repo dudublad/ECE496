@@ -26,7 +26,6 @@ InputScrollView::InputScrollView(QWidget *parent) : QWidget(parent)
     inputButtonLayout->addWidget(addRecordedInputButton);
     inputButtonLayout->addWidget(addSineWaveButton);
     outputLayout->addWidget(output);
-
     scrollLayout->addWidget(scrollArea);
     topLayout->addLayout(scrollLayout,5);
     topLayout->addLayout(inputButtonLayout,1);
@@ -85,6 +84,7 @@ void InputScrollView::updateScrollArea()
             inputSubScrollLayout->removeWidget(widget);
         }
     }
+    std::cout << "current inputs: " << inputs.size() << std::endl;
 }
 
 void InputScrollView::addInput(SoundInputType inputType)
@@ -116,6 +116,8 @@ void InputScrollView::addInput(SoundInputType inputType)
         fprintf(stderr,"Added new SineWaveDisplay");
 
         insertedInput = toInsert;
+        //TODO: if statement here to check relevancy?
+        connect(toInsert,&WaveDisplay::waveGenerated,this,&InputScrollView::checkTutorialStatus);
     }
     else
     {
@@ -126,6 +128,7 @@ void InputScrollView::addInput(SoundInputType inputType)
     if(insertedInput != nullptr){
         connect(insertedInput->timeDomain, SIGNAL(plotStarted()), this, SLOT(updateOutput()));
         connect(insertedInput->removeInputButton,SIGNAL(clicked()),this,SLOT(inputRemoved()));
+        connect(insertedInput,SIGNAL(inputRemoved(SoundDisplay*)),this,SLOT(removeInput(SoundDisplay*)));
     }
 
     updateScrollArea();
@@ -142,7 +145,14 @@ void InputScrollView::removeInputByIndex(int index)
 
 void InputScrollView::removeInput(SoundDisplay* input)
 {
-
+    for(SoundDisplay* in : inputs)
+    {
+        if(in == input)
+        {
+            inputs.erase(std::remove(inputs.begin(),inputs.end(),in),inputs.end());
+            break;
+        }
+    }
 }
 
 void InputScrollView::inputRemoved()
@@ -161,5 +171,11 @@ void InputScrollView::updateOutput()
 void InputScrollView::createOutputFile()
 {
     //creates an output file so the output can read it
+}
+
+void InputScrollView::checkTutorialStatus()
+{
+    std::cout << "emiting 1" << std::endl;
+    emit checkTutorialSignal();
 }
 

@@ -56,6 +56,9 @@ public slots:
     void removeInput(SoundDisplay* input);
     void removeInputByIndex(int index);
     void inputRemoved();
+    void checkTutorialStatus();
+signals:
+    void checkTutorialSignal();
 };
 
 #endif // INPUTSCROLLVIEW_H

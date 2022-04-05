@@ -63,7 +63,7 @@ SoundDisplay::~SoundDisplay()
     delete timeDomain;
     delete frequencyDisplay;
     delete effectPanel;
-    delete mainLayout;
+    //delete mainLayout;
     //delete domainLayout;
     //delete buttonLayout;
 }
@@ -119,6 +119,7 @@ void SoundDisplay::toggleEffectPanel()
 void SoundDisplay::removeInputButtonPushed()
 {
     this->setVisible(false);
+    emit inputRemoved(this);
     // emit signal to inputScrollView to remove
 }
 

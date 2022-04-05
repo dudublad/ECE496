@@ -18,4 +18,5 @@ typedef struct InputInfo
     QStringList choices;
 } InputInfo;
 
+
 #endif // PROGRAMENUMS_H

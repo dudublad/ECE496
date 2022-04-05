@@ -6,7 +6,7 @@ TutorialController::TutorialController(QWidget *parent) : QWidget(parent)
     mainTutorialLayout = new QVBoxLayout(this);
     inputScrollView = new InputScrollView(this);
     tutorialPanel = new TutorialPanel(this,1);
-
+    connect(inputScrollView,SIGNAL(checkTutorialSignal()),this,SLOT(checkConditions()));
     mainTutorialLayout->addWidget(tutorialPanel,1);
     mainTutorialLayout->addWidget(inputScrollView,6);
     this->setLayout(mainTutorialLayout);
@@ -17,16 +17,26 @@ TutorialController::TutorialController(QWidget *parent) : QWidget(parent)
 
 void TutorialController::checkConditions()
 {
+    std::cout << "checking conditions" << std::endl;
     auto inputs = inputScrollView->inputs;
     if(stepCount == 1){
       /* Tutorial 1_1 Objectives
-       *
+       * // Create square wave 100Hz
        *
        */
-      for(int i = 0;i <inputs.size();i++)
-      {
-
-      }
+        bool objective1 = false;
+        for(SoundDisplay* input : inputs)
+        {
+            if(input->soundType == input->WAVE_SOUND_TYPE)
+            {
+              WaveDisplay* wavePointer = (WaveDisplay*)(input);
+              if(wavePointer->waveFrequency == 100)
+              {
+                objective1 = true;
+              }
+            }
+        }
+       objectiveChecked(0,objective1);
     }
     else if(stepCount == 2){
         /* Tutorial 1_2 Objectives
@@ -74,7 +84,7 @@ void TutorialController::loadTutorial1_1()
      */
     //connects the relevant signals to the buttons
     //connect(timeDomain->decoder,&QAudioDecoder::finished,[this](){frequencyDisplay->setCoefficients(fft(timeDomain->samples));});
-    connect(inputScrollView->addSineWaveButton,&QPushButton::clicked,[this](){objectiveComplete(0);});
+    //connect(inputScrollView->addSineWaveButton,&QPushButton::clicked,[this](){objectiveComplete(0);});
 
 }
 
@@ -104,9 +114,15 @@ void TutorialController::loadTutorial1_6()
     stepCount++;
 }
 
-void TutorialController::objectiveComplete(int boxIndex)
+void TutorialController::objectiveChecked(int boxIndex,bool completed)
 {
-    tutorialPanel->checkboxes[boxIndex]->setCheckState(Qt::Checked);
-    bool objectivesComplete = this->tutorialPanel->getObjectiveStatus();
-    std::cout << "Objectives  complete: " << objectivesComplete << std::endl;
+    if(completed)
+    {
+        tutorialPanel->checkboxes[boxIndex]->setCheckState(Qt::Checked);
+    }
+    else{
+        tutorialPanel->checkboxes[boxIndex]->setCheckState(Qt::Unchecked);
+    }
+    //bool objectivesComplete = this->tutorialPanel->getObjectiveStatus();
+    //std::cout << "Objectives  complete: " << objectivesComplete << std::endl;
 }

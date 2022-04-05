@@ -37,7 +37,7 @@ void TutorialPanel::updatePanel(QStringList objectives)
     objectivesLayout->addWidget(submitObjectivesButton);
 }
 
-bool TutorialPanel::getObjectiveStatus()
+bool TutorialPanel::getObjectivesStatus()
 {
     int numCheckBoxes = checkboxes.size();
     bool isChecked = true;

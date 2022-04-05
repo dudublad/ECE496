@@ -2,7 +2,7 @@
 
 WaveDisplay::WaveDisplay(QWidget *parent, int id) : SoundDisplay(parent)
 {
-
+    soundType = WAVE_SOUND_TYPE;
     int MAX_FREQ = 20000;
     int MIN_FREQ = 20;
     // initializing data attributes
@@ -45,7 +45,7 @@ WaveDisplay::WaveDisplay(QWidget *parent, int id) : SoundDisplay(parent)
     connect(frequencySlider,SIGNAL(valueChanged(int)),this,SLOT(frequencySliderChange(int)));
     connect(playButton,SIGNAL(clicked()),this,SLOT(onPlayButtonClicked()));
     connect(frequencySlider,SIGNAL(sliderReleased()),this,SLOT(frequencySliderStop()));
-    connect(frequencyLabel,SIGNAL(valueChanged(double)),this,SLOT(onSpinBoxChanged(double)));
+    connect(frequencyLabel,SIGNAL(valueChanged(int)),this,SLOT(onSpinBoxChanged(int)));
     connect(removeInputButton,SIGNAL(clicked()),this,SLOT(removeInputButtonPushed()));
     connect(generateButton,SIGNAL(clicked()),this,SLOT(generateButtonPushed()));
     connect(amplitudeSlider,SIGNAL(sliderReleased()),this,SLOT(amplitudeSliderStop()));

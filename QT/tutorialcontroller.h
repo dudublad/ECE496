@@ -5,6 +5,7 @@
 #include <QWidget>
 #include "inputscrollview.h"
 #include "tutorialpanel.h"
+#include "waveoscillator.h"
 
 class TutorialController : public QWidget
 {
@@ -32,7 +33,7 @@ public:
     QVector<QString> objectiveText;
 
 public slots:
-    void objectiveComplete(int boxIndex);
+    void objectiveChecked(int boxIndex,bool completed);
     void checkConditions();
 };
 
