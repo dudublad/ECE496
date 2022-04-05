@@ -27,7 +27,7 @@ SoundDisplay::SoundDisplay(QWidget *parent)
     //connect(button,&QPushButton::clicked,insert);
 
     // Connecting to slots
-    connect(playButton,SIGNAL(clicked()),this,SLOT(onPlayButtonClicked()));
+    //connect(playButton,SIGNAL(clicked()),this,SLOT(onPlayButtonClicked()));
     connect(stopButton,SIGNAL(clicked()),this,SLOT(stopFile()));
     connect(toggleEffectPanelButton,SIGNAL(clicked()),this, SLOT(toggleEffectPanel()));
     connect(volumeSlider,SIGNAL(valueChanged(int)),this,SLOT(volumeChanged(int)));

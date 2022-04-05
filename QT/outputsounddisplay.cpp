@@ -2,6 +2,7 @@
 
 OutputSoundDisplay::OutputSoundDisplay(QVector<SoundDisplay*>* input_vec, QWidget *parent) : SoundDisplay(parent)
 {
+    connect(playButton,SIGNAL(clicked()),this,SLOT(onPlayButtonClicked()));
     inputId = 0;
     buttonLayout->addWidget(playButton);
     buttonLayout->addWidget(stopButton);

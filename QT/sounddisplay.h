@@ -113,7 +113,7 @@ public slots:
     void volumeChanged(int volume);
 
 private slots:
-    virtual void onPlayButtonClicked();
+    void onPlayButtonClicked();
     //
 };
 

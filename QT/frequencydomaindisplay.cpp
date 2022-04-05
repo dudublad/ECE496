@@ -20,6 +20,7 @@ FrequencyDomainDisplay::~FrequencyDomainDisplay()
 }
 void FrequencyDomainDisplay::setCoefficients(QVector<double> coeffs)
 {
+    coefficients.clear();
     this->coefficients = coeffs;
     plot();
 }
