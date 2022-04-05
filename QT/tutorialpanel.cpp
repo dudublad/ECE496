@@ -52,3 +52,12 @@ bool TutorialPanel::getObjectiveStatus()
 
     return isChecked;
 }
+
+/**
+ * in .h
+  signals:
+    void valueChanged(int newValue)
+
+   where u want to emit (some .cpp)
+   emit valueChanged(value);
+  */

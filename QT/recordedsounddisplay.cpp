@@ -14,7 +14,7 @@ RecordedSoundDisplay::RecordedSoundDisplay(QWidget *parent, int id) : SoundDispl
     buttonLayout->addWidget(stopButton,1,0,Qt::AlignCenter);
     buttonLayout->addWidget(chooseFileButton,0,1,Qt::AlignCenter);
     buttonLayout->addWidget(toggleEffectPanelButton,1,1,Qt::AlignCenter);
-    buttonLayout->addWidget(removeInputButton,2,1,Qt::AlignCenter);
+    buttonLayout->addWidget(removeInputButton,2,0,Qt::AlignCenter);
     buttonLayout->addWidget(volumeLabel,3,0,Qt::AlignCenter);
     buttonLayout->addWidget(volumeSlider,3,1,Qt::AlignCenter);
 
