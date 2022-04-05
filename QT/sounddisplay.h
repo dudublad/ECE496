@@ -32,6 +32,12 @@ public:
     // Volume of the played sound, Scale: 0-100
     int volume;
 
+    //Plot Properties
+    //How much to scale the plotted graph
+    double yScaling = 1;
+    double yMax = 1.0;
+    double yMin = -1.0;
+
     // Id value for use in parent classes,id for output is always 0
     int inputId;
 
@@ -51,9 +57,6 @@ public:
 
     // Button that deletes the input
     QPushButton* removeInputButton;
-
-    // Label that displays current id
-    QLabel* idLabel;
 
     // Time domain which displayed the entire sound wave
     TimeDomain* timeDomain;

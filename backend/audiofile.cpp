@@ -4,6 +4,11 @@ AudioFile::AudioFile()
 {
 }
 
+stk::FileWvIn AudioFile::getInputFile()
+{
+    return input;
+}
+
 void AudioFile::openFile(QString filePath){
     try{
         this->input.openFile(filePath.toStdString());

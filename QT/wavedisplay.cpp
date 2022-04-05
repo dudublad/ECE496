@@ -137,9 +137,9 @@ void WaveDisplay::onPlayButtonClicked()
 
 void WaveDisplay::onSpinBoxChanged(double value)
 {
-    int convertedValue = (int)value;
-    fprintf(stderr,"ring ring calling \n");
-    waveFrequency = convertedValue;
-    frequencySlider->setValue(convertedValue);
-    plotWave();
+//    int convertedValue = (int)value;
+//    fprintf(stderr,"ring ring calling \n");
+//    waveFrequency = convertedValue;
+//    frequencySlider->setValue(convertedValue);
+//    plotWave();
 }
