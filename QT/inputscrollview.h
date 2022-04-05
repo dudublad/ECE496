@@ -48,15 +48,14 @@ public:
     // ID value current count
     int nextInputId;
 
+    QVector<SoundDisplay*> inputs;
+
 public slots:
     void addInput(InputScrollView::SoundInputType inputType);
     void updateOutput();
     void removeInput(SoundDisplay* input);
     void removeInputByIndex(int index);
     void inputRemoved();
-private:
-    QVector<SoundDisplay*> inputs;
-    //private members
 };
 
 #endif // INPUTSCROLLVIEW_H

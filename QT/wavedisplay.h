@@ -17,6 +17,9 @@ public:
 
     double amplitude;
 
+    //1 for sine,2 for square, 3 for saw
+    WaveType waveType;
+
     /*
     * Subwidgets custom to SineWave
     */

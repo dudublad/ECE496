@@ -9,6 +9,7 @@ WaveDisplay::WaveDisplay(QWidget *parent, int id) : SoundDisplay(parent)
     waveFrequency = 20;
     amplitude = 1.00;
     inputId = id;
+    waveType = Wave_Sin;
     // Creating subwidgets
     frequencySlider = new QSlider(Qt::Vertical,this);
 
@@ -131,6 +132,7 @@ void WaveDisplay::frequencySliderStop()
 void WaveDisplay::waveTypeIndexChanged(int index)
 {
     wave.setWaveType((WaveType) index);
+    waveType = (WaveType)index;
 }
 
 void WaveDisplay::onPlayButtonClicked()
