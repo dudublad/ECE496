@@ -34,7 +34,7 @@ void FrequencyDomainDisplay::plot()
 
     //TODO: Show negative side of frequency display
 
-    fftPlot->addData(vec, coefficients);
+    fftPlot->setData(vec, coefficients);
 
     yAxis->setRange(QCPRange(0, 1));
 
