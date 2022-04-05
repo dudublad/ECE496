@@ -27,14 +27,15 @@ void FrequencyDomainDisplay::plot()
 {
     int numCoeffs = coefficients.size();
     QVector<double> vec(numCoeffs);
+    QVector<double> neg_vec(numCoeffs); //Negative plot
     for(int i = 1;i < numCoeffs;i++)
     {
        vec[i] = i;
+       neg_vec[i] = -1 * vec[i];
     }
 
-    //TODO: Show negative side of frequency display
-
     fftPlot->setData(vec, coefficients);
+    fftPlot->addData(neg_vec, coefficients);
 
     yAxis->setRange(QCPRange(0, 1));
 
