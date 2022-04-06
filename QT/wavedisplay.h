@@ -3,6 +3,9 @@
 
 #include "sounddisplay.h"
 #include "wavegenerator.h"
+#include <QDateTime>
+
+#define GENERATE_LIMIT_MS 1000
 
 class WaveDisplay : public SoundDisplay
 {
@@ -16,6 +19,12 @@ public:
     int waveFrequency;
 
     double amplitude;
+
+    /*
+     * Keeps track of when the last wave was generated
+     * This is limited by GENERATE_LIMIT_S
+     */
+    qint64 last_generate_time_ms;
 
     /*
     * Subwidgets custom to SineWave

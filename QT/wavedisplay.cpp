@@ -94,6 +94,8 @@ WaveDisplay::WaveDisplay(QWidget *parent, int id) : SoundDisplay(parent)
     //changes frequency according to what is in the slider
     wave.setFrequency(waveFrequency);
     plotWave();
+
+    last_generate_time_ms = QDateTime::currentMSecsSinceEpoch();
 }
 
 void WaveDisplay::plotWave()
@@ -142,11 +144,18 @@ void WaveDisplay::onSpinBoxChanged(int value)
     frequencySlider->setValue(value);
 }
 
+/*
+ * Limited by GENERATE_LIMIT_S
+ */
 void WaveDisplay::generateButtonPushed()
 {
-    wave.setFrequency(waveFrequency);
-    plotWave();
-    emit waveGenerated(waveFrequency);
+    if(QDateTime::currentMSecsSinceEpoch() >= last_generate_time_ms + GENERATE_LIMIT_MS)
+    {
+        wave.setFrequency(waveFrequency);
+        plotWave();
+        emit waveGenerated(waveFrequency);
+        last_generate_time_ms = QDateTime::currentMSecsSinceEpoch();
+    }
 }
 
 void WaveDisplay::amplitudeSliderStop()
