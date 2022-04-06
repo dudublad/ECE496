@@ -1,33 +1,35 @@
 #include "audiofilter.h"
+#include "QDir"
 
 audioFilter::audioFilter()
 {
 }
 
-void audioFilter::openFile(QString filePath){
+void audioFilter::generateFilter(QString filePath){
     try{
         this->input.openFile(filePath.toStdString());
-        this->output.openFile(filePath.toStdString(), 1, stk::FileWrite::FILE_WAV, stk::Stk::STK_SINT16);
-    } catch (stk::StkError &error) {
-        error.printMessage();
-    }
-}
-
-void audioFilter::generateFile(){
-    std::vector<double> coeff = this->coeffGen.generateFIRCoeff(
+        std::vector<double> coeff = this->coeffGen.generateFIRCoeff(
                 this->freqCutoff1,
                 this->freqCutoff2,
                 this->filterType,
                 this->windowType
             );
-    this->fir.setCoefficients(coeff);
+        this->fir.setCoefficients(coeff);
+        std::vector<double> firBuffer;
 
-    while (!input.isFinished()){
-        output.tick(fir.tick(input.tick()));
+        while (!input.isFinished()){
+            firBuffer.push_back(fir.tick(input.tick()));
+        }
+        input.closeFile();
+        this->output.openFile(filePath.toStdString(), 1, stk::FileWrite::FILE_WAV, stk::Stk::STK_SINT16);
+        for (long i = 0; i < firBuffer.size(); i++){
+            output.tick(firBuffer[i]);
+        }
+        this->output.closeFile();
+    } catch (stk::StkError &error) {
+        error.printMessage();
     }
-    this->output.closeFile();
 }
-
 
 void audioFilter::setFreqCutoff1(double cutoff){
     this->freqCutoff1 = cutoff;

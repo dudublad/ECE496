@@ -131,6 +131,7 @@ void SoundDisplay::onPlayButtonClicked()
     // If this following section is not loading the sound file
     // Ensure that you have the right working directory set under
     // Projects->Run->Working Directory
+    this->soundFile.openFile(this->selectedFile);
     this->soundFile.setStreamTime(0);
     this->soundFile.startStream();
     //std::cout << "Play Button Finished" << std::endl;
@@ -172,8 +173,7 @@ void SoundDisplay::volumeChanged(int changedVolume)
 }
 
 void SoundDisplay::generateEffect(audioFilter filter){
-    filter.openFile(this->selectedFile);
     drawWaveFromFile("");
-    filter.generateFile();
+    filter.generateFilter(this->selectedFile);
     drawWaveFromFile(this->selectedFile);
 }
