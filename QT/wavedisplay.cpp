@@ -91,28 +91,16 @@ WaveDisplay::WaveDisplay(QWidget *parent, int id) : SoundDisplay(parent)
 
     //Setup Sine wave
     QString file = QDir::currentPath() + "/audio_files/gen_sine.wav";
+
+    // set the file path name with its id
     wave.setFilePath(file);
     //changes frequency according to what is in the slider
     wave.setFrequency(waveFrequency);
-    plotWave();
-}
-
-void WaveDisplay::plotWave()
-{
-    //Clear the graph so that generateSine() is not
-    //Accessing the same file
-    drawWaveFromFile("");
     wave.generateSine();
 
-    QString file = wave.getFilePath();
-    drawWaveFromFile(file);
-}
-
-void WaveDisplay::playSound()
-{
-    QString file = wave.getFilePath();
-    this->soundFile.openFile(file);
-    this->soundFile.startStream();
+    // set parent path to file as this current file
+    this->changeFile(wave.getFilePath());
+    this->openFile();
 }
 
 void WaveDisplay::frequencySliderChange(int value)
@@ -133,15 +121,6 @@ void WaveDisplay::waveTypeIndexChanged(int index)
     wave.setWaveType((WaveType) index);
 }
 
-void WaveDisplay::onPlayButtonClicked()
-{
-    //plotWave();
-    if(! this->soundFile.isPlaying())
-    {
-        playSound();
-    }
-}
-
 void WaveDisplay::onSpinBoxChanged(int value)
 {
     int convertedValue = (int)value;
@@ -151,7 +130,10 @@ void WaveDisplay::onSpinBoxChanged(int value)
 
 void WaveDisplay::generateButtonPushed()
 {
-    plotWave();
+    std::cout << "generating in file: " << wave.getFilePath().toStdString() << std::endl;
+    wave.generateSine();
+    copyFileToEffectFile();
+    drawWaveFromFile(this->selectedFile);
     emit waveGenerated(waveFrequency);
 }
 

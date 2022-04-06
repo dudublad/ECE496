@@ -33,7 +33,9 @@ SoundDisplay::SoundDisplay(QWidget *parent)
     connect(volumeSlider,SIGNAL(valueChanged(int)),this,SLOT(volumeChanged(int)));
     connect(timeDomain->decoder,&QAudioDecoder::finished,[this](){frequencyDisplay->setCoefficients(fft(timeDomain->samples));});
     //connect(addSineWaveButton,&QPushButton::clicked,[this](){ addInput(InputScrollView::SoundInputType::sineWave);});
+    //connect(effectPanel->effectD)
 
+    connect(this->effectPanel, SIGNAL(sendFilter(audioFilter)), this, SLOT(generateEffect(audioFilter)));
 
     /*
      * Layout adding and declarations
@@ -70,10 +72,54 @@ SoundDisplay::~SoundDisplay()
 
 void SoundDisplay::changeFile(QString path)
 {
-    selectedFile = path;
-    this->soundFile.openFile(path);
+    this->fileName = path;
+    setEffectFile(path);
+    copyFileToEffectFile();
+
+    // always modify the effect file
+    this->openFile();
 }
 
+void SoundDisplay::copyFileToEffectFile(){
+    this->soundFile.closeFile();
+    stk::FileWvOut output;
+    stk::FileWvIn input;
+    std::cout << this->fileName.toStdString() << std::endl;
+    input.openFile(this->fileName.toStdString());
+
+    output.openFile(this->selectedFile.toStdString(), 1, stk::FileWrite::FILE_WAV, stk::Stk::STK_SINT16);
+
+    while(!input.isFinished()){
+        output.tick(input.tick());
+    }
+
+    output.closeFile();
+    input.closeFile();
+}
+
+void SoundDisplay::openFile(){
+    this->soundFile.openFile(this->selectedFile);
+    this->drawWaveFromFile(this->selectedFile);
+}
+
+void SoundDisplay::setEffectFile(QString path){
+
+    // get current path and slap on audiofile for our directory to modify the signal
+    QString currentPath = QDir::currentPath() + "/audio_files/";
+    QStringList slashSplit = path.split(QLatin1Char('/'));
+
+    // append on the file name of the path which is the last one of the slash
+    currentPath = currentPath + slashSplit[slashSplit.length() - 1];
+
+    // obtain the current path and split with a dot to append _effects
+    QStringList dotSplit = currentPath.split(QLatin1Char('.'));
+    this->selectedFile = "";
+
+    for (int i = 0; i < dotSplit.length() - 1; i++){
+        this->selectedFile = this->selectedFile + dotSplit[i];
+    }
+    this->selectedFile = this->selectedFile + "_effects." + dotSplit[dotSplit.length() - 1];
+}
 
 void SoundDisplay::onPlayButtonClicked()
 {
@@ -83,9 +129,7 @@ void SoundDisplay::onPlayButtonClicked()
     // Ensure that you have the right working directory set under
     // Projects->Run->Working Directory
     drawWaveFromFile(selectedFile);
-    if (this->soundFile.dac.isStreamRunning()){
-       this->soundFile.setStreamTime(0);
-    }
+    this->soundFile.setStreamTime(0);
     this->soundFile.startStream();
     //std::cout << "Play Button Finished" << std::endl;
 }
@@ -106,14 +150,7 @@ void SoundDisplay::drawWaveFromFile(QString file)
 
 void SoundDisplay::toggleEffectPanel()
 {
-    if (effectPanel->isVisible() == false)
-    {
-        effectPanel->setVisible(true);
-    }
-    else
-    {
-        effectPanel->setVisible(false);
-    }
+    effectPanel->setVisible(!effectPanel->isVisible());
 }
 
 void SoundDisplay::removeInputButtonPushed()
@@ -132,4 +169,8 @@ void SoundDisplay::volumeChanged(int changedVolume)
     //change the volume
 }
 
-
+void SoundDisplay::generateEffect(audioFilter filter){
+    filter.openFile(this->selectedFile);
+    filter.generateFile();
+    drawWaveFromFile(this->selectedFile);
+}

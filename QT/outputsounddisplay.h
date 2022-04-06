@@ -15,7 +15,6 @@ private:
     QString filepath;
 
     void generateOutputFile();
-    void playSound();
 
 public:
     OutputSoundDisplay(QVector<SoundDisplay*>* input_vec, QWidget *parent);
@@ -23,7 +22,6 @@ public:
 
 public slots:
     void generateOutput();
-    void onPlayButtonClicked();
 };
 
 #endif // OUTPUTSOUNDDISPLAY_H

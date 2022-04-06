@@ -13,6 +13,8 @@ OutputSoundDisplay::OutputSoundDisplay(QVector<SoundDisplay*>* input_vec, QWidge
     this->inputs = input_vec;
 
     filepath = QDir::currentPath() + "/audio_files/gen_output.wav";
+    generateOutput();
+    changeFile(filepath);
 }
 
 void OutputSoundDisplay::generateOutputFile() {
@@ -121,15 +123,4 @@ void OutputSoundDisplay::generateOutput()
     std::cout << "OutputSoundDisplay: Drawing Wave\n";
     drawWaveFromFile(filepath);
     std::cout << "OutputSoundDisplay: Done Drawing\n";
-}
-
-void OutputSoundDisplay::playSound()
-{
-    this->soundFile.openFile(filepath);
-    this->soundFile.startStream();
-}
-
-void OutputSoundDisplay::onPlayButtonClicked()
-{
-    playSound();
 }
