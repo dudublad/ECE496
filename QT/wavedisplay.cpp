@@ -100,7 +100,6 @@ WaveDisplay::WaveDisplay(QWidget *parent, int id) : SoundDisplay(parent)
 
     // set parent path to file as this current file
     this->changeFile(wave.getFilePath());
-    this->openFile();
 }
 
 void WaveDisplay::frequencySliderChange(int value)
@@ -131,6 +130,7 @@ void WaveDisplay::onSpinBoxChanged(int value)
 void WaveDisplay::generateButtonPushed()
 {
     std::cout << "generating in file: " << wave.getFilePath().toStdString() << std::endl;
+    drawWaveFromFile("");
     wave.generateSine();
     copyFileToEffectFile();
     drawWaveFromFile(this->selectedFile);

@@ -44,7 +44,7 @@ InputScrollView::InputScrollView(QWidget *parent) : QWidget(parent)
 
     addInput(InputScrollView::SoundInputType::recordedSound);
     addInput(InputScrollView::SoundInputType::sineWave);
-    output->generateOutput();
+//    output->generateOutput();
 }
 
 InputScrollView::~InputScrollView()

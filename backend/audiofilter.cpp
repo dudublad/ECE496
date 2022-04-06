@@ -20,18 +20,14 @@ void audioFilter::generateFile(){
                 this->filterType,
                 this->windowType
             );
-    this->clearCoeffs();
     this->fir.setCoefficients(coeff);
 
     while (!input.isFinished()){
         output.tick(fir.tick(input.tick()));
     }
+    this->output.closeFile();
 }
 
-void audioFilter::clearCoeffs(){
-    std::vector<stk::StkFloat> empty;
-    this->fir.setCoefficients(empty, true);
-}
 
 void audioFilter::setFreqCutoff1(double cutoff){
     this->freqCutoff1 = cutoff;

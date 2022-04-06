@@ -15,6 +15,7 @@ private:
     QString filepath;
 
     void generateOutputFile();
+    void generate();
 
 public:
     OutputSoundDisplay(QVector<SoundDisplay*>* input_vec, QWidget *parent);

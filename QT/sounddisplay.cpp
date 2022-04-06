@@ -73,6 +73,7 @@ SoundDisplay::~SoundDisplay()
 void SoundDisplay::changeFile(QString path)
 {
     this->fileName = path;
+    std::cout << "CHANGING file to " << path.toStdString() << std::endl;
     setEffectFile(path);
     copyFileToEffectFile();
 
@@ -81,24 +82,26 @@ void SoundDisplay::changeFile(QString path)
 }
 
 void SoundDisplay::copyFileToEffectFile(){
-    this->soundFile.closeFile();
     stk::FileWvOut output;
     stk::FileWvIn input;
     std::cout << this->fileName.toStdString() << std::endl;
     input.openFile(this->fileName.toStdString());
+    if (input.getSize() != 0){
+        output.openFile(this->selectedFile.toStdString(), 1, stk::FileWrite::FILE_WAV, stk::Stk::STK_SINT16);
 
-    output.openFile(this->selectedFile.toStdString(), 1, stk::FileWrite::FILE_WAV, stk::Stk::STK_SINT16);
-
-    while(!input.isFinished()){
+        while(!input.isFinished()){
         output.tick(input.tick());
-    }
+        }
 
-    output.closeFile();
+        output.closeFile();
+    }
     input.closeFile();
 }
 
 void SoundDisplay::openFile(){
+    std::cout << "OPENING: " << this->selectedFile.toStdString() << std::endl;
     this->soundFile.openFile(this->selectedFile);
+    this->drawWaveFromFile("");
     this->drawWaveFromFile(this->selectedFile);
 }
 
@@ -128,7 +131,6 @@ void SoundDisplay::onPlayButtonClicked()
     // If this following section is not loading the sound file
     // Ensure that you have the right working directory set under
     // Projects->Run->Working Directory
-    drawWaveFromFile(selectedFile);
     this->soundFile.setStreamTime(0);
     this->soundFile.startStream();
     //std::cout << "Play Button Finished" << std::endl;
@@ -171,6 +173,7 @@ void SoundDisplay::volumeChanged(int changedVolume)
 
 void SoundDisplay::generateEffect(audioFilter filter){
     filter.openFile(this->selectedFile);
+    drawWaveFromFile("");
     filter.generateFile();
     drawWaveFromFile(this->selectedFile);
 }
