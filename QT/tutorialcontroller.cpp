@@ -137,6 +137,8 @@ void TutorialController::checkConditions()
          *
          */
     }
+
+    //checks objectives
     for(int i =0;i<objectives.size();i++)
     {
         objectiveChecked(i,objectives[i]);
