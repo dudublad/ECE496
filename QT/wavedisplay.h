@@ -32,10 +32,10 @@ public:
     WaveGenerator wave;
 
     // Says set Frequency over top the slider and other label
-    QLabel* titleLabel;
+    QLabel* frequencyLabel;
 
     // Displays the current slider frequency setting
-    QSpinBox* frequencyLabel;
+    QSpinBox* frequencySpinBox;
 
     // The frequency Slider
     QSlider* frequencySlider;
