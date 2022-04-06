@@ -62,11 +62,11 @@ private:
 
 public slots:
     void frequencySliderChange(int value);
-    void frequencySliderStop();
     void onSpinBoxChanged(int value);
     void waveTypeIndexChanged(int index);
     void generateButtonPushed();
     void amplitudeSliderChange(int value);
+    void amplitudeSliderStop();
     void amplitudeSpinBoxChange(double value);
 
 signals:
