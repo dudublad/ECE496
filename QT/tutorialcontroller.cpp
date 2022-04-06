@@ -56,12 +56,14 @@ void TutorialController::checkConditions()
 {
     std::cout << "checking conditions" << std::endl;
     auto inputs = inputScrollView->inputs;
+    QVector<bool> objectives = {};
     if(stepCount == 1){
       /* Tutorial 1_1 Objectives
        * // Create square wave 100Hz
        *
        */
-        bool objective1 = false;
+        objectives.clear();
+        objectives = {false};
         for(SoundDisplay* input : inputs)
         {
             if(input->soundType == input->WAVE_SOUND_TYPE)
@@ -69,20 +71,46 @@ void TutorialController::checkConditions()
               WaveDisplay* wavePointer = (WaveDisplay*)(input);
               if(wavePointer->waveFrequency == 100 && wavePointer->wave.gen_wave.getType() == WaveType::Wave_Square)
               {
-                objective1 = true;
+                objectives[0] = true;
               }
             }
         }
-       objectiveChecked(0,objective1);
     }
     else if(stepCount == 2){
         /* Tutorial 1_2 Objectives
-         *
-         *
+         * 0: "Create Sine wave Frequency: 100Hz, Amplitude: 1"
+         * 1: "Create Sine wave Frequency: 300Hz, Amplitude: 0.33"
+         * 2: "Create Sine wave Frequency: 500Hz, Amplitude: 0.20"
+         * 3: "Create Sine wave Frequency: 700Hz, Amplitude: 0.14"
          */
-        for(SoundDisplay* inputs : inputs)
+        objectives.clear();
+        objectives = {false,false,false,false};
+        for(SoundDisplay* input : inputs)
         {
-
+            if(input->soundType == input->WAVE_SOUND_TYPE)
+            {
+                WaveDisplay* wavePointer = (WaveDisplay*)(input);
+                if(wavePointer->waveFrequency == 100 && wavePointer->wave.gen_wave.getType() == WaveType::Wave_Sin \
+                        && wavePointer->amplitude == 100)
+                {
+                  objectives[0] = true;
+                }
+                if(wavePointer->waveFrequency == 300 && wavePointer->wave.gen_wave.getType() == WaveType::Wave_Sin \
+                       && wavePointer->amplitude == 33)
+                {
+                  objectives[1] = true;
+                }
+                if(wavePointer->waveFrequency == 500 && wavePointer->wave.gen_wave.getType() == WaveType::Wave_Sin \
+                        && wavePointer->amplitude == 20)
+                {
+                  objectives[2] = true;
+                }
+                if(wavePointer->waveFrequency == 700 && wavePointer->wave.gen_wave.getType() == WaveType::Wave_Sin \
+                        && wavePointer->amplitude == 14)
+                {
+                  objectives[3] = true;
+                }
+            }
         }
     }
     else if(stepCount == 3){
@@ -109,14 +137,21 @@ void TutorialController::checkConditions()
          *
          */
     }
+    for(int i =0;i<objectives.size();i++)
+    {
+        objectiveChecked(i,objectives[i]);
+    }
 }
 
 // Loads the very opening part of the first tutorial
 void TutorialController::loadTutorial1_1()
 {
-    QStringList objectives = { "Add A Sine Wave"};
+    QStringList objectives = { "Make a Square Wave, Frequency: 100Hz"};
+    QString instructions = "Welcome to the first tutorial: Superposition, Frequency and Time!\n \
+Lets start off by getting familiar with the display, Create a new input or use the existing ones to \
+create a square wave with a frequency of 100Hz";
     //changes the objective texts
-    tutorialPanel->updatePanel(objectives);
+    tutorialPanel->updatePanel(objectives,instructions);
     /*
      * Note the checkboxes will be added in the same order
      * they were supplied
@@ -131,20 +166,36 @@ void TutorialController::loadTutorial1_1()
 
 void TutorialController::loadTutorial1_2()
 {
-    QStringList objectives = { "Add A Sine Wave"};
-    tutorialPanel->updatePanel(objectives);
+    QStringList objectives = { "Create Sine wave Frequency: 100Hz, Amplitude: 1",
+                             "Create Sine wave Frequency: 300Hz, Amplitude: 0.33",
+                             "Create Sine wave Frequency: 500Hz, Amplitude: 0.20",
+                             "Create Sine wave Frequency: 700Hz, Amplitude: 0.14"};
+    QString instructions = "Create Sine Waves: \n\
+Create 4 new inputs. All of these inputs will be sin waves with 0 phase offset.\
+The first should have a frequency of 100Hz and an amplitude of 1. \
+Observe the frequency domain, and note that the fourier transform of a sin wave is a spike, \
+or delta at the frequency 100Hz.\nNow make a separate sin wave with a frequency of 300Hz and an amplitude of ⅓.\
+Do this again for 500Hz with amplitude of ⅕, and 700Hz with amplitude of 1/7. \
+Note each time that the frequency domain is a spike at the respective frequency values\
+\nOnce you’ve made your signals, add each sin wave together one by one, observing the time domain output each time. \
+You should see that as more signals are added, the wave starts to look more and more like a square wave\
+\nAlso note that the frequency domain of the sum of sins is the same as the sum of the frequency domain plots for each sin.\
+This is because the fourier transform is a linear operation";
+    tutorialPanel->updatePanel(objectives,instructions);
 }
 
 void TutorialController::loadTutorial1_3()
 {
-    QStringList objectives = { "Step 2"};
-    tutorialPanel->updatePanel(objectives);
+    QStringList objectives = { "Step 3"};
+    QString instructions = "";
+    tutorialPanel->updatePanel(objectives,instructions);
 }
 
 void TutorialController::loadTutorial1_4()
 {
-    QStringList objectives = { "Step 3"};
-    tutorialPanel->updatePanel(objectives);
+    QStringList objectives = { "Step 4"};
+    QString instructions = "";
+    tutorialPanel->updatePanel(objectives,instructions);
 }
 
 void TutorialController::loadTutorial1_5()
