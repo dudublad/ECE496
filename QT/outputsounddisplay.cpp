@@ -63,7 +63,7 @@ void OutputSoundDisplay::generateOutput()
             else{
                 std::cout << "OutputSoundDisplay: Trying to open file: " << input->timeDomain->getSourceFile().toStdString() << std::endl;
                 try{
-                    inputFile.openFile(fileSource);
+                    inputFile.openFile(fileSource, false, false);
                 } catch (stk::StkError &error) {
                     error.printMessage();
                 }
