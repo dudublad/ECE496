@@ -1,4 +1,5 @@
 #include "wavedisplay.h"
+#include <QSizePolicy>
 
 WaveDisplay::WaveDisplay(QWidget *parent, int id) : SoundDisplay(parent)
 {
@@ -10,7 +11,7 @@ WaveDisplay::WaveDisplay(QWidget *parent, int id) : SoundDisplay(parent)
     amplitude = 1.00;
     inputId = id;
     // Creating subwidgets
-    frequencySlider = new QSlider(Qt::Vertical,this);
+    frequencySlider = new QSlider(Qt::Horizontal,this);
 
     frequencySpinBox = new QSpinBox(this);
     frequencyLabel = new QLabel(this);
@@ -18,6 +19,7 @@ WaveDisplay::WaveDisplay(QWidget *parent, int id) : SoundDisplay(parent)
     generateButton = new QPushButton("Generate Wave",this);
     amplitudeLabel = new QLabel(this);
     amplitudeSlider = new QSlider(Qt::Horizontal,this);
+    amplitudeSpinBox = new QDoubleSpinBox (this);
     //frequencyLayout = new QVBoxLayout(this);
     // setting up frequency slider
     frequencySlider->setValue(waveFrequency);
@@ -30,14 +32,18 @@ WaveDisplay::WaveDisplay(QWidget *parent, int id) : SoundDisplay(parent)
     frequencySpinBox->setMaximum(MAX_FREQ);
     frequencySpinBox->setSuffix(" Hz");
 
-    amplitudeSlider->setMinimum(1);
+    amplitudeSpinBox->setMinimum(0);
+    amplitudeSpinBox->setMaximum(2);
+    amplitudeSpinBox->setSingleStep(0.1);
+    amplitudeSpinBox->setValue(amplitude);
+    amplitudeSlider->setMinimum(0);
     amplitudeSlider->setMaximum(100);
     amplitudeSlider->setSingleStep(1);
     amplitudeSlider->setValue(amplitude*100);
-    amplitudeLabel->setText(QString::fromStdString("Wave Amplitude: 1.00"));
+    amplitudeLabel->setText(QString::fromStdString("Amplitude"));
     amplitudeLabel->setAlignment(Qt::AlignCenter);
     //frequencyLabel->setValue(QString::number(waveFrequency) + "Hz");
-    frequencyLabel->setText("Set Wave Frequency");
+    frequencyLabel->setText("Frequency");
     frequencyLabel->setAlignment(Qt::AlignCenter);
 
     // connecting signals
@@ -48,6 +54,7 @@ WaveDisplay::WaveDisplay(QWidget *parent, int id) : SoundDisplay(parent)
     connect(generateButton,SIGNAL(clicked()),this,SLOT(generateButtonPushed()));
     connect(amplitudeSlider,SIGNAL(sliderReleased()),this,SLOT(amplitudeSliderStop()));
     connect(amplitudeSlider,SIGNAL(valueChanged(int)),this,SLOT(amplitudeSliderChange(int)));
+    connect(amplitudeSpinBox,SIGNAL(valueChanged(double)),this,SLOT(amplitudeSpinBoxChange(double)));
     // Adding the frequency controls to the layout
 
 
@@ -74,19 +81,23 @@ WaveDisplay::WaveDisplay(QWidget *parent, int id) : SoundDisplay(parent)
     waveTypeSelector->insertItem(Wave_Square, "Square Wave");
     waveTypeSelector->insertItem(Wave_SawTooth, "Sawtooth Wave");
     connect(waveTypeSelector,SIGNAL(currentIndexChanged(int)),this,SLOT(waveTypeIndexChanged(int)));
+
+    //Setup the button layouy
     buttonLayout->addWidget(playButton,0,0,Qt::AlignCenter);
+    buttonLayout->addWidget(waveTypeSelector,0,1,Qt::AlignCenter);
     buttonLayout->addWidget(stopButton,1,0,Qt::AlignCenter);
-    buttonLayout->addWidget(toggleEffectPanelButton,2,0,Qt::AlignCenter);
-    buttonLayout->addWidget(frequencyLabel,0,1,Qt::AlignCenter);
-    buttonLayout->addWidget(frequencySlider,1,1,Qt::AlignCenter);
-    buttonLayout->addWidget(frequencySpinBox,2,1,Qt::AlignCenter);
-    buttonLayout->addWidget(removeInputButton,3,0,Qt::AlignCenter);
-    buttonLayout->addWidget(waveTypeSelector,3,1,Qt::AlignCenter);
-    buttonLayout->addWidget(volumeLabel,4,0,Qt::AlignCenter);
-    buttonLayout->addWidget(volumeSlider,4,1,Qt::AlignCenter);
-    buttonLayout->addWidget(amplitudeLabel,5,0,Qt::AlignCenter);
-    buttonLayout->addWidget(amplitudeSlider,5,1,Qt::AlignCenter);
-    buttonLayout->addWidget(generateButton,6,0,Qt::AlignCenter);
+    buttonLayout->addWidget(toggleEffectPanelButton,1,1,Qt::AlignCenter);
+    buttonLayout->addWidget(removeInputButton,2,0,Qt::AlignCenter);
+    buttonLayout->addWidget(generateButton,2,1,Qt::AlignCenter);
+    buttonLayout->addWidget(frequencyLabel,3,0, 1, 2, Qt::AlignCenter);
+    buttonLayout->addWidget(frequencySlider,4,1,Qt::AlignCenter);
+    buttonLayout->addWidget(frequencySpinBox,4,0,Qt::AlignCenter);
+    buttonLayout->addWidget(amplitudeLabel,5,0, 1, 2, Qt::AlignCenter);
+    buttonLayout->addWidget(amplitudeSpinBox,6,0,Qt::AlignCenter);
+    buttonLayout->addWidget(amplitudeSlider,6,1,Qt::AlignCenter);
+    buttonLayout->addWidget(volumeLabel,7,0,Qt::AlignCenter);
+    buttonLayout->addWidget(volumeSlider,7,1,Qt::AlignCenter);
+
 
     //Setup Sine wave
     QString file = QDir::currentPath() + "/audio_files/gen_sine.wav";
@@ -151,6 +162,7 @@ void WaveDisplay::generateButtonPushed()
 {
     if(QDateTime::currentMSecsSinceEpoch() >= last_generate_time_ms + GENERATE_LIMIT_MS)
     {
+        wave.setAmplitude(amplitude);
         wave.setFrequency(waveFrequency);
         plotWave();
         emit waveGenerated(waveFrequency);
@@ -158,17 +170,19 @@ void WaveDisplay::generateButtonPushed()
     }
 }
 
-void WaveDisplay::amplitudeSliderStop()
-{
-    wave.setAmplitude(amplitude);
-}
-
 void WaveDisplay::amplitudeSliderChange(int value)
 {
     double convAmp = ((double)value)/100.0;
     amplitude = convAmp;
     std::string convAmpString = std::to_string(convAmp).substr(0, std::to_string(convAmp).find(".") + 2 + 1);
-    amplitudeLabel->setText(QString::fromStdString("Wave Amplitude: " + convAmpString));
     amplitude = convAmp;
+    if(amplitudeSpinBox->value() != convAmp) {
+        amplitudeSpinBox->setValue(convAmp);
+    }
+}
+
+void WaveDisplay::amplitudeSpinBoxChange(double value)
+{
+    amplitudeSlider->setValue(100 * value);
 }
 

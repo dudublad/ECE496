@@ -52,6 +52,7 @@ public:
     QPushButton* generateButton;
 
     //
+    QDoubleSpinBox * amplitudeSpinBox;
     QLabel* amplitudeLabel;
 
     QSlider* amplitudeSlider;
@@ -67,7 +68,7 @@ public slots:
     void waveTypeIndexChanged(int index);
     void generateButtonPushed();
     void amplitudeSliderChange(int value);
-    void amplitudeSliderStop();
+    void amplitudeSpinBoxChange(double value);
 
 signals:
     void waveGenerated(int waveFrequency);
