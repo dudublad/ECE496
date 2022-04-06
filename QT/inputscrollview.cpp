@@ -153,6 +153,7 @@ void InputScrollView::removeInput(SoundDisplay* input)
             break;
         }
     }
+    checkTutorialStatus();
 }
 
 void InputScrollView::inputRemoved()

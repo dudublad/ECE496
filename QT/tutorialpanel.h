@@ -6,6 +6,7 @@
 #include <QCheckBox>
 #include <QVBoxLayout>
 #include <QPushButton>
+#include <iostream>
 
 /*
  * This is the panel anchored to the top of the screen

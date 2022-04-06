@@ -2,17 +2,54 @@
 
 TutorialController::TutorialController(QWidget *parent) : QWidget(parent)
 {
-    stepCount = 0;
+    stepCount = 1;
     mainTutorialLayout = new QVBoxLayout(this);
     inputScrollView = new InputScrollView(this);
     tutorialPanel = new TutorialPanel(this,1);
     connect(inputScrollView,SIGNAL(checkTutorialSignal()),this,SLOT(checkConditions()));
+    connect(tutorialPanel->submitObjectivesButton,SIGNAL(clicked()),this,SLOT(moveToNextStep()));
     mainTutorialLayout->addWidget(tutorialPanel,1);
     mainTutorialLayout->addWidget(inputScrollView,6);
     this->setLayout(mainTutorialLayout);
 
     loadTutorial1_1();
     // set up to emit signal when all boxes are ticked
+}
+void TutorialController::moveToNextStep()
+{
+   bool stepCompleted = true;
+   for(QCheckBox* checkBox : tutorialPanel->checkboxes)
+   {
+        if(checkBox->isChecked() == false)
+        {
+            stepCompleted = false;
+            break;
+        }
+   }
+   if(stepCompleted)
+   {
+       stepCount++;
+       switch(stepCount) {
+
+        case 1:
+           loadTutorial1_1();
+           break;
+        case 2:
+          loadTutorial1_2();
+          break;
+        case 3:
+          loadTutorial1_3();
+          break;
+        case 4:
+          loadTutorial1_4();
+          break;
+        case 5:
+          loadTutorial1_5();
+          break;
+        default:
+          loadEndTutorial1();
+       }
+   }
 }
 
 void TutorialController::checkConditions()
@@ -30,7 +67,7 @@ void TutorialController::checkConditions()
             if(input->soundType == input->WAVE_SOUND_TYPE)
             {
               WaveDisplay* wavePointer = (WaveDisplay*)(input);
-              if(wavePointer->waveFrequency == 100)
+              if(wavePointer->waveFrequency == 100 && wavePointer->wave.gen_wave.getType() == WaveType::Wave_Square)
               {
                 objective1 = true;
               }
@@ -43,6 +80,10 @@ void TutorialController::checkConditions()
          *
          *
          */
+        for(SoundDisplay* inputs : inputs)
+        {
+
+        }
     }
     else if(stepCount == 3){
         /* Tutorial 1_3 Objectives
@@ -73,7 +114,6 @@ void TutorialController::checkConditions()
 // Loads the very opening part of the first tutorial
 void TutorialController::loadTutorial1_1()
 {
-    stepCount++;
     QStringList objectives = { "Add A Sine Wave"};
     //changes the objective texts
     tutorialPanel->updatePanel(objectives);
@@ -91,27 +131,35 @@ void TutorialController::loadTutorial1_1()
 
 void TutorialController::loadTutorial1_2()
 {
-    stepCount++;
+    QStringList objectives = { "Add A Sine Wave"};
+    tutorialPanel->updatePanel(objectives);
 }
 
 void TutorialController::loadTutorial1_3()
 {
-    stepCount++;
+    QStringList objectives = { "Step 2"};
+    tutorialPanel->updatePanel(objectives);
 }
 
 void TutorialController::loadTutorial1_4()
 {
-    stepCount++;
+    QStringList objectives = { "Step 3"};
+    tutorialPanel->updatePanel(objectives);
 }
 
 void TutorialController::loadTutorial1_5()
 {
-    stepCount++;
+
 }
 
 void TutorialController::loadTutorial1_6()
 {
-    stepCount++;
+
+}
+
+void TutorialController::loadEndTutorial1()
+{
+
 }
 
 void TutorialController::objectiveChecked(int boxIndex,bool completed)

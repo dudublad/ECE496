@@ -29,12 +29,14 @@ public:
     void loadTutorial1_4();
     void loadTutorial1_5();
     void loadTutorial1_6();
+    void loadEndTutorial1();
     QVector<QCheckBox> currentObjectives;
     QVector<QString> objectiveText;
 
 public slots:
     void objectiveChecked(int boxIndex,bool completed);
     void checkConditions();
+    void moveToNextStep();
 };
 
 #endif // TUTORIALCONTROLLER_H

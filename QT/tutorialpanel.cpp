@@ -4,7 +4,6 @@ TutorialPanel::TutorialPanel(QWidget *parent, int tutorialNumber) : QWidget(pare
 {
     objectivesLayout = new QVBoxLayout(this);
     submitObjectivesButton = new QPushButton("Submit Objectives",this);
-
 }
 
 TutorialPanel::~TutorialPanel()
@@ -15,11 +14,12 @@ TutorialPanel::~TutorialPanel()
 //
 void TutorialPanel::updatePanel(QStringList objectives)
 {
-    //Disposes of checkboxes
-    for(int i = 0;i < checkboxes.size();i++)
-    {
-        free(checkboxes[i]);
-    }
+    std::cout << "updating panel" << std::endl;
+    //Disposes of existing checkboxes
+//    for(int i = 0;i < checkboxes.size();i++)
+//    {
+//        free(checkboxes[i]);
+//    }
     checkboxes.clear();
 
 
@@ -35,6 +35,7 @@ void TutorialPanel::updatePanel(QStringList objectives)
     }
 
     objectivesLayout->addWidget(submitObjectivesButton);
+    std::cout << "done updating panel" << std::endl;
 }
 
 bool TutorialPanel::getObjectivesStatus()
