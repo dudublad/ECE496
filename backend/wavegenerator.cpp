@@ -10,6 +10,11 @@ void WaveGenerator::setFrequency(float freq){
     this->gen_wave.setFrequency(freq);
 }
 
+// change the amplitude of wave
+void WaveGenerator::setAmplitude(float amplitude) {
+    gen_wave.setAmplitude(amplitude);
+}
+
 void WaveGenerator::setDuration(float len){
     gen_wave.setDuration(len);
 }
