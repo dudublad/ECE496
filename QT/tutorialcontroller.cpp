@@ -188,14 +188,16 @@ This is because the fourier transform is a linear operation";
 
 void TutorialController::loadTutorial1_3()
 {
-    QStringList objectives = { "Step 3"};
-    QString instructions = "";
+    QStringList objectives = {};
+    QString instructions = "Compare the frequency domain for the square wave and the superposition of sin waves. \
+Note that they are similar, with spikes at 100Hz, 300Hz, 500Hz, and 700Hz for both signals,\
+and more smaller spikes at higher frequencies for the square wave";
     tutorialPanel->updatePanel(objectives,instructions);
 }
 
 void TutorialController::loadTutorial1_4()
 {
-    QStringList objectives = { "Step 4"};
+    QStringList objectives = {"Step 4"};
     QString instructions = "";
     tutorialPanel->updatePanel(objectives,instructions);
 }

@@ -165,7 +165,6 @@ void WaveDisplay::amplitudeSliderStop()
 void WaveDisplay::amplitudeSliderChange(int value)
 {
     double convAmp = value/100.0;
-    amplitude = convAmp;
     std::string convAmpString = std::to_string(convAmp).substr(0, std::to_string(convAmp).find(".") + 2 + 1);
     amplitudeLabel->setText(QString::fromStdString("Wave Amplitude: " + convAmpString));
     amplitude = value;
