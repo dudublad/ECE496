@@ -52,7 +52,6 @@ WaveDisplay::WaveDisplay(QWidget *parent, int id) : SoundDisplay(parent)
     connect(frequencySpinBox,SIGNAL(valueChanged(int)),this,SLOT(onSpinBoxChanged(int)));
     connect(removeInputButton,SIGNAL(clicked()),this,SLOT(removeInputButtonPushed()));
     connect(generateButton,SIGNAL(clicked()),this,SLOT(generateButtonPushed()));
-    connect(amplitudeSlider,SIGNAL(sliderReleased()),this,SLOT(amplitudeSliderStop()));
     connect(amplitudeSlider,SIGNAL(valueChanged(int)),this,SLOT(amplitudeSliderChange(int)));
     connect(amplitudeSpinBox,SIGNAL(valueChanged(double)),this,SLOT(amplitudeSpinBoxChange(double)));
     // Adding the frequency controls to the layout
@@ -130,7 +129,6 @@ void WaveDisplay::waveTypeIndexChanged(int index)
 void WaveDisplay::onSpinBoxChanged(int value)
 {
     waveFrequency = value;
-    wave.setFrequency(waveFrequency);
     frequencySlider->setValue(value);
 }
 
@@ -139,6 +137,8 @@ void WaveDisplay::onSpinBoxChanged(int value)
  */
 void WaveDisplay::generateButtonPushed()
 {
+    wave.setFrequency(waveFrequency);
+    wave.setAmplitude(amplitude);
     if(QDateTime::currentMSecsSinceEpoch() >= last_generate_time_ms + GENERATE_LIMIT_MS) {
         std::cout << "generating in file: " << wave.getFilePath().toStdString() << std::endl;
         drawWaveFromFile("");
@@ -150,16 +150,9 @@ void WaveDisplay::generateButtonPushed()
     }
 }
 
-void WaveDisplay::amplitudeSliderStop()
-{
-    wave.setAmplitude(amplitude);
-}
-
 void WaveDisplay::amplitudeSliderChange(int value)
 {
     double convAmp = ((double)value)/100.0;
-    amplitude = convAmp;
-    std::string convAmpString = std::to_string(convAmp).substr(0, std::to_string(convAmp).find(".") + 2 + 1);
     amplitude = convAmp;
     if(amplitudeSpinBox->value() != convAmp) {
         amplitudeSpinBox->setValue(convAmp);

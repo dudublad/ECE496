@@ -85,7 +85,7 @@ void SoundDisplay::copyFileToEffectFile(){
     stk::FileWvOut output;
     stk::FileWvIn input;
     std::cout << this->fileName.toStdString() << std::endl;
-    input.openFile(this->fileName.toStdString());
+    input.openFile(this->fileName.toStdString(), false, false);
     if (input.getSize() != 0){
         output.openFile(this->selectedFile.toStdString(), 1, stk::FileWrite::FILE_WAV, stk::Stk::STK_SINT16);
 
