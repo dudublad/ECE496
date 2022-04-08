@@ -12,7 +12,7 @@ stk::FileWvIn AudioFile::getInputFile()
 void AudioFile::openFile(QString filePath){
 
     try{
-        this->input.openFile(filePath.toStdString());
+        this->input.openFile(filePath.toStdString(), false, false);
         this->currentFile = filePath;
     } catch (stk::StkError &error) {
         error.printMessage();

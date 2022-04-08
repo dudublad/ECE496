@@ -7,7 +7,7 @@ audioFilter::audioFilter()
 
 void audioFilter::generateFilter(QString filePath){
     try{
-        this->input.openFile(filePath.toStdString());
+        this->input.openFile(filePath.toStdString(), false, false);
         std::vector<double> coeff = this->coeffGen.generateFIRCoeff(
                 this->freqCutoff1,
                 this->freqCutoff2,
