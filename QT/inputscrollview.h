@@ -9,6 +9,8 @@
 #include "recordedsounddisplay.h"
 #include "outputsounddisplay.h"
 
+#define NEW_WAVE_LIMIT_MS 1000
+
 class InputScrollView : public QWidget
 {
     Q_OBJECT
@@ -49,6 +51,11 @@ public:
     int nextInputId;
 
     QVector<SoundDisplay*> inputs;
+    /*
+     * Keeps track of the last time a new was was added
+     * This is limited by NEW_WAVE_LIMIT_MS
+     */
+    qint64 last_new_wave_time_ms;
 
 public slots:
     void addInput(InputScrollView::SoundInputType inputType);

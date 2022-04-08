@@ -91,22 +91,22 @@ void TutorialController::checkConditions()
             {
                 WaveDisplay* wavePointer = (WaveDisplay*)(input);
                 if(wavePointer->waveFrequency == 100 && wavePointer->wave.gen_wave.getType() == WaveType::Wave_Sin \
-                        && wavePointer->amplitude == 100)
+                        && round(wavePointer->amplitude*100) == 100)
                 {
                   objectives[0] = true;
                 }
                 if(wavePointer->waveFrequency == 300 && wavePointer->wave.gen_wave.getType() == WaveType::Wave_Sin \
-                       && wavePointer->amplitude == 33)
+                       && round(wavePointer->amplitude) == 33)
                 {
                   objectives[1] = true;
                 }
                 if(wavePointer->waveFrequency == 500 && wavePointer->wave.gen_wave.getType() == WaveType::Wave_Sin \
-                        && wavePointer->amplitude == 20)
+                        && round(wavePointer->amplitude) == 20)
                 {
                   objectives[2] = true;
                 }
                 if(wavePointer->waveFrequency == 700 && wavePointer->wave.gen_wave.getType() == WaveType::Wave_Sin \
-                        && wavePointer->amplitude == 14)
+                        && round(wavePointer->amplitude) == 14)
                 {
                   objectives[3] = true;
                 }

@@ -29,6 +29,8 @@ void OutputSoundDisplay::generateOutputFile() {
     outputFile.closeFile();
 }
 
+#define OUTPUT_PLOT_TIME_LIMIT_S 10
+
 /*
  * Called when its inputs are updated
  */
@@ -62,7 +64,7 @@ void OutputSoundDisplay::generateOutput()
             else{
                 std::cout << "OutputSoundDisplay: Trying to open file: " << input->timeDomain->getSourceFile().toStdString() << std::endl;
                 try{
-                    inputFile.openFile(fileSource);
+                    inputFile.openFile(fileSource, false, false);
                 } catch (stk::StkError &error) {
                     error.printMessage();
                 }
@@ -71,7 +73,7 @@ void OutputSoundDisplay::generateOutput()
                           << " fileRate = " << inputFile.getFileRate() << std::endl;
 
                 int numSamples = inputFile.getSize() * (stk::Stk::sampleRate()/inputFile.getFileRate());
-                for(int j = 0; j < numSamples; j++){
+                for(int j = 0; j < numSamples && j < OUTPUT_PLOT_TIME_LIMIT_S*stk::Stk::sampleRate(); j++){
                     if(j >= outputBuf.size()){
                         outputBuf.push_back(inputFile.tick());
                     }

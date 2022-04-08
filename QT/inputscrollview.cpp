@@ -44,6 +44,8 @@ InputScrollView::InputScrollView(QWidget *parent) : QWidget(parent)
     addInput(InputScrollView::SoundInputType::recordedSound);
     addInput(InputScrollView::SoundInputType::sineWave);
     output->generateOutput();
+
+    last_new_wave_time_ms = 0;
 }
 
 InputScrollView::~InputScrollView()
@@ -107,6 +109,10 @@ void InputScrollView::addInput(SoundInputType inputType)
     }
     else if(inputType == SoundInputType::sineWave)
     {
+        if(QDateTime::currentMSecsSinceEpoch() < last_new_wave_time_ms + NEW_WAVE_LIMIT_MS)
+        {
+            return;
+        }
         WaveDisplay* toInsert = new WaveDisplay(this,nextInputId);
         //toInsert->inputId = nextInputId;
 
@@ -118,6 +124,7 @@ void InputScrollView::addInput(SoundInputType inputType)
         insertedInput = toInsert;
         //TODO: if statement here to check relevancy?
         connect(toInsert,&WaveDisplay::waveGenerated,this,&InputScrollView::checkTutorialStatus);
+        last_new_wave_time_ms = QDateTime::currentMSecsSinceEpoch();
     }
     else
     {
