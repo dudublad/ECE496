@@ -131,7 +131,9 @@ void SoundDisplay::onPlayButtonClicked()
     // If this following section is not loading the sound file
     // Ensure that you have the right working directory set under
     // Projects->Run->Working Directory
+
     this->soundFile.openFile(this->selectedFile);
+    this->soundFile.changeVolume(volume/100.0);
     this->soundFile.setStreamTime(0);
     this->soundFile.startStream();
     //std::cout << "Play Button Finished" << std::endl;
@@ -165,9 +167,8 @@ void SoundDisplay::removeInputButtonPushed()
 void SoundDisplay::volumeChanged(int changedVolume)
 {
     volume = changedVolume;
+    this->soundFile.changeVolume(volume/100.0);
     volumeLabel->setText(QString::fromStdString("Volume: " + std::to_string(volume)));
-    float scaledVolume = volume/100.0;
-    this->soundFile.changeVolume(scaledVolume);
     // Call other function which actually changes volume
     //change the volume
 }
