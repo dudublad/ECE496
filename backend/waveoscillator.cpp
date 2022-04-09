@@ -2,6 +2,7 @@
 #include <math.h>
 #include <iostream>
 #include <Stk.h>
+#include <random>
 
 //Constructors
 WaveOscillator::WaveOscillator(){
@@ -123,3 +124,17 @@ void WaveOscillator::generateSawtooth(int size){
                        - 0.5*amplitude);
     }
 }
+
+void WaveOscillator::generateNoise(int size){
+    double sigma = 0.4;
+    double mean = 0;
+
+    std::default_random_engine generator;
+    std::normal_distribution<double> distribution(mean,sigma);
+    for(int i = 0; i < size; i++){
+        values[i] = distribution(generator);
+    }
+}
+
+
+
