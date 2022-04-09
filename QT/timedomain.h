@@ -6,17 +6,15 @@
 #include  <iostream>
 class QAudioDecoder;
 
+#define START_INPUT_ID 1
+#define OUTPU_ID 0
+
 // Class used to display the time domain plot of a signal, inherits the QCustomPlot functionality
 class TimeDomain : public QCustomPlot
 {
     Q_OBJECT
 
 public:
-    TimeDomain(QWidget *parent = Q_NULLPTR);
-    ~TimeDomain();
-
-    // Sets a new file source for the decoder which will automatically run setBuffer and plot when complete
-    void setSource(const QString &fileName);
 
     QString currentFile;
     QAudioDecoder *decoder;
@@ -24,7 +22,19 @@ public:
     QVector<double> samples;
     QCPGraph *wavePlot;
     int sampleRate;
-    double sampleScale;
+    double sampleScale = 1.0;
+
+    double yScaling = 1.0;
+    double yMax = 1.0;
+    double yMin = -1.0;
+
+    TimeDomain(QWidget *parent = Q_NULLPTR);
+    ~TimeDomain();
+
+    // Sets a new file source for the decoder which will automatically run setBuffer and plot when complete
+    void setSource(const QString &fileName);
+
+    QString getSourceFile();
 
 public slots:
     // Sets the samples in the samples attribute with information from the decoder when decoding completes
@@ -38,6 +48,10 @@ public slots:
 
     //Returns the value stored in the sampleRate attribute
     int getSampleRate();
+
+signals:
+    void plotStarted();
+    void plotFinished();
 
 private:
     // Gets the peak value of the specific audio format

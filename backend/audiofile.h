@@ -22,6 +22,10 @@ public:
     // changes current volume of opened file
     void changeVolume(float volume);
 
+    stk::FileWvIn getInputFile();
+
+    void closeFile();
+
     ~AudioFile();
 
 private:
@@ -34,6 +38,8 @@ private:
 
     // the file itself as an stk input
     stk::FileWvIn input;
+
+    QString currentFile = "";
 };
 
 #endif // AUDIOFILE_H

@@ -17,6 +17,9 @@ public:
     // change sine frequency (aka pitch)
     void setFrequency(float freq);
 
+    // change the amplitude of wave
+    void setAmplitude(float amplitude);
+
     // change length of sine wave file generation
     void setDuration(float len);
 

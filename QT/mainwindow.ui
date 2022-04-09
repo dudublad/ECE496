@@ -19,7 +19,7 @@
    </property>
    <layout class="QVBoxLayout" name="verticalLayout_3">
     <item>
-     <widget class="InputScrollView" name="inputScrollView" native="true"/>
+     <widget class="TutorialController" name="tutorialController" native="true"/>
     </item>
    </layout>
   </widget>
@@ -58,9 +58,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>InputScrollView</class>
+   <class>TutorialController</class>
    <extends>QWidget</extends>
-   <header>inputscrollview.h</header>
+   <header>tutorialcontroller.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

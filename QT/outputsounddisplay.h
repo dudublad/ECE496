@@ -6,8 +6,19 @@
 class OutputSoundDisplay : public SoundDisplay
 {
     Q_OBJECT
+private:
+    //Points to the same input vector as the one in InputScrollView
+    QVector<SoundDisplay*>* inputs = nullptr;
+
+    //Output values
+    QVector<double> outputBuf;
+    QString filepath;
+
+    void generateOutputFile();
+    void generate();
+
 public:
-    OutputSoundDisplay(QWidget *parent);
+    OutputSoundDisplay(QVector<SoundDisplay*>* input_vec, QWidget *parent);
 
 
 public slots:

@@ -3,6 +3,9 @@
 
 #include "sounddisplay.h"
 #include "wavegenerator.h"
+#include <QDateTime>
+
+#define GENERATE_LIMIT_MS 1000
 
 class WaveDisplay : public SoundDisplay
 {
@@ -15,16 +18,24 @@ public:
      */
     int waveFrequency;
 
+    double amplitude;
+
+    /*
+     * Keeps track of when the last wave was generated
+     * This is limited by GENERATE_LIMIT_S
+     */
+    qint64 last_generate_time_ms;
+
     /*
     * Subwidgets custom to SineWave
     */
     WaveGenerator wave;
 
     // Says set Frequency over top the slider and other label
-    QLabel* titleLabel;
+    QLabel* frequencyLabel;
 
     // Displays the current slider frequency setting
-    QDoubleSpinBox* frequencyLabel;
+    QSpinBox* frequencySpinBox;
 
     // The frequency Slider
     QSlider* frequencySlider;
@@ -37,17 +48,28 @@ public:
 
     QComboBox* waveTypeSelector;
 
+    // The Button that generates the wave
+    QPushButton* generateButton;
+
+    //
+    QDoubleSpinBox * amplitudeSpinBox;
+    QLabel* amplitudeLabel;
+
+    QSlider* amplitudeSlider;
+
 private:
     void plotWave();
-    void playSound();
 
 public slots:
     void frequencySliderChange(int value);
-    void frequencySliderStop();
-    void onPlayButtonClicked();
-    void onSpinBoxChanged(double value);
+    void onSpinBoxChanged(int value);
     void waveTypeIndexChanged(int index);
+    void generateButtonPushed();
+    void amplitudeSliderChange(int value);
+    void amplitudeSpinBoxChange(double value);
 
+signals:
+    void waveGenerated(int waveFrequency);
 };
 
 #endif // WAVEDISPLAY_H

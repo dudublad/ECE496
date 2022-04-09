@@ -16,7 +16,6 @@ public:
 
     // Sets FFT coefficients for to display on the graph
     void setCoefficients(QVector<double> coeffs);
-    void setSamples(QVector<double> samples);
 private:
     QVector<double> coefficients;
     QCPGraph *fftPlot;

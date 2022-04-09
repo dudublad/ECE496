@@ -18,6 +18,13 @@ public:
     SoundDisplay(QWidget *parent);
     ~SoundDisplay();
     void changeFile(QString path);
+    void openFile();
+
+    // copys the original file to the effect file
+    void copyFileToEffectFile();
+
+    // sets the effect file name to /this/file/path/name_effects.wav
+    void setEffectFile(QString path);
 
     /*
      * Data members
@@ -26,16 +33,27 @@ public:
     // cursor which tracks at what point we are in the sound
     double cursor;
 
+    // name of the ORIGINAL file
+    QString fileName;
+
     // The selected file that will play on the widget
+    // it is now the _effect appended file always
     QString selectedFile;
 
     // Volume of the played sound, Scale: 0-100
     int volume;
 
+    //Plot Properties
+    //How much to scale the plotted graph
+    double yScaling = 1;
+    double yMax = 1.0;
+    double yMin = -1.0;
+
     // Id value for use in parent classes,id for output is always 0
     int inputId;
 
     AudioFile soundFile;
+
 
     /*
      * Widgets
@@ -51,9 +69,6 @@ public:
 
     // Button that deletes the input
     QPushButton* removeInputButton;
-
-    // Label that displays current id
-    QLabel* idLabel;
 
     // Time domain which displayed the entire sound wave
     TimeDomain* timeDomain;
@@ -110,7 +125,8 @@ public slots:
     void volumeChanged(int volume);
 
 private slots:
-    virtual void onPlayButtonClicked();
+    void onPlayButtonClicked();
+    void generateEffect(audioFilter filter);
     //
 };
 

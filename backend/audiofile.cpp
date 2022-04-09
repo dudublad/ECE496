@@ -4,9 +4,16 @@ AudioFile::AudioFile()
 {
 }
 
+stk::FileWvIn AudioFile::getInputFile()
+{
+    return input;
+}
+
 void AudioFile::openFile(QString filePath){
+
     try{
-        this->input.openFile(filePath.toStdString());
+        this->input.openFile(filePath.toStdString(), false, false);
+        this->currentFile = filePath;
     } catch (stk::StkError &error) {
         error.printMessage();
     }
@@ -22,7 +29,13 @@ void AudioFile::openFile(QString filePath){
 }
 
 void AudioFile::changeVolume(float volume){
+    std::cout << "changing volume to: " << volume << " for this file: " << this->currentFile.toStdString() << std::endl;
     this->input.normalize(volume);
+}
+
+void AudioFile::closeFile(){
+    this->closeStream();
+    this->input.closeFile();
 }
 
 AudioFile::~AudioFile(){
