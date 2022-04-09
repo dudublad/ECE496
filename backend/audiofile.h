@@ -24,6 +24,8 @@ public:
 
     stk::FileWvIn getInputFile();
 
+    void closeFile();
+
     ~AudioFile();
 
 private:
@@ -36,6 +38,8 @@ private:
 
     // the file itself as an stk input
     stk::FileWvIn input;
+
+    QString currentFile = "";
 };
 
 #endif // AUDIOFILE_H

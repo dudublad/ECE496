@@ -7,6 +7,9 @@
 #include "effectdialog.h"
 #include "programenums.h"
 #include <iostream>
+#include "filterdialog.h"
+#include "audiofilter.h"
+
 class EffectPanel : public QWidget
 {
     Q_OBJECT
@@ -28,9 +31,15 @@ public:
 
     // Variables
 
+
 public slots:
     void filterButtonPressed();
     void noiseButtonPressed();
+
+signals:
+    void sendFilter(audioFilter filter);
+
+
 };
 
 #endif // EFFECTPANEL_H

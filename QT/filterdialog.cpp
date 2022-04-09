@@ -60,6 +60,7 @@ FilterDialog::FilterDialog()
 
     setLayout(formLayout);
     setMinimumSize(200,200);
+
 }
 
 FilterDialog::~FilterDialog()
@@ -97,14 +98,14 @@ void FilterDialog::filterTypeChanged(int type)
     cutoff_2_label->setVisible(cutoff_high_visible);
     set_cutoff_2->setVisible(cutoff_high_visible);
 
-    //TODO: Implemnt backend changes
+    this->filter.setFilterType(type);
 }
 
 void FilterDialog::windowTypeChanged(int type)
 {
     windowType = (WindowType) type;
     std::cout << "Window Type Changed to: " << type << std::endl;
-    //TODO: Implemnt backend changes
+    this->filter.setWindowType(type);
 }
 
 void FilterDialog::cutoff_low_changed(double cutoff)
@@ -113,7 +114,7 @@ void FilterDialog::cutoff_low_changed(double cutoff)
     set_cutoff_2->setMinimum(cutoff);
 
     std::cout << "Low Cutoff Changed to: " << cutoff << std::endl;
-    //TODO: Implemnt backend changes
+    this->filter.setFreqCutoff1(cutoff);
 }
 
 void FilterDialog::cutoff_high_changed(double cutoff)
@@ -122,5 +123,5 @@ void FilterDialog::cutoff_high_changed(double cutoff)
     set_cutoff_1->setMaximum(cutoff);
 
     std::cout << "High Cutoff Changed to: " << cutoff << std::endl;
-    //TODO: Implemnt backend changes
+    this->filter.setFreqCutoff2(cutoff);
 }

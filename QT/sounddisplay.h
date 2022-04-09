@@ -21,6 +21,14 @@ public:
     static const int RECORDED_SOUND_TYPE = 1;
     static const int WAVE_SOUND_TYPE = 2;
     static const int OUTPUT_SOUND_TYPE = 3;
+    void openFile();
+
+    // copys the original file to the effect file
+    void copyFileToEffectFile();
+
+    // sets the effect file name to /this/file/path/name_effects.wav
+    void setEffectFile(QString path);
+
     /*
      * Data members
      */
@@ -28,7 +36,11 @@ public:
     // cursor which tracks at what point we are in the sound
     double cursor;
 
+    // name of the ORIGINAL file
+    QString fileName;
+
     // The selected file that will play on the widget
+    // it is now the _effect appended file always
     QString selectedFile;
 
     // Volume of the played sound, Scale: 0-100
@@ -46,6 +58,7 @@ public:
     int inputId;
 
     AudioFile soundFile;
+
 
     /*
      * Widgets
@@ -119,6 +132,7 @@ signals:
     void inputRemoved(SoundDisplay* toRemove);
 private slots:
     void onPlayButtonClicked();
+    void generateEffect(audioFilter filter);
     //
 };
 

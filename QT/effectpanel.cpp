@@ -36,6 +36,7 @@ void EffectPanel::filterButtonPressed()
         {
             std::cout << "big reveal " << tempEntries[i].toStdString() << std::endl;
         }
+        emit sendFilter(tempDialog.filter);
     }
     //fires an effect dialog
     //Pop up a QInputDialog for the filter Button Menu
