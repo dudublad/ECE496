@@ -32,11 +32,14 @@ public:
     //window default should be "rect"
     //returns empty vector for error
     std::vector<double> generateFIRCoeff(double fc1, double fc2, FilterType filter_type, WindowType window_type);
+    //Generates F domain plot of the FIR filter
+    std::vector<double> generateFIRPlot(double fc1, double fc2, FilterType filter_type, WindowType window_type);
     void setM(int newM);
 
 private:
-    int M = 20; //TODO: this should be num_taps
+    int M = 500; //TODO: this should be num_taps
     double fs = stk::Stk::sampleRate();
+
     //Specific generator functions
     std::vector<double> generate_fc(double ft1, double ft2, int M, FilterType filter_type);
     std::vector<double> generateLPF(double ft, int M);

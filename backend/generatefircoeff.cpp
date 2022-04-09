@@ -1,8 +1,10 @@
 #include "generatefircoeff.h"
+#include "fft.h"
 
 //Coef generation function - call this one
 //inputs:
-//for lpf/hpf, fc1 = cutoff frequency, fc2 = 0
+//for lpf, fc1 = cutoff frequency, fc2 = 0
+//for hpf, fc1 = 0, fc2 = cutoff frequency
 //for bpf/bsp, fc1 = lower cutoff, fc2 = upper cutoff
 //filter_type should be one of: "LPF", "HPF", "BPF, "BSF"
 //window_type should be one of: "rect", "hann", "hamm", "bart", "black"
@@ -21,10 +23,8 @@ std::vector<double> generateFirCoeff::generateFIRCoeff(double fc1, double fc2, F
     printCoeffs(filter, filter_type);
 
     //Returns windowed filter (defualt is rectuangular - unchanged)
-    return window_fc(filter, M, window_type);
-
-    //default returns empty Vector
-    //return std::vector<double>();
+    filter = window_fc(filter, M, window_type);
+    return filter;
 }
 
 void generateFirCoeff::setM(int newM){
@@ -33,6 +33,15 @@ void generateFirCoeff::setM(int newM){
 
 //reference: http://www.labbookpages.co.uk/audio/firWindowing.html
 //-----------------------------------------------------------------------
+
+std::vector<double> generateFirCoeff::generateFIRPlot(double fc1, double fc2, FilterType filter_type, WindowType window_type){
+    std::vector<double> tdomain(1000,0);
+    std::vector<double> coeffs  = generateFIRCoeff(fc1, fc2, filter_type, window_type);
+    for(int i = 0; i < coeffs.size(); i++){
+        tdomain[i] = coeffs[i];
+    }
+    return fft_v(tdomain);
+}
 
 //---------GENERATOR FUNCTIONS---------------------
 
@@ -43,7 +52,7 @@ std::vector<double> generateFirCoeff::generate_fc(double ft1, double ft2, int M,
         return generateLPF(ft1, M);
         break;
     case HPF:
-        return generateHPF(ft1, M);
+        return generateHPF(ft2, M);
         break;
     case BPF:
         return generateBPF(ft1, ft2, M);
@@ -59,10 +68,17 @@ std::vector<double> generateFirCoeff::generate_fc(double ft1, double ft2, int M,
 std::vector<double> generateFirCoeff::generateLPF(double ft, int M){
     std::vector<double> coeffs(M+1);
 
+
+    double sum = 0;
     //Sampling sinc function, with substitiution of M/2 (div by 0 case)
     for(int i = 0; i < M+1; i++){
         coeffs[i] = (i == M/2) ? 2*ft : my_sinc(i, M, ft);
+        sum += coeffs[i];
     }
+
+//    for(int i = 0; i < M+1; i++){
+//        coeffs[i] /= sum;
+//    }
 
     return coeffs;
 }
