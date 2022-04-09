@@ -11,7 +11,7 @@ class audioFilter
 {
 public:
     audioFilter();
-    void generateFilter(QString filePath);
+    void generateFilter(QString filePath, QString originalPath, double &yscaling);
     void setFreqCutoff1(double cutoff);
     void setFreqCutoff2(double cutoff);
     void setFilterType(int type);

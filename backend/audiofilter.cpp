@@ -5,9 +5,9 @@ audioFilter::audioFilter()
 {
 }
 
-void audioFilter::generateFilter(QString filePath){
+void audioFilter::generateFilter(QString filePath, QString originalPath, double &yscaling){
     try{
-        this->input.openFile(filePath.toStdString(), false, false);
+        this->input.openFile(originalPath.toStdString(), false, false);
         std::vector<double> coeff = this->coeffGen.generateFIRCoeff(
                 this->freqCutoff1,
                 this->freqCutoff2,
@@ -30,6 +30,7 @@ void audioFilter::generateFilter(QString filePath){
             output.tick(firBuffer[i]/max_value);
         }
         this->output.closeFile();
+        yscaling = max_value;
     } catch (stk::StkError &error) {
         error.printMessage();
     }

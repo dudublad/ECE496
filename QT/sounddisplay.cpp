@@ -174,6 +174,11 @@ void SoundDisplay::volumeChanged(int changedVolume)
 
 void SoundDisplay::generateEffect(audioFilter filter){
     drawWaveFromFile("");
-    filter.generateFilter(this->selectedFile);
+    filter.generateFilter(this->selectedFile, this->fileName, yScaling);
+    this->yMax = yScaling;
+    this->yMin = -yScaling;
     drawWaveFromFile(this->selectedFile);
+    this->yMax = 1;
+    this->yMin = -1;
+    this->yScaling = 1;
 }
