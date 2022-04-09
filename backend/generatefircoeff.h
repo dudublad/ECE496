@@ -37,7 +37,7 @@ public:
     void setM(int newM);
 
 private:
-    int M = 20; //TODO: this should be num_taps
+    int M = 500; //TODO: this should be num_taps
     double fs = stk::Stk::sampleRate();
 
     //Specific generator functions

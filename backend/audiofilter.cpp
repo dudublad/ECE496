@@ -17,13 +17,17 @@ void audioFilter::generateFilter(QString filePath){
         this->fir.setCoefficients(coeff);
         std::vector<double> firBuffer;
 
+        double max_value = 0;
         while (!input.isFinished()){
-            firBuffer.push_back(fir.tick(input.tick()));
+            double value = input.tick();
+            max_value = max_value < value ? value : max_value;
+            firBuffer.push_back(fir.tick(value));
         }
         input.closeFile();
         this->output.openFile(filePath.toStdString(), 1, stk::FileWrite::FILE_WAV, stk::Stk::STK_SINT16);
         for (long i = 0; i < firBuffer.size(); i++){
-            output.tick(firBuffer[i]);
+            std::cout <<firBuffer[i]/max_value;
+            output.tick(firBuffer[i]/max_value);
         }
         this->output.closeFile();
     } catch (stk::StkError &error) {
