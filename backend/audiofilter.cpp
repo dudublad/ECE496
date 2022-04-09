@@ -19,14 +19,14 @@ void audioFilter::generateFilter(QString filePath){
 
         double max_value = 0;
         while (!input.isFinished()){
-            double value = input.tick();
-            max_value = max_value < value ? value : max_value;
-            firBuffer.push_back(fir.tick(value));
+            double value = fir.tick(input.tick());
+            max_value = std::max(max_value, value);
+            firBuffer.push_back(value);
         }
+
         input.closeFile();
         this->output.openFile(filePath.toStdString(), 1, stk::FileWrite::FILE_WAV, stk::Stk::STK_SINT16);
         for (long i = 0; i < firBuffer.size(); i++){
-            std::cout <<firBuffer[i]/max_value;
             output.tick(firBuffer[i]/max_value);
         }
         this->output.closeFile();
