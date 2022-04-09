@@ -34,6 +34,4 @@ void RecordedSoundDisplay::chooseFile()
     }
     std::cout << "returned file name = " << selectedFile.toStdString() << std::endl;
     changeFile(selectedFile);
-    drawWaveFromFile(selectedFile);
-
 }

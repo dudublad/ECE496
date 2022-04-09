@@ -5,7 +5,7 @@ EffectPanel::EffectPanel(QWidget *parent) : QWidget(parent)
 {
     //Initializing Buttons
     filterButton = new QPushButton("Add Filter",this);
-    noiseButton = new QPushButton("Add Noise",this);
+    noiseButton = new QPushButton("Add Effect 2 (TODO)",this);
 
     // Initializing Layout
     effectButtonLayout = new QGridLayout(this);
@@ -36,6 +36,7 @@ void EffectPanel::filterButtonPressed()
         {
             std::cout << "big reveal " << tempEntries[i].toStdString() << std::endl;
         }
+        emit sendFilter(tempDialog.filter);
     }
     //fires an effect dialog
     //Pop up a QInputDialog for the filter Button Menu

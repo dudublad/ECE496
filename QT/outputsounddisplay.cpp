@@ -13,9 +13,12 @@ OutputSoundDisplay::OutputSoundDisplay(QVector<SoundDisplay*>* input_vec, QWidge
     this->inputs = input_vec;
 
     filepath = QDir::currentPath() + "/audio_files/gen_output.wav";
+    generate();
+    changeFile(filepath);
 }
 
 void OutputSoundDisplay::generateOutputFile() {
+    std::cout << "OutputSoundDisplay: Generating File\n";
     const int numSamples = outputBuf.size();
 
     stk::FileWvOut outputFile;
@@ -30,11 +33,7 @@ void OutputSoundDisplay::generateOutputFile() {
 
 #define OUTPUT_PLOT_TIME_LIMIT_S 10
 
-/*
- * Called when its inputs are updated
- */
-void OutputSoundDisplay::generateOutput()
-{
+void OutputSoundDisplay::generate(){
     if(!inputs){
         std::cout << "OutputSoundDisplay invalid input vector\n";
         return;
@@ -71,13 +70,14 @@ void OutputSoundDisplay::generateOutput()
                 std::cout << "OutputSoundDisplay: Opened file; size = " << inputFile.getSize()
                           << " fileRate = " << inputFile.getFileRate() << std::endl;
 
+
                 int numSamples = inputFile.getSize() * (stk::Stk::sampleRate()/inputFile.getFileRate());
                 for(int j = 0; j < numSamples && j < OUTPUT_PLOT_TIME_LIMIT_S*stk::Stk::sampleRate(); j++){
                     if(j >= outputBuf.size()){
-                        outputBuf.push_back(inputFile.tick());
+                        outputBuf.push_back(input->yScaling * inputFile.tick());
                     }
                     else{
-                        outputBuf[j] += inputFile.tick();
+                        outputBuf[j] += input->yScaling * inputFile.tick();
                     }
 
                     if(outputBuf[j] > yMax) {
@@ -110,26 +110,27 @@ void OutputSoundDisplay::generateOutput()
 
     //Stop playing audio, if playing
     this->stopFile();
+    this->generateOutputFile();
 
+}
+
+
+/*
+ * Called when its inputs are updated
+ */
+void OutputSoundDisplay::generateOutput(){
     //Clear the graph so that generateSine() is not
     //Accessing the same file
     drawWaveFromFile("");
+    this->generate();
 
-    std::cout << "OutputSoundDisplay: Generating File\n";
-    generateOutputFile();
+    copyFileToEffectFile();
 
     std::cout << "OutputSoundDisplay: Drawing Wave\n";
-    drawWaveFromFile(filepath);
+    drawWaveFromFile(this->selectedFile);
     std::cout << "OutputSoundDisplay: Done Drawing\n";
-}
 
-void OutputSoundDisplay::playSound()
-{
-    this->soundFile.openFile(filepath);
-    this->soundFile.startStream();
-}
 
-void OutputSoundDisplay::onPlayButtonClicked()
-{
-    playSound();
+
+
 }

@@ -59,11 +59,9 @@ public:
 
 private:
     void plotWave();
-    void playSound();
 
 public slots:
     void frequencySliderChange(int value);
-    void onPlayButtonClicked();
     void onSpinBoxChanged(int value);
     void waveTypeIndexChanged(int index);
     void generateButtonPushed();

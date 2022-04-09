@@ -7,5 +7,6 @@
 #include <Stk.h>
 
 QVector<double> fft(QVector<double> in_wave);
+std::vector<double> fft_v(std::vector<double> in_wave);
 
 #endif // FFT_H

@@ -27,6 +27,7 @@ SOURCES += \
     QT/tutorialcontroller.cpp \
     QT/tutorialpanel.cpp \
     QT/wavedisplay.cpp \
+    backend/audiofilter.cpp \
     backend/generatefircoeff.cpp \
     backend/fft.cpp
 
@@ -49,6 +50,7 @@ HEADERS += \
     QT/tutorialcontroller.h \
     QT/tutorialpanel.h \
     QT/wavedisplay.h \
+    backend/audiofilter.h \
     backend/generatefircoeff.h \
     backend/fft.h \
     backend/generatefircoeff.h \

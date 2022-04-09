@@ -4,7 +4,7 @@
 #include <QObject>
 #include <QWidget>
 #include "effectdialog.h"
-#include "generatefircoeff.h"
+#include "audiofilter.h"
 
 class FilterDialog : public EffectDialog
 {
@@ -29,13 +29,14 @@ public:
     double cutoff_low;
     double cutoff_high;
 
-
+    audioFilter filter;
 
 public slots:
     void filterTypeChanged(int type);
     void windowTypeChanged(int type);
     void cutoff_low_changed(double cutoff);
     void cutoff_high_changed(double cutoff);
+private:
 };
 
 #endif // FILTERDIALOG_H
