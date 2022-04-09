@@ -178,7 +178,4 @@ void SoundDisplay::generateEffect(audioFilter filter){
     this->yMax = yScaling;
     this->yMin = -yScaling;
     drawWaveFromFile(this->selectedFile);
-    this->yMax = 1;
-    this->yMin = -1;
-    this->yScaling = 1;
 }

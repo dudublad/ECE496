@@ -70,13 +70,14 @@ void OutputSoundDisplay::generate(){
                 std::cout << "OutputSoundDisplay: Opened file; size = " << inputFile.getSize()
                           << " fileRate = " << inputFile.getFileRate() << std::endl;
 
+
                 int numSamples = inputFile.getSize() * (stk::Stk::sampleRate()/inputFile.getFileRate());
                 for(int j = 0; j < numSamples && j < OUTPUT_PLOT_TIME_LIMIT_S*stk::Stk::sampleRate(); j++){
                     if(j >= outputBuf.size()){
-                        outputBuf.push_back(inputFile.tick());
+                        outputBuf.push_back(input->yScaling * inputFile.tick());
                     }
                     else{
-                        outputBuf[j] += inputFile.tick();
+                        outputBuf[j] += input->yScaling * inputFile.tick();
                     }
 
                     if(outputBuf[j] > yMax) {

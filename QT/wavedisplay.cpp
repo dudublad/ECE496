@@ -137,6 +137,9 @@ void WaveDisplay::onSpinBoxChanged(int value)
  */
 void WaveDisplay::generateButtonPushed()
 {
+    this->yMax = 1;
+    this->yMin = -1;
+    this->yScaling = 1;
     wave.setFrequency(waveFrequency);
     wave.setAmplitude(amplitude);
     if(QDateTime::currentMSecsSinceEpoch() >= last_generate_time_ms + GENERATE_LIMIT_MS) {
