@@ -25,7 +25,7 @@ class WaveOscillator
         void generateSin(int size);
         void generateSquare(int size);
         void generateSawtooth(int size);
-        void WaveOscillator::generateNoise(int size);
+        void generateNoise(int size);
 
     public:
     //Constructors
