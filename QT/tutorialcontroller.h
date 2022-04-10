@@ -15,7 +15,7 @@ public:
     // Attributes
     int stepCount;
 
-    static constexpr int TUTORIAL_TWO_START = 7;
+    static constexpr int TUTORIAL_TWO_START = 8;
 
     InputScrollView* inputScrollView;
     TutorialPanel* tutorialPanel;
@@ -39,12 +39,13 @@ public:
     void loadTutorial1_4();
     void loadTutorial1_5();
     void loadTutorial1_6();
-    void loadEndTutorial1();
+    void loadTutorial1_End();
 
     void loadTutorial2_1();
     void loadTutorial2_2();
     void loadTutorial2_3();
     void loadTutorial2_4();
+    void loadTutorial2_End();
     QVector<QCheckBox> currentObjectives;
     QVector<QString> objectiveText;
 

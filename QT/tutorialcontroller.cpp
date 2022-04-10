@@ -97,9 +97,19 @@ void TutorialController::moveToNextStep()
           loadTutorial1_5();
           break;
         case 6:
-           loadEndTutorial1();
+           loadTutorial1_6();
+        case 7:
+           loadTutorial1_End();
         case TUTORIAL_TWO_START:
            loadTutorial2_1();
+        case TUTORIAL_TWO_START+1:
+           loadTutorial2_2();
+        case TUTORIAL_TWO_START+2:
+          loadTutorial2_3();
+        case TUTORIAL_TWO_START+3:
+          loadTutorial2_4();
+        case TUTORIAL_TWO_START+4:
+          loadTutorial2_End();
         default:
           break;
        }
@@ -196,6 +206,9 @@ void TutorialController::checkConditions(SoundDisplay* sourceDisplay,int signalS
          *
          */
     }
+    else if(stepCount == 7){
+
+    }
     else if(stepCount == TUTORIAL_TWO_START)
     {
         /* Tutorial 2_1 Objectives
@@ -234,10 +247,11 @@ void TutorialController::checkConditions(SoundDisplay* sourceDisplay,int signalS
 void TutorialController::loadTutorial1_1()
 {
     stepCount = 1;
-    QStringList objectives = { "Make a Square Wave, Frequency: 100Hz"};
+    QStringList objectives = { "Create 100Hz square wave"};
     QString instructions = "Welcome to the first tutorial: Superposition, Frequency and Time!\n \
-Lets start off by getting familiar with the display, Create a new input or use the existing ones to \
-create a square wave with a frequency of 100Hz";
+                           Lets start off by getting familiar with the display, Create a new input. \
+Set the type to square wave, and set the frequency to 100Hz. \
+Click the “Generate Wave” button to create the wave.";
     //changes the objective texts
     tutorialPanel->updatePanel(objectives,instructions);
     /*
@@ -258,17 +272,9 @@ void TutorialController::loadTutorial1_2()
                              "Create Sine wave Frequency: 300Hz, Amplitude: 0.33",
                              "Create Sine wave Frequency: 500Hz, Amplitude: 0.20",
                              "Create Sine wave Frequency: 700Hz, Amplitude: 0.14"};
-    QString instructions = "Create Sine Waves: \n\
-Create 4 new inputs. All of these inputs will be sin waves with 0 phase offset.\
-The first should have a frequency of 100Hz and an amplitude of 1. \
-Observe the frequency domain, and note that the fourier transform of a sin wave is a spike, \
-or delta at the frequency 100Hz.\nNow make a separate sin wave with a frequency of 300Hz and an amplitude of ⅓.\
-Do this again for 500Hz with amplitude of ⅕, and 700Hz with amplitude of 1/7. \
-Note each time that the frequency domain is a spike at the respective frequency values\
-\nOnce you’ve made your signals, add each sin wave together one by one, observing the time domain output each time. \
-You should see that as more signals are added, the wave starts to look more and more like a square wave\
-\nAlso note that the frequency domain of the sum of sins is the same as the sum of the frequency domain plots for each sin.\
-This is because the fourier transform is a linear operation";
+    QString instructions = "Create 4 new sin waves. Observe the frequency domain,\
+and note that the fourier transform of a sin wave is a spike, \
+or delta at the respective frequency.";
     tutorialPanel->updatePanel(objectives,instructions);
 }
 
@@ -277,51 +283,95 @@ void TutorialController::loadTutorial1_3()
     QStringList objectives = {};
     QString instructions = "Compare the frequency domain for the square wave and the superposition of sin waves. \
 Note that they are similar, with spikes at 100Hz, 300Hz, 500Hz, and 700Hz for both signals,\
-and more smaller spikes at higher frequencies for the square wave";
+and more smaller spikes at higher frequencies for the square wave. Press Next Step When ready";
+    tutorialPanel->submitObjectivesButton->setText("Next Step");
     tutorialPanel->updatePanel(objectives,instructions);
 }
 
 void TutorialController::loadTutorial1_4()
 {
-    QStringList objectives = {"Step 4"};
-    QString instructions = "";
+    tutorialPanel->submitObjectivesButton->setText("Submit Objectives");
+    QStringList objectives = {"Apply a lowpass filter with cutoff = 800Hz to your square wave of 100Hz"};
+    QString instructions = "Now you will add a low pass filter to the square wave. \
+This will pass frequencies below the cutoff frequency, and stop frequencies above the cutoff. \
+On your square wave, click the “Toggle Effects Panel” button and select “Add Filter”. \
+Create your filter by choosing Low Pass Filter, and setting the cutoff frequency to 800Hz.\
+One you apply the filter, note how in the frequency domain, \
+all of the spikes above 700Hz are now gone.";
     tutorialPanel->updatePanel(objectives,instructions);
 }
 
 void TutorialController::loadTutorial1_5()
 {
-
+    QStringList objectives = {};
+    QString instructions = "";
+    tutorialPanel->submitObjectivesButton->setText("Next Step");
+    tutorialPanel->updatePanel(objectives,instructions);
 }
 
 void TutorialController::loadTutorial1_6()
 {
-
+    QStringList objectives = {"First wave added","Second wave added"};
+    QString instructions = "Add two more waves to your sum of sins in order to make it better approximate (look more like) a square wave.";
+    tutorialPanel->submitObjectivesButton->setText("Submit Objectives");
+    tutorialPanel->updatePanel(objectives,instructions);
 }
 
-void TutorialController::loadEndTutorial1()
+void TutorialController::loadTutorial1_End()
 {
-
+    QString instructions = "You've completed Tutorial 1! Click the buttons on the screen to either go into\
+sandbox mode where you can play with the waves at will, or move on to Tutorial 2";
+            QStringList objectives = {};
+    tutorialPanel->updatePanel(objectives,instructions);
 }
 
 void TutorialController::loadTutorial2_1()
 {
     stepCount = TUTORIAL_TWO_START;
+    QString instructions = "Create a sin wave input at 300Hz and add a noise input.\
+ Click “Generate Wave” once you’ve set the desired values. Then listen to each input individually.";
+            QStringList objectives = {"Create 300Hz sin wave","Add noise","Listen to the inputs"};
+    tutorialPanel->updatePanel(objectives,instructions);
     // First step of tutorial 2
 }
 
 void TutorialController::loadTutorial2_2()
 {
     // First step of tutorial 2
+    QString instructions = "Where the two signals are summed together, \
+click the “Play” button to listen to the sum of the inputs";
+    QStringList objectives = {"Listen to the sum of the inputs"};
+    tutorialPanel->updatePanel(objectives,instructions);
 }
 
 void TutorialController::loadTutorial2_3()
 {
     // First step of tutorial 2
+    QString instructions = "Next, add a low pass filter with cutoff frequency = 300Hz.\
+Click the “Toggle Effects Panel” button and select “Add Filter”,\
+then select low pass filter and change the cutoff frequency to 300Hz";
+    QStringList objectives = {"Add lowpass filter with cutoff = 300Hz"};
+    tutorialPanel->updatePanel(objectives,instructions);
 }
 
 void TutorialController::loadTutorial2_4()
 {
     // First step of tutorial 2
+    QString instructions = "Click the “Play” button again to hear how the signal is changed by the filter.\
+Notice that the noise is now much quieter compared to the signal.\
+This is because the lowpass filter filtered out the frequency components of the noise which were about 300Hz,\
+meaning there is much less overall noise in the signal.\
+Observe the frequency domain of the noise signal input, \
+and see that much of the energy of the noise is contained within components greater than 300Hz.";
+    QStringList objectives = {"Listen to the filtered signal"};
+}
+
+void TutorialController::loadTutorial2_End()
+{
+    QString instructions = "You've completed Tutorial 2! Click the buttons on the screen to either go into\
+sandbox mode where you can play with the waves at will, or go back to tutorial 1";
+            QStringList objectives = {};
+    tutorialPanel->updatePanel(objectives,instructions);
 }
 
 void TutorialController::objectiveChecked(int boxIndex,bool completed)
