@@ -3,6 +3,7 @@
 #include <iostream>
 #include <Stk.h>
 #include <random>
+#include <chrono>
 
 //Constructors
 WaveOscillator::WaveOscillator(){
@@ -129,10 +130,12 @@ void WaveOscillator::generateSawtooth(int size){
 }
 
 void WaveOscillator::generateNoise(int size){
-    double sigma = 0.4;
+    double sigma = 0.1;
     double mean = 0;
 
-    std::default_random_engine generator;
+    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+    std::default_random_engine generator (seed);
+
     std::normal_distribution<double> distribution(mean,sigma);
     for(int i = 0; i < size; i++){
         values[i] = distribution(generator);
