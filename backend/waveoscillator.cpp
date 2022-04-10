@@ -51,7 +51,7 @@ void WaveOscillator::setDuration(double duration_in){
 }
 void WaveOscillator::setType(WaveType type_in){
     if(type_in == Wave_Sin || type_in == Wave_Square
-            || type_in == Wave_SawTooth)
+            || type_in == Wave_SawTooth || type_in == Wave_Noise)
         type = type_in;
 }
 
@@ -96,6 +96,9 @@ void WaveOscillator::generate(){
     }
     else if (type == Wave_SawTooth){
         generateSawtooth(size);
+    }
+    else if(type == Wave_Noise){
+        generateNoise(size);
     }
     else{
         return;

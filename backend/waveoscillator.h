@@ -9,7 +9,8 @@
 typedef enum {
     Wave_Sin,
     Wave_Square,
-    Wave_SawTooth
+    Wave_SawTooth,
+    Wave_Noise
 } WaveType;
 
 class WaveOscillator
