@@ -72,7 +72,7 @@ public slots:
     void amplitudeSpinBoxChange(double value);
 
 signals:
-    void waveGenerated(int waveFrequency);
+    void waveGenerated(SoundDisplay* sourceDisplay);
 };
 
 #endif // WAVEDISPLAY_H

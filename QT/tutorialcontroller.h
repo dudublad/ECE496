@@ -6,6 +6,7 @@
 #include "inputscrollview.h"
 #include "tutorialpanel.h"
 #include "waveoscillator.h"
+#include "programenums.h"
 
 class TutorialController : public QWidget
 {
@@ -13,9 +14,18 @@ class TutorialController : public QWidget
 public:
     // Attributes
     int stepCount;
+
+    static constexpr int TUTORIAL_TWO_START = 7;
+
     InputScrollView* inputScrollView;
     TutorialPanel* tutorialPanel;
     QVBoxLayout* mainTutorialLayout;
+
+    QPushButton* tutorialOneButton;
+
+    QPushButton* tutorialTwoButton;
+
+    QPushButton* sandboxButton;
 
     /*
      * Utility Functions
@@ -30,12 +40,26 @@ public:
     void loadTutorial1_5();
     void loadTutorial1_6();
     void loadEndTutorial1();
+
+    void loadTutorial2_1();
+    void loadTutorial2_2();
+    void loadTutorial2_3();
+    void loadTutorial2_4();
     QVector<QCheckBox> currentObjectives;
     QVector<QString> objectiveText;
 
 public slots:
+    // Responsible for receiving the signal from the start tutorial screen
+    void tutorialSelection(int tutorialIndex);
     void objectiveChecked(int boxIndex,bool completed);
-    void checkConditions();
+
+    /* List of indexes for signal sources =
+     *static constexpr unsigned int SIGNAL_GENERATED = 1;
+     *static constexpr unsigned int EFFECT_ADDED_TYPE = 2;
+     *static constexpr unsigned int PLAY_BUTTON_PRESSED = 3;
+     *
+     */
+    void checkConditions(SoundDisplay* sourceDisplay = NULL,int signalSourceType = 0);
     void moveToNextStep();
 };
 

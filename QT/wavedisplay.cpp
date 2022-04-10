@@ -147,7 +147,7 @@ void WaveDisplay::generateButtonPushed()
         wave.generateSine();
         copyFileToEffectFile();
         drawWaveFromFile(this->selectedFile);
-        emit waveGenerated(waveFrequency);
+        emit waveGenerated(this);
         last_generate_time_ms = QDateTime::currentMSecsSinceEpoch();
     }
 }
@@ -163,6 +163,6 @@ void WaveDisplay::amplitudeSliderChange(int value)
 
 void WaveDisplay::amplitudeSpinBoxChange(double value)
 {
-    amplitudeSlider->setValue(100 * value);
+    amplitudeSlider->setValue(round(100 * value));
 }
 

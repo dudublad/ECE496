@@ -135,6 +135,7 @@ void SoundDisplay::onPlayButtonClicked()
     this->soundFile.setStreamTime(0);
     this->soundFile.startStream();
     //std::cout << "Play Button Finished" << std::endl;
+    emit playButtonPressed(this);
 }
 
 void SoundDisplay::stopFile()
@@ -182,4 +183,5 @@ void SoundDisplay::generateEffect(audioFilter filter){
     this->yMax = 1;
     this->yMin = -1;
     this->yScaling = 1;
+    emit filterAdded(this);
 }

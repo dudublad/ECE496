@@ -128,8 +128,11 @@ public slots:
     void removeInputButtonPushed();
 
     void volumeChanged(int volume);
+
 signals:
     void inputRemoved(SoundDisplay* toRemove);
+    void filterAdded(SoundDisplay* sourceDisplay);
+    void playButtonPressed(SoundDisplay* sourceDisplay);
 private slots:
     void onPlayButtonClicked();
     void generateEffect(audioFilter filter);

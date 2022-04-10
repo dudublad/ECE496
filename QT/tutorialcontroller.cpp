@@ -2,19 +2,69 @@
 
 TutorialController::TutorialController(QWidget *parent) : QWidget(parent)
 {
-    stepCount = 1;
+    stepCount = 0;
     mainTutorialLayout = new QVBoxLayout(this);
     inputScrollView = new InputScrollView(this);
     tutorialPanel = new TutorialPanel(this,1);
-    connect(inputScrollView,SIGNAL(checkTutorialSignal()),this,SLOT(checkConditions()));
+    tutorialOneButton = new QPushButton("Tutorial One",this);
+    tutorialTwoButton = new QPushButton("Tutorial Two",this);
+    sandboxButton = new QPushButton("SandBox",this);
+
+    connect(sandboxButton,&QPushButton::clicked,[this](){ tutorialSelection(0);});
+    connect(tutorialOneButton,&QPushButton::clicked,[this](){ tutorialSelection(1);});
+    connect(tutorialTwoButton,&QPushButton::clicked,[this](){ tutorialSelection(2);});
+
+    connect(inputScrollView,&InputScrollView::checkTutorialSignal,this,&TutorialController::checkConditions);
+    connect(inputScrollView,&InputScrollView::filterAddedSignal,this,&TutorialController::checkConditions);
+    connect(inputScrollView,&InputScrollView::playPressedSignal,this,&TutorialController::checkConditions);
     connect(tutorialPanel->submitObjectivesButton,SIGNAL(clicked()),this,SLOT(moveToNextStep()));
     mainTutorialLayout->addWidget(tutorialPanel,1);
     mainTutorialLayout->addWidget(inputScrollView,6);
     this->setLayout(mainTutorialLayout);
 
-    loadTutorial1_1();
+    this->tutorialPanel->objectivesLayout->addWidget(tutorialOneButton);
+    this->tutorialPanel->objectivesLayout->addWidget(tutorialTwoButton);
+    this->tutorialPanel->objectivesLayout->addWidget(sandboxButton);
+    this->tutorialPanel->submitObjectivesButton->setVisible(false);
+    //loadTutorial1_1();
     // set up to emit signal when all boxes are ticked
 }
+
+void TutorialController::tutorialSelection(int tutorialIndex)
+{
+    this->tutorialPanel->objectivesLayout->removeWidget(tutorialOneButton);
+    this->tutorialPanel->objectivesLayout->removeWidget(tutorialTwoButton);
+    this->tutorialPanel->objectivesLayout->removeWidget(sandboxButton);
+    sandboxButton->setVisible(false);
+    tutorialOneButton->setVisible(false);
+    tutorialTwoButton->setVisible(false);
+//    delete sandboxButton;
+//    delete tutorialOneButton;
+//    delete tutorialTwoButton;
+
+   switch(tutorialIndex) {
+
+   case 0:
+        // Unload the tutorial section this is sandbox mode
+       //Straight up no op probably
+       break;
+   case 1:
+        this->tutorialPanel->submitObjectivesButton->setVisible(true);
+        loadTutorial1_1();
+        // Load Tutorial 1
+        break;
+   case 2:
+       this->tutorialPanel->submitObjectivesButton->setVisible(true);
+       loadTutorial2_1();
+       //
+       break;
+   default:
+       //No op
+       break;
+
+   }
+}
+
 void TutorialController::moveToNextStep()
 {
    bool stepCompleted = true;
@@ -46,14 +96,23 @@ void TutorialController::moveToNextStep()
         case 5:
           loadTutorial1_5();
           break;
+        case 6:
+           loadEndTutorial1();
+        case TUTORIAL_TWO_START:
+           loadTutorial2_1();
         default:
-          loadEndTutorial1();
+          break;
        }
    }
 }
 
-void TutorialController::checkConditions()
+void TutorialController::checkConditions(SoundDisplay* sourceDisplay,int signalSourceType)
 {
+    // If sourceDisplay is not null then the source is from a filter
+    if(sourceDisplay != NULL && signalSourceType != 0)
+    {
+        std::cout << "signal received" << std::endl;
+    }
     std::cout << "checking conditions" << std::endl;
     auto inputs = inputScrollView->inputs;
     QVector<bool> objectives = {};
@@ -137,6 +196,32 @@ void TutorialController::checkConditions()
          *
          */
     }
+    else if(stepCount == TUTORIAL_TWO_START)
+    {
+        /* Tutorial 2_1 Objectives
+         *
+         */
+    }
+    else if(stepCount == TUTORIAL_TWO_START + 1)
+    {
+        /* Tutorial 2_2 Objectives
+         *
+         */
+    }
+    else if(stepCount == TUTORIAL_TWO_START + 2)
+    {
+        /* Tutorial 2_3 Objectives
+         *
+         */
+
+    }
+    else if(stepCount == TUTORIAL_TWO_START + 3)
+    {
+        /* Tutorial 2_4 Objectives
+         *
+         */
+
+    }
 
     //checks objectives
     for(int i =0;i<objectives.size();i++)
@@ -148,6 +233,7 @@ void TutorialController::checkConditions()
 // Loads the very opening part of the first tutorial
 void TutorialController::loadTutorial1_1()
 {
+    stepCount = 1;
     QStringList objectives = { "Make a Square Wave, Frequency: 100Hz"};
     QString instructions = "Welcome to the first tutorial: Superposition, Frequency and Time!\n \
 Lets start off by getting familiar with the display, Create a new input or use the existing ones to \
@@ -215,6 +301,27 @@ void TutorialController::loadTutorial1_6()
 void TutorialController::loadEndTutorial1()
 {
 
+}
+
+void TutorialController::loadTutorial2_1()
+{
+    stepCount = TUTORIAL_TWO_START;
+    // First step of tutorial 2
+}
+
+void TutorialController::loadTutorial2_2()
+{
+    // First step of tutorial 2
+}
+
+void TutorialController::loadTutorial2_3()
+{
+    // First step of tutorial 2
+}
+
+void TutorialController::loadTutorial2_4()
+{
+    // First step of tutorial 2
 }
 
 void TutorialController::objectiveChecked(int boxIndex,bool completed)

@@ -122,7 +122,7 @@ void InputScrollView::addInput(SoundInputType inputType)
 
         insertedInput = toInsert;
         //TODO: if statement here to check relevancy?
-        connect(toInsert,&WaveDisplay::waveGenerated,this,&InputScrollView::checkTutorialStatus);
+        connect(toInsert,&WaveDisplay::waveGenerated,this,&InputScrollView::waveChanged);
         last_new_wave_time_ms = QDateTime::currentMSecsSinceEpoch();
     }
     else
@@ -135,6 +135,8 @@ void InputScrollView::addInput(SoundInputType inputType)
         connect(insertedInput->timeDomain, SIGNAL(plotStarted()), this, SLOT(updateOutput()));
         connect(insertedInput->removeInputButton,SIGNAL(clicked()),this,SLOT(inputRemoved()));
         connect(insertedInput,SIGNAL(inputRemoved(SoundDisplay*)),this,SLOT(removeInput(SoundDisplay*)));
+        connect(insertedInput,SIGNAL(filterAdded(SoundDisplay*)),this,SLOT(childFilterAdded(SoundDisplay*)));
+        connect(insertedInput,&SoundDisplay::playButtonPressed,this,&InputScrollView::childPlayClicked);
     }
 
     updateScrollArea();
@@ -159,7 +161,7 @@ void InputScrollView::removeInput(SoundDisplay* input)
             break;
         }
     }
-    checkTutorialStatus();
+    waveChanged();
 }
 
 void InputScrollView::inputRemoved()
@@ -180,9 +182,19 @@ void InputScrollView::createOutputFile()
     //creates an output file so the output can read it
 }
 
-void InputScrollView::checkTutorialStatus()
+void InputScrollView::waveChanged(SoundDisplay* sourceDisplay)
 {
     std::cout << "emiting 1" << std::endl;
-    emit checkTutorialSignal();
+    emit checkTutorialSignal(sourceDisplay,SIGNAL_GENERATED);
+}
+
+void InputScrollView::childFilterAdded(SoundDisplay* sourceDisplay)
+{
+    emit filterAddedSignal(sourceDisplay,EFFECT_ADDED_TYPE);
+}
+
+void InputScrollView::childPlayClicked(SoundDisplay* sourceDisplay)
+{
+    emit playPressedSignal(sourceDisplay,PLAY_BUTTON_PRESSED);
 }
 
