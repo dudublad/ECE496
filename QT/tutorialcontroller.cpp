@@ -45,6 +45,7 @@ void TutorialController::tutorialSelection(int tutorialIndex)
    switch(tutorialIndex) {
 
    case 0:
+       this->tutorialPanel->setVisible(false);
         // Unload the tutorial section this is sandbox mode
        //Straight up no op probably
        break;
@@ -184,56 +185,101 @@ void TutorialController::checkConditions(SoundDisplay* sourceDisplay,int signalS
     }
     else if(stepCount == 3){
         /* Tutorial 1_3 Objectives
-         *
+         * None
          *
          */
     }
     else if(stepCount == 4){
         /* Tutorial 1_4 Objectives
-         *
+         * Apply a lowpass filter with cutoff = 800Hz to your square wave
          *
          */
+        objectives.clear();
+        objectives = {false};
+        if(signalSourceType == EFFECT_ADDED_TYPE && sourceDisplay != NULL)
+        {
+            if(sourceDisplay->soundType == sourceDisplay->WAVE_SOUND_TYPE)
+            {
+                 WaveDisplay* wavePointer = (WaveDisplay*)(sourceDisplay);
+                 if(wavePointer->wave.gen_wave.getType() == WaveType::Wave_Square)
+                 {
+                    if(wavePointer->audioFilterData.filterType == FilterType::LPF && round(wavePointer->audioFilterData.freqCutoff1)== 800)
+                    {
+                        objectives[0] = true;
+                    }
+                 }
+            }
+        }
     }
     else if(stepCount ==5){
         /* Tutorial 1_5 Objectives
-         *
+         * None
          *
          */
     }
     else if(stepCount == 6){
         /* Tutorial 1_6 Objectives
-         *
-         *
+         * First wave added
+         * Second wave added
          */
+        objectives.clear();
+        objectives = {false,false};
+
     }
     else if(stepCount == 7){
-
+        // End nothing happens
     }
     else if(stepCount == TUTORIAL_TWO_START)
     {
         /* Tutorial 2_1 Objectives
-         *
+         * Create 300Hz sin wave
+         * Add noise
+         * Listen to the inputs individually
          */
+        objectives.clear();
+        objectives = {false,false,false};
+        //if()
     }
     else if(stepCount == TUTORIAL_TWO_START + 1)
     {
         /* Tutorial 2_2 Objectives
-         *
+         * Listen to the sum of the inputs at the output on the bottom
          */
+        objectives.clear();
+        objectives = {false};
+        if(signalSourceType == PLAY_BUTTON_PRESSED && sourceDisplay->soundType == sourceDisplay->OUTPUT_SOUND_TYPE)
+        {
+            objectives[0] = true;
+        }
     }
     else if(stepCount == TUTORIAL_TWO_START + 2)
     {
         /* Tutorial 2_3 Objectives
-         *
+         * Add lowpass filter with cutoff = 300Hz to output
          */
+        objectives.clear();
+        objectives = {false};
+        if(signalSourceType == EFFECT_ADDED_TYPE && sourceDisplay != NULL && sourceDisplay->soundType == sourceDisplay->OUTPUT_SOUND_TYPE)
+        {
+             WaveDisplay* wavePointer = (WaveDisplay*)(sourceDisplay);
+                if(wavePointer->audioFilterData.filterType == FilterType::LPF && round(wavePointer->audioFilterData.freqCutoff1)== 300)
+                {
+                    objectives[0] = true;
+                }
+        }
 
     }
     else if(stepCount == TUTORIAL_TWO_START + 3)
     {
         /* Tutorial 2_4 Objectives
-         *
+         * Listen to the filtered output signal
          */
-
+        objectives.clear();
+        objectives = {false};
+        if(signalSourceType == PLAY_BUTTON_PRESSED && sourceDisplay->soundType == sourceDisplay->OUTPUT_SOUND_TYPE)
+        {
+            objectives[0] = true;
+        }
     }
 
     //checks objectives
@@ -304,7 +350,11 @@ all of the spikes above 700Hz are now gone.";
 void TutorialController::loadTutorial1_5()
 {
     QStringList objectives = {};
-    QString instructions = "";
+    QString instructions = " Compare your filtered square wave to your sum of sin waves in both the time and frequency domain.\
+They should look the same.\
+This is because the fourier series of a square wave is the infinite sum of odd harmonics of the fundamental frequency (100Hz in our case),\
+whose magnitudes are inversely proportional to the harmonic number.\
+For example, 300Hz is 3 times 100Hz, and the 300Hz component has an amplitude of 1/3.";
     tutorialPanel->submitObjectivesButton->setText("Next Step");
     tutorialPanel->updatePanel(objectives,instructions);
 }
@@ -350,7 +400,7 @@ void TutorialController::loadTutorial2_3()
     QString instructions = "Next, add a low pass filter with cutoff frequency = 300Hz.\
 Click the “Toggle Effects Panel” button and select “Add Filter”,\
 then select low pass filter and change the cutoff frequency to 300Hz";
-    QStringList objectives = {"Add lowpass filter with cutoff = 300Hz"};
+    QStringList objectives = {"Add lowpass filter with cutoff = 300Hz to the output"};
     tutorialPanel->updatePanel(objectives,instructions);
 }
 

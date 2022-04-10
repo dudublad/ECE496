@@ -59,7 +59,7 @@ public:
 
     AudioFile soundFile;
 
-
+    audioFilter audioFilterData;
     /*
      * Widgets
      */

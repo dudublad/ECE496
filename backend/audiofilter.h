@@ -17,6 +17,12 @@ public:
     void setFilterType(int type);
     void setWindowType(int type);
 
+    // vars required for generation
+    double freqCutoff1;
+    double freqCutoff2;
+    FilterType filterType;
+    WindowType windowType;
+
 private:
 
     // coefficient generator
@@ -31,11 +37,6 @@ private:
     // the file to write to, should be the same as input
     stk::FileWvOut output;
 
-    // vars required for generation
-    double freqCutoff1;
-    double freqCutoff2;
-    FilterType filterType;
-    WindowType windowType;
 
 };
 
