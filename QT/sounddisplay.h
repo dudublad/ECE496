@@ -135,7 +135,7 @@ public slots:
     void addToOutputStateChanged(int state);
 
 signals:
-    void sperpositionStateChanged();
+    void superpositionStateChanged();
 
 private slots:
     void onPlayButtonClicked();

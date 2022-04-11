@@ -122,18 +122,17 @@ void OutputSoundDisplay::generate(){
  * Called when its inputs are updated
  */
 void OutputSoundDisplay::generateOutput(){
+    std::cout << "OutputSoundDisplay: generateOutput()\n";
     //Clear the graph so that generateSine() is not
     //Accessing the same file
     drawWaveFromFile("");
     this->generate();
 
-    copyFileToEffectFile();
+    if(outputBuf.size() != 0) {
+        copyFileToEffectFile();
 
-    std::cout << "OutputSoundDisplay: Drawing Wave\n";
-    drawWaveFromFile(this->selectedFile);
-    std::cout << "OutputSoundDisplay: Done Drawing\n";
-
-
-
-
+        std::cout << "OutputSoundDisplay: Drawing Wave\n";
+        drawWaveFromFile(this->selectedFile);
+        std::cout << "OutputSoundDisplay: Done Drawing\n";
+    }
 }

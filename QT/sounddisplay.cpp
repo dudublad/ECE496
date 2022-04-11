@@ -177,7 +177,9 @@ void SoundDisplay::volumeChanged(int changedVolume)
 void SoundDisplay::addToOutputStateChanged(int state)
 {
     addToOutput = (state != 0);
-    emit sperpositionStateChanged();
+    std::cout << "addToOutputStateChanged()" << std::endl;
+    emit superpositionStateChanged();
+    std::cout << "emitted superpositionStateChanged(()" << std::endl;
 }
 
 void SoundDisplay::generateEffect(audioFilter filter){
