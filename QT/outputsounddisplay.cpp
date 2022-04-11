@@ -132,6 +132,4 @@ void OutputSoundDisplay::generateOutput(){
     std::cout << "OutputSoundDisplay: Done Drawing\n";
 
 
-
-
 }

@@ -67,9 +67,6 @@ public slots:
     void generateButtonPushed();
     void amplitudeSliderChange(int value);
     void amplitudeSpinBoxChange(double value);
-
-signals:
-    void waveGenerated(SoundDisplay* sourceDisplay);
 };
 
 #endif // WAVEDISPLAY_H

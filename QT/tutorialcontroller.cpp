@@ -321,36 +321,37 @@ void TutorialController::checkConditions(SoundDisplay* sourceDisplay,int signalS
                 }
             }
     }
-    else if(stepCount == TUTORIAL_TWO_START + 1)
+    else if(stepCount == (TUTORIAL_TWO_START + 1))
     {
         /* Tutorial 2_2 Objectives
          * Listen to the sum of the inputs at the output on the bottom
          */
         objectives.clear();
         objectives = {false};
+        //std::cout << "stuff SST: " << signalSourceType  << "SD: "<< (sourceDisplay != NULL) << "Type:" << sourceDisplay->soundType << std::endl;
         if(signalSourceType == PLAY_BUTTON_PRESSED && sourceDisplay != NULL && sourceDisplay->soundType == sourceDisplay->OUTPUT_SOUND_TYPE)
         {
             objectives[0] = true;
         }
     }
-    else if(stepCount == TUTORIAL_TWO_START + 2)
+    else if(stepCount == (TUTORIAL_TWO_START + 2))
     {
         /* Tutorial 2_3 Objectives
          * Add lowpass filter with cutoff = 300Hz to output
          */
         objectives.clear();
         objectives = {false};
+        //std::cout << "stuff SSD: " << signalSourceType  << "SD: "<< (sourceDisplay != NULL) << "Type:" << sourceDisplay->soundType << std::endl;
         if(signalSourceType == EFFECT_ADDED_TYPE && sourceDisplay != NULL && sourceDisplay->soundType == sourceDisplay->OUTPUT_SOUND_TYPE)
         {
-             WaveDisplay* wavePointer = (WaveDisplay*)(sourceDisplay);
-                if(wavePointer->audioFilterData.filterType == FilterType::LPF && round(wavePointer->audioFilterData.freqCutoff1)== 300)
+                if(sourceDisplay->audioFilterData.filterType == FilterType::LPF && round(sourceDisplay->audioFilterData.freqCutoff1)== 300)
                 {
                     objectives[0] = true;
                 }
         }
 
     }
-    else if(stepCount == TUTORIAL_TWO_START + 3)
+    else if(stepCount == (TUTORIAL_TWO_START + 3))
     {
         /* Tutorial 2_4 Objectives
          * Listen to the filtered output signal
@@ -362,7 +363,7 @@ void TutorialController::checkConditions(SoundDisplay* sourceDisplay,int signalS
             objectives[0] = true;
         }
     }
-
+    std::cout << "objectives checked, step count = " << stepCount << std::endl;
     //checks objectives
     for(int i =0;i<objectives.size();i++)
     {
@@ -376,7 +377,7 @@ void TutorialController::loadTutorial1_1()
     stepCount = 1;
     QStringList objectives = { "Create 100Hz square wave"};
     QString instructions = "Welcome to the first tutorial: Superposition, Frequency and Time!\n \
-                           Lets start off by getting familiar with the display, Create a new input. \
+Lets start off by getting familiar with the display, Create a new input.\n \
 Set the type to square wave, and set the frequency to 100Hz. \
 Click the “Generate Wave” button to create the wave.";
     //changes the objective texts
@@ -435,7 +436,8 @@ void TutorialController::loadTutorial1_5()
 They should look the same.\
 This is because the fourier series of a square wave is the infinite sum of odd harmonics of the fundamental frequency (100Hz in our case),\
 whose magnitudes are inversely proportional to the harmonic number.\
-For example, 300Hz is 3 times 100Hz, and the 300Hz component has an amplitude of 1/3.";
+For example, 300Hz is k = 3 times 100Hz, and the 300Hz component has an amplitude of ⅓.\
+Theoretically, you could keep adding sinusoids like this for k = 5, 7, 9, 11, 13… infinitely to create a square wave.";
     tutorialPanel->submitObjectivesButton->setText("Next Step");
     tutorialPanel->updatePanel(objectives,instructions);
 }

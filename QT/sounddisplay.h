@@ -133,6 +133,7 @@ signals:
     void inputRemoved(SoundDisplay* toRemove);
     void filterAdded(SoundDisplay* sourceDisplay);
     void playButtonPressed(SoundDisplay* sourceDisplay);
+    void waveGenerated(SoundDisplay* sourceDisplay);
 private slots:
     void onPlayButtonClicked();
     void generateEffect(audioFilter filter);

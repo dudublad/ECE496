@@ -11,6 +11,9 @@ InputScrollView::InputScrollView(QWidget *parent) : QWidget(parent)
     scrollAreaInputContainer = new QWidget(this);
     output = new OutputSoundDisplay(&this->inputs, this);
     //Connections
+    connect(output,&SoundDisplay::playButtonPressed,this,&InputScrollView::childPlayClicked);
+    connect(output,&SoundDisplay::waveGenerated,this,&InputScrollView::waveChanged);
+    connect(output,&SoundDisplay::filterAdded,this,&InputScrollView::childFilterAdded);
     connect(addRecordedInputButton,&QPushButton::clicked,[this](){ addInput(InputScrollView::SoundInputType::recordedSound);});
     connect(addSineWaveButton,&QPushButton::clicked,[this](){ addInput(InputScrollView::SoundInputType::sineWave);});
 
