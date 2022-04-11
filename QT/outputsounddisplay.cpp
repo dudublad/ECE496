@@ -12,6 +12,9 @@ OutputSoundDisplay::OutputSoundDisplay(QVector<SoundDisplay*>* input_vec, QWidge
 
     this->inputs = input_vec;
 
+    addToOutput = false;
+    addToOutputCheckBox->setVisible(false);
+
     filepath = QDir::currentPath() + "/audio_files/gen_output.wav";
     generate();
     changeFile(filepath);
@@ -52,7 +55,7 @@ void OutputSoundDisplay::generate(){
 
     for(int i = 0; i < inputs->size(); i++) {
         SoundDisplay* input = (*inputs)[i];
-        if(input != nullptr && input->isVisible()) {
+        if(input != nullptr && input->isVisible() && input->addToOutput) {
             stk::FileWvIn inputFile;
             std::string fileSource = input->timeDomain->getSourceFile().toStdString();
 

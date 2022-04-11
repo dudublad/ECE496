@@ -131,6 +131,7 @@ void InputScrollView::addInput(SoundInputType inputType)
 
     if(insertedInput != nullptr){
         connect(insertedInput->timeDomain, SIGNAL(plotStarted()), this, SLOT(updateOutput()));
+        connect(insertedInput, SIGNAL(sperpositionStateChanged()), this, SLOT(updateOutput()));
         connect(insertedInput->removeInputButton,SIGNAL(clicked()),this,SLOT(inputRemoved()));
     }
 
