@@ -10,6 +10,8 @@
 #include <string>
 #include <QAudioDecoder>
 #include "fft.h"
+#include <QCheckBox>
+
 class SoundDisplay : public QWidget
 {
     Q_OBJECT
@@ -51,6 +53,9 @@ public:
 
     // Id value for use in parent classes,id for output is always 0
     int inputId;
+
+    //Should this wave be added to the superimposed output
+    bool addToOutput;
 
     AudioFile soundFile;
 
@@ -101,6 +106,9 @@ public:
     // The layout of button control panel
     QGridLayout* buttonLayout;
 
+    // Checkbox to add wave to output
+    QCheckBox* addToOutputCheckBox;
+
     // Effect Panel Layout
     //QGridLayout* effectLayout;
 
@@ -124,10 +132,14 @@ public slots:
 
     void volumeChanged(int volume);
 
+    void addToOutputStateChanged(int state);
+
+signals:
+    void superpositionStateChanged();
+
 private slots:
     void onPlayButtonClicked();
     void generateEffect(audioFilter filter);
-    //
 };
 
 #endif // SOUNDDISPLAY_H
