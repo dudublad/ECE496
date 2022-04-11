@@ -10,10 +10,12 @@ InputScrollView::InputScrollView(QWidget *parent) : QWidget(parent)
     scrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
     scrollAreaInputContainer = new QWidget(this);
     output = new OutputSoundDisplay(&this->inputs, this);
+
+
     //Connections
     connect(addRecordedInputButton,&QPushButton::clicked,[this](){ addInput(InputScrollView::SoundInputType::recordedSound);});
     connect(addSineWaveButton,&QPushButton::clicked,[this](){ addInput(InputScrollView::SoundInputType::sineWave);});
-
+    connect(output->timeDomain, SIGNAL(plotFinished()), this, SLOT(enableSuperposition()));
 
     //Layout Declarations
     //TODO: do not do all parents are this?
@@ -160,6 +162,7 @@ void InputScrollView::inputRemoved()
 
 void InputScrollView::updateOutput()
 {
+    disableSuperposition();
     std::cout << "InputScrollView::updateOutput()\n";
     // up dates the output sound display
     this->output->generateOutput();
@@ -168,5 +171,21 @@ void InputScrollView::updateOutput()
 void InputScrollView::createOutputFile()
 {
     //creates an output file so the output can read it
+}
+
+void InputScrollView::disableSuperposition()
+{
+    for(int i = 0; i < inputs.size(); i++)
+    {
+        inputs[i]->addToOutputCheckBox->setEnabled(false);
+    }
+}
+
+void InputScrollView::enableSuperposition()
+{
+    for(int i = 0; i < inputs.size(); i++)
+    {
+        inputs[i]->addToOutputCheckBox->setEnabled(true);
+    }
 }
 

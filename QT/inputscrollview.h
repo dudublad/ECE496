@@ -62,6 +62,8 @@ public slots:
     void removeInput(SoundDisplay* input);
     void removeInputByIndex(int index);
     void inputRemoved();
+    void disableSuperposition();
+    void enableSuperposition();
 private:
     QVector<SoundDisplay*> inputs;
     //private members

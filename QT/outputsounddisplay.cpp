@@ -128,11 +128,9 @@ void OutputSoundDisplay::generateOutput(){
     drawWaveFromFile("");
     this->generate();
 
-    if(outputBuf.size() != 0) {
-        copyFileToEffectFile();
+    copyFileToEffectFile();
 
-        std::cout << "OutputSoundDisplay: Drawing Wave\n";
-        drawWaveFromFile(this->selectedFile);
-        std::cout << "OutputSoundDisplay: Done Drawing\n";
-    }
+    std::cout << "OutputSoundDisplay: Drawing Wave\n";
+    drawWaveFromFile(this->selectedFile);
+    std::cout << "OutputSoundDisplay: Done Drawing\n";
 }
