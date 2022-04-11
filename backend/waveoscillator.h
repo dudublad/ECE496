@@ -9,7 +9,8 @@
 typedef enum {
     Wave_Sin,
     Wave_Square,
-    Wave_SawTooth
+    Wave_SawTooth,
+    Wave_Noise
 } WaveType;
 
 class WaveOscillator
@@ -25,6 +26,7 @@ class WaveOscillator
         void generateSin(int size);
         void generateSquare(int size);
         void generateSawtooth(int size);
+        void generateNoise(int size);
 
     public:
     //Constructors

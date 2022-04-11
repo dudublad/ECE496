@@ -2,6 +2,8 @@
 #include <math.h>
 #include <iostream>
 #include <Stk.h>
+#include <random>
+#include <chrono>
 
 //Constructors
 WaveOscillator::WaveOscillator(){
@@ -50,7 +52,7 @@ void WaveOscillator::setDuration(double duration_in){
 }
 void WaveOscillator::setType(WaveType type_in){
     if(type_in == Wave_Sin || type_in == Wave_Square
-            || type_in == Wave_SawTooth)
+            || type_in == Wave_SawTooth || type_in == Wave_Noise)
         type = type_in;
 }
 
@@ -96,6 +98,9 @@ void WaveOscillator::generate(){
     else if (type == Wave_SawTooth){
         generateSawtooth(size);
     }
+    else if(type == Wave_Noise){
+        generateNoise(size);
+    }
     else{
         return;
     }
@@ -123,3 +128,19 @@ void WaveOscillator::generateSawtooth(int size){
                        - 0.5*amplitude);
     }
 }
+
+void WaveOscillator::generateNoise(int size){
+    double sigma = 0.1;
+    double mean = 0;
+
+    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+    std::default_random_engine generator (seed);
+
+    std::normal_distribution<double> distribution(mean,sigma);
+    for(int i = 0; i < size; i++){
+        values[i] = distribution(generator);
+    }
+}
+
+
+
