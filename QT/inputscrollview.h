@@ -67,6 +67,8 @@ public slots:
     void waveChanged(SoundDisplay* sourceDisplay = NULL);
     void childFilterAdded(SoundDisplay* sourceDisplay);
     void childPlayClicked(SoundDisplay* sourceDisplay);
+    void disableSuperposition();
+    void enableSuperposition();
 signals:
     void checkTutorialSignal(SoundDisplay* sourceDisplay,int sourceNumber);
     void filterAddedSignal(SoundDisplay* sourceDisplay,int sourceNumber);

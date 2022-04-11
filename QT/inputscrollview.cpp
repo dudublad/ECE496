@@ -10,13 +10,15 @@ InputScrollView::InputScrollView(QWidget *parent) : QWidget(parent)
     scrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
     scrollAreaInputContainer = new QWidget(this);
     output = new OutputSoundDisplay(&this->inputs, this);
+
+
     //Connections
     connect(output,&SoundDisplay::playButtonPressed,this,&InputScrollView::childPlayClicked);
     connect(output,&SoundDisplay::waveGenerated,this,&InputScrollView::waveChanged);
     connect(output,&SoundDisplay::filterAdded,this,&InputScrollView::childFilterAdded);
     connect(addRecordedInputButton,&QPushButton::clicked,[this](){ addInput(InputScrollView::SoundInputType::recordedSound);});
     connect(addSineWaveButton,&QPushButton::clicked,[this](){ addInput(InputScrollView::SoundInputType::sineWave);});
-
+    connect(output->timeDomain, SIGNAL(plotFinished()), this, SLOT(enableSuperposition()));
 
     //Layout Declarations
     //TODO: do not do all parents are this?
@@ -135,6 +137,7 @@ void InputScrollView::addInput(SoundInputType inputType)
 
     if(insertedInput != nullptr){
         connect(insertedInput->timeDomain, SIGNAL(plotStarted()), this, SLOT(updateOutput()));
+        connect(insertedInput, SIGNAL(superpositionStateChanged()), this, SLOT(updateOutput()));
         connect(insertedInput->removeInputButton,SIGNAL(clicked()),this,SLOT(inputRemoved()));
         connect(insertedInput,SIGNAL(inputRemoved(SoundDisplay*)),this,SLOT(removeInput(SoundDisplay*)));
         connect(insertedInput,SIGNAL(filterAdded(SoundDisplay*)),this,SLOT(childFilterAdded(SoundDisplay*)));
@@ -174,6 +177,7 @@ void InputScrollView::inputRemoved()
 
 void InputScrollView::updateOutput()
 {
+    disableSuperposition();
     std::cout << "InputScrollView::updateOutput()\n";
     // up dates the output sound display
     this->output->generateOutput();
@@ -198,5 +202,21 @@ void InputScrollView::childFilterAdded(SoundDisplay* sourceDisplay)
 void InputScrollView::childPlayClicked(SoundDisplay* sourceDisplay)
 {
     emit playPressedSignal(sourceDisplay,PLAY_BUTTON_PRESSED);
+}
+
+void InputScrollView::disableSuperposition()
+{
+    for(int i = 0; i < inputs.size(); i++)
+    {
+        inputs[i]->addToOutputCheckBox->setEnabled(false);
+    }
+}
+
+void InputScrollView::enableSuperposition()
+{
+    for(int i = 0; i < inputs.size(); i++)
+    {
+        inputs[i]->addToOutputCheckBox->setEnabled(true);
+    }
 }
 

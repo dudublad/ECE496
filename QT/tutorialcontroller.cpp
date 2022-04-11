@@ -537,6 +537,9 @@ void TutorialController::objectiveChecked(int boxIndex,bool completed)
 
 void TutorialController::loadTutorialPicker()
 {
+    QString instructions = "Select a Tutorial";
+    QStringList objectives = {};
+    tutorialPanel->updatePanel(objectives,instructions);
     this->tutorialPanel->objectivesLayout->addWidget(tutorialOneButton);
     this->tutorialPanel->objectivesLayout->addWidget(tutorialTwoButton);
     this->tutorialPanel->objectivesLayout->addWidget(sandboxButton);

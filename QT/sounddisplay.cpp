@@ -22,20 +22,19 @@ SoundDisplay::SoundDisplay(QWidget *parent)
     volumeSlider->setMinimum(0);
     volumeSlider->setTickInterval(1);
     volumeSlider->setValue(volume);
-
     volumeLabel->setText(QString::fromStdString("Volume: " + std::to_string(volume)));
-    //connect(button,&QPushButton::clicked,insert);
+
+    addToOutput = true;
+    addToOutputCheckBox = new QCheckBox("Add to Output", this);
+    addToOutputCheckBox->setChecked(true);
 
     // Connecting to slots
-    //connect(playButton,SIGNAL(clicked()),this,SLOT(onPlayButtonClicked()));
     connect(stopButton,SIGNAL(clicked()),this,SLOT(stopFile()));
     connect(toggleEffectPanelButton,SIGNAL(clicked()),this, SLOT(toggleEffectPanel()));
     connect(volumeSlider,SIGNAL(valueChanged(int)),this,SLOT(volumeChanged(int)));
     connect(timeDomain->decoder,&QAudioDecoder::finished,[this](){frequencyDisplay->setCoefficients(fft(timeDomain->samples));});
-    //connect(addSineWaveButton,&QPushButton::clicked,[this](){ addInput(InputScrollView::SoundInputType::sineWave);});
-    //connect(effectPanel->effectD)
-
     connect(this->effectPanel, SIGNAL(sendFilter(audioFilter)), this, SLOT(generateEffect(audioFilter)));
+    connect(addToOutputCheckBox,SIGNAL(stateChanged(int)),this,SLOT(addToOutputStateChanged(int)));
 
     /*
      * Layout adding and declarations
@@ -45,6 +44,7 @@ SoundDisplay::SoundDisplay(QWidget *parent)
     domainLayout = new QHBoxLayout(this);
     buttonLayout = new QGridLayout(this);
     //effectLayout = new QGridLayout(this);
+    mainLayout->addWidget(addToOutputCheckBox);
     mainLayout->addLayout(buttonLayout,1);
     mainLayout->addLayout(domainLayout,4);
     // To change sizes of timeDomain or freq Domain,
@@ -66,6 +66,7 @@ SoundDisplay::~SoundDisplay()
     delete frequencyDisplay;
     delete effectPanel;
     //delete mainLayout;
+    delete addToOutputCheckBox;
     //delete domainLayout;
     //delete buttonLayout;
 }
@@ -173,6 +174,14 @@ void SoundDisplay::volumeChanged(int changedVolume)
     volumeLabel->setText(QString::fromStdString("Volume: " + std::to_string(volume)));
     // Call other function which actually changes volume
     //change the volume
+}
+
+void SoundDisplay::addToOutputStateChanged(int state)
+{
+    addToOutput = (state != 0);
+    std::cout << "addToOutputStateChanged()" << std::endl;
+    emit superpositionStateChanged();
+    std::cout << "emitted superpositionStateChanged(()" << std::endl;
 }
 
 void SoundDisplay::generateEffect(audioFilter filter){
