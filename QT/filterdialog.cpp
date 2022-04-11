@@ -89,7 +89,6 @@ FilterDialog::~FilterDialog()
 void FilterDialog::filterTypeChanged(int type)
 {
     filterType = (FilterType) type;
-    std::cout << "Filter Type Changed to: " << type << std::endl;
 
     bool cutoff_high_visible = (filterType == HPF || filterType == BPF || filterType == BSF);
     bool cutoff_low_visible = (filterType == LPF || filterType == BPF || filterType == BSF);
@@ -104,7 +103,6 @@ void FilterDialog::filterTypeChanged(int type)
 void FilterDialog::windowTypeChanged(int type)
 {
     windowType = (WindowType) type;
-    std::cout << "Window Type Changed to: " << type << std::endl;
     this->filter.setWindowType(type);
 }
 
@@ -113,7 +111,6 @@ void FilterDialog::cutoff_low_changed(double cutoff)
     cutoff_low = cutoff;
     set_cutoff_2->setMinimum(cutoff);
 
-    std::cout << "Low Cutoff Changed to: " << cutoff << std::endl;
     this->filter.setFreqCutoff1(cutoff);
 }
 
@@ -122,6 +119,5 @@ void FilterDialog::cutoff_high_changed(double cutoff)
     cutoff_high = cutoff;
     set_cutoff_1->setMaximum(cutoff);
 
-    std::cout << "High Cutoff Changed to: " << cutoff << std::endl;
     this->filter.setFreqCutoff2(cutoff);
 }

@@ -20,7 +20,7 @@ std::vector<double> generateFirCoeff::generateFIRCoeff(double fc1, double fc2, F
 
     //Calls filter gen based on type, with normalized ft value
     std::vector<double> filter = generate_fc(fc1/fs, fc2/fs, M, filter_type);
-    printCoeffs(filter, filter_type);
+//    printCoeffs(filter, filter_type);
 
     //Returns windowed filter (defualt is rectuangular - unchanged)
     filter = window_fc(filter, M, window_type);

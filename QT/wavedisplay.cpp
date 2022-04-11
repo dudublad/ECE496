@@ -21,7 +21,6 @@ WaveDisplay::WaveDisplay(QWidget *parent, int id) : SoundDisplay(parent)
     amplitudeLabel = new QLabel(this);
     amplitudeSlider = new QSlider(Qt::Horizontal,this);
     amplitudeSpinBox = new QDoubleSpinBox (this);
-    //frequencyLayout = new QVBoxLayout(this);
     // setting up frequency slider
     frequencySlider->setValue(waveFrequency);
     frequencySlider->setMinimum(MIN_FREQ);
@@ -55,31 +54,12 @@ WaveDisplay::WaveDisplay(QWidget *parent, int id) : SoundDisplay(parent)
     connect(generateButton,SIGNAL(clicked()),this,SLOT(generateButtonPushed()));
     connect(amplitudeSlider,SIGNAL(valueChanged(int)),this,SLOT(amplitudeSliderChange(int)));
     connect(amplitudeSpinBox,SIGNAL(valueChanged(double)),this,SLOT(amplitudeSpinBoxChange(double)));
-    // Adding the frequency controls to the layout
-
-
-    // frequencyLayout->addWidget(titleLabel);
-
-    // frequencyControlLayout = new QHBoxLayout(this);
-    // frequencyControlLayout->addWidget(stopButton);
-    // frequencyControlLayout->addWidget(frequencySlider);
-    // frequencyControlLayout->addWidget(frequencyLabel);
-    // frequencyControlLayout->addWidget(playButton);
-    // frequencyLayout->addLayout(frequencyControlLayout);
-    // mainLayout->addLayout(frequencyLayout);
-//    buttonLayout->addWidget(playButton,0,0,Qt::AlignCenter);
-//    buttonLayout->addWidget(stopButton,1,0,Qt::AlignCenter);
-//    buttonLayout->addWidget(toggleEffectPanelButton,2,0,Qt::AlignCenter);
-//    buttonLayout->addWidget(titleLabel,0,1,Qt::AlignCenter);
-//    buttonLayout->addWidget(frequencySlider,1,1,Qt::AlignCenter);
-//    buttonLayout->addWidget(frequencyLabel,2,1,Qt::AlignCenter);
-//    buttonLayout->addWidget(removeInputButton,3,0,Qt::AlignCenter);
-//    buttonLayout->addWidget(volumeLabel,)
 
     waveTypeSelector = new QComboBox(this);
     waveTypeSelector->insertItem(Wave_Sin, "Sine Wave");
     waveTypeSelector->insertItem(Wave_Square, "Square Wave");
     waveTypeSelector->insertItem(Wave_SawTooth, "Sawtooth Wave");
+    waveTypeSelector->insertItem(Wave_Noise, "Noise");
     connect(waveTypeSelector,SIGNAL(currentIndexChanged(int)),this,SLOT(waveTypeIndexChanged(int)));
 
     //Setup the button layouy
@@ -126,6 +106,13 @@ void WaveDisplay::waveTypeIndexChanged(int index)
 {
     wave.setWaveType((WaveType) index);
     waveType = (WaveType)index;
+    bool is_wave = index != Wave_Noise;
+    frequencyLabel->setVisible(is_wave);
+    frequencySpinBox->setVisible(is_wave);
+    frequencySlider->setVisible(is_wave);
+    amplitudeSpinBox->setVisible(is_wave);
+    amplitudeLabel->setVisible(is_wave);
+    amplitudeSlider->setVisible(is_wave);
 }
 
 void WaveDisplay::onSpinBoxChanged(int value)
@@ -139,6 +126,9 @@ void WaveDisplay::onSpinBoxChanged(int value)
  */
 void WaveDisplay::generateButtonPushed()
 {
+    this->yMax = 1;
+    this->yMin = -1;
+    this->yScaling = 1;
     wave.setFrequency(waveFrequency);
     wave.setAmplitude(amplitude);
     if(QDateTime::currentMSecsSinceEpoch() >= last_generate_time_ms + GENERATE_LIMIT_MS) {

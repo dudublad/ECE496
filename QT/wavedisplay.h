@@ -43,9 +43,6 @@ public:
     // The frequency Slider
     QSlider* frequencySlider;
 
-    // Where the title and the control panel live
-    QVBoxLayout* frequencyLayout;
-
     // Contains the buttons on the frequency Layout
     QHBoxLayout* frequencyControlLayout;
 
