@@ -224,7 +224,53 @@ void TutorialController::checkConditions(SoundDisplay* sourceDisplay,int signalS
          */
         objectives.clear();
         objectives = {false,false};
-
+        QVector<bool> prelimObjectives = {false,false,false,false};
+        for(SoundDisplay* input : inputs)
+        {
+            if(input->soundType == input->WAVE_SOUND_TYPE)
+            {
+                WaveDisplay* wavePointer = (WaveDisplay*)(input);
+                if(wavePointer->waveFrequency == 100 && wavePointer->wave.gen_wave.getType() == WaveType::Wave_Sin \
+                        && round(wavePointer->amplitude*100) == 100)
+                {
+                  prelimObjectives[0] = true;
+                }
+                if(wavePointer->waveFrequency == 300 && wavePointer->wave.gen_wave.getType() == WaveType::Wave_Sin \
+                       && round(wavePointer->amplitude*100) == 33)
+                {
+                  prelimObjectives[1] = true;
+                }
+                if(wavePointer->waveFrequency == 500 && wavePointer->wave.gen_wave.getType() == WaveType::Wave_Sin \
+                        && round(wavePointer->amplitude*100) == 20)
+                {
+                  prelimObjectives[2] = true;
+                }
+                if(wavePointer->waveFrequency == 700 && wavePointer->wave.gen_wave.getType() == WaveType::Wave_Sin \
+                        && round(wavePointer->amplitude*100) == 14)
+                {
+                  prelimObjectives[3] = true;
+                }
+            }
+        }
+        if ( (std::equal(prelimObjectives.begin() + 1, prelimObjectives.end(), prelimObjectives.begin())) && prelimObjectives[0] == true)
+        {
+            // if all prelimObjectives are true
+            for(SoundDisplay* input : inputs)
+            {
+                if(input->soundType == input->WAVE_SOUND_TYPE)
+                {
+                    WaveDisplay* wavePointer = (WaveDisplay*)(input);
+                    if(wavePointer->waveFrequency == 900 && round(wavePointer->amplitude*100) == 11)
+                    {
+                        objectives[0] = true;
+                    }
+                    if(wavePointer->waveFrequency == 1100 && round(wavePointer->amplitude*100) == 9)
+                    {
+                        objectives[1] = true;
+                    }
+                }
+            }
+        }
     }
     else if(stepCount == 7){
         // End nothing happens
@@ -238,7 +284,34 @@ void TutorialController::checkConditions(SoundDisplay* sourceDisplay,int signalS
          */
         objectives.clear();
         objectives = {false,false,false};
-        //if()
+        for(SoundDisplay* input : inputs)
+        {
+            if(input->soundType == input->WAVE_SOUND_TYPE)
+            {
+                WaveDisplay* wavePointer = (WaveDisplay*)(input);
+                if(wavePointer->wave.gen_wave.getType() == WaveType::Wave_Sin && wavePointer->waveFrequency == 300)
+                {
+                    objectives[0] = true;
+                }
+                if(wavePointer->wave.gen_wave.getType() == WaveType::Wave_Noise)
+                {
+                   objectives[1] = true;
+                }
+            }
+        }
+        if(signalSourceType == PLAY_BUTTON_PRESSED && sourceDisplay != NULL)
+            if(sourceDisplay->soundType == sourceDisplay->WAVE_SOUND_TYPE)
+            {
+                WaveDisplay* wavePointer = (WaveDisplay*)(sourceDisplay);
+                if(wavePointer->wave.gen_wave.getType() == WaveType::Wave_Sin && wavePointer->waveFrequency == 300)
+                {
+                    objectives[2] = true;
+                }
+                else if(wavePointer->wave.gen_wave.getType() == WaveType::Wave_Noise)
+                {
+                    objectives[2] = true;
+                }
+            }
     }
     else if(stepCount == TUTORIAL_TWO_START + 1)
     {
@@ -247,7 +320,7 @@ void TutorialController::checkConditions(SoundDisplay* sourceDisplay,int signalS
          */
         objectives.clear();
         objectives = {false};
-        if(signalSourceType == PLAY_BUTTON_PRESSED && sourceDisplay->soundType == sourceDisplay->OUTPUT_SOUND_TYPE)
+        if(signalSourceType == PLAY_BUTTON_PRESSED && sourceDisplay != NULL && sourceDisplay->soundType == sourceDisplay->OUTPUT_SOUND_TYPE)
         {
             objectives[0] = true;
         }
@@ -276,7 +349,7 @@ void TutorialController::checkConditions(SoundDisplay* sourceDisplay,int signalS
          */
         objectives.clear();
         objectives = {false};
-        if(signalSourceType == PLAY_BUTTON_PRESSED && sourceDisplay->soundType == sourceDisplay->OUTPUT_SOUND_TYPE)
+        if(signalSourceType == PLAY_BUTTON_PRESSED && sourceDisplay != NULL && sourceDisplay->soundType == sourceDisplay->OUTPUT_SOUND_TYPE)
         {
             objectives[0] = true;
         }
@@ -314,10 +387,10 @@ Click the “Generate Wave” button to create the wave.";
 
 void TutorialController::loadTutorial1_2()
 {
-    QStringList objectives = { "Create Sine wave Frequency: 100Hz, Amplitude: 1",
-                             "Create Sine wave Frequency: 300Hz, Amplitude: 0.33",
-                             "Create Sine wave Frequency: 500Hz, Amplitude: 0.20",
-                             "Create Sine wave Frequency: 700Hz, Amplitude: 0.14"};
+    QStringList objectives = { "Create Sine wave: Frequency: 100Hz, Amplitude: 1",
+                             "Create Sine wave: Frequency: 300Hz, Amplitude: 0.33",
+                             "Create Sine wave: Frequency: 500Hz, Amplitude: 0.20",
+                             "Create Sine wave: Frequency: 700Hz, Amplitude: 0.14"};
     QString instructions = "Create 4 new sin waves. Observe the frequency domain,\
 and note that the fourier transform of a sin wave is a spike, \
 or delta at the respective frequency.";
@@ -361,7 +434,7 @@ For example, 300Hz is 3 times 100Hz, and the 300Hz component has an amplitude of
 
 void TutorialController::loadTutorial1_6()
 {
-    QStringList objectives = {"First wave added","Second wave added"};
+    QStringList objectives = {"Create Sine wave: Frequency: 900Hz, Amplitude: 0.11","Create Sine wave: Frequency: 1100Hz, Amplitude: 0.09"};
     QString instructions = "Add two more waves to your sum of sins in order to make it better approximate (look more like) a square wave.";
     tutorialPanel->submitObjectivesButton->setText("Submit Objectives");
     tutorialPanel->updatePanel(objectives,instructions);
@@ -372,6 +445,7 @@ void TutorialController::loadTutorial1_End()
     QString instructions = "You've completed Tutorial 1! Click the buttons on the screen to either go into\
 sandbox mode where you can play with the waves at will, or move on to Tutorial 2";
             QStringList objectives = {};
+    tutorialPanel->submitObjectivesButton->setText("Return to Tutorial Selection");
     tutorialPanel->updatePanel(objectives,instructions);
 }
 

@@ -41,7 +41,6 @@ InputScrollView::InputScrollView(QWidget *parent) : QWidget(parent)
     scrollArea->setWidget(scrollAreaInputContainer);
     scrollArea->setWidgetResizable(true);
 
-    addInput(InputScrollView::SoundInputType::recordedSound);
     addInput(InputScrollView::SoundInputType::sineWave);
 
     last_new_wave_time_ms = 0;
