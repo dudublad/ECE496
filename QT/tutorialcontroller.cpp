@@ -99,18 +99,25 @@ void TutorialController::moveToNextStep()
           break;
         case 6:
            loadTutorial1_6();
+           break;
         case 7:
            loadTutorial1_End();
+           break;
         case TUTORIAL_TWO_START:
            loadTutorial2_1();
+           break;
         case TUTORIAL_TWO_START+1:
            loadTutorial2_2();
+           break;
         case TUTORIAL_TWO_START+2:
           loadTutorial2_3();
+          break;
         case TUTORIAL_TWO_START+3:
           loadTutorial2_4();
+          break;
         case TUTORIAL_TWO_START+4:
           loadTutorial2_End();
+          break;
         default:
           break;
        }
@@ -155,6 +162,7 @@ void TutorialController::checkConditions(SoundDisplay* sourceDisplay,int signalS
          */
         objectives.clear();
         objectives = {false,false,false,false};
+        //objectives = {true,true,true,true};
         for(SoundDisplay* input : inputs)
         {
             if(input->soundType == input->WAVE_SOUND_TYPE)
