@@ -33,8 +33,8 @@ WaveDisplay::WaveDisplay(QWidget *parent, int id) : SoundDisplay(parent)
     frequencySpinBox->setSuffix(" Hz");
 
     amplitudeSpinBox->setMinimum(0);
-    amplitudeSpinBox->setMaximum(2);
-    amplitudeSpinBox->setSingleStep(0.1);
+    amplitudeSpinBox->setMaximum(1);
+    amplitudeSpinBox->setSingleStep(0.01);
     amplitudeSpinBox->setValue(amplitude);
     amplitudeSlider->setMinimum(0);
     amplitudeSlider->setMaximum(100);

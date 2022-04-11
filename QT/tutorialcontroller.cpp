@@ -435,7 +435,10 @@ For example, 300Hz is 3 times 100Hz, and the 300Hz component has an amplitude of
 void TutorialController::loadTutorial1_6()
 {
     QStringList objectives = {"Create Sine wave: Frequency: 900Hz, Amplitude: 0.11","Create Sine wave: Frequency: 1100Hz, Amplitude: 0.09"};
-    QString instructions = "Add two more waves to your sum of sins in order to make it better approximate (look more like) a square wave.";
+    QString instructions = "Add two more waves to your sum of sins in order to make it better approximate (look more like) a square wave.\
+Make sure you keep the inputs from the previous steps (Sine wave: Frequency: 100Hz, Amplitude: 1,\
+Sine wave: Frequency: 300Hz, Amplitude: 0.33, Sine wave: Frequency: 500Hz, Amplitude: 0.20, and \
+Sine wave: Frequency: 700Hz, Amplitude: 0.14)";
     tutorialPanel->submitObjectivesButton->setText("Submit Objectives");
     tutorialPanel->updatePanel(objectives,instructions);
 }
@@ -488,6 +491,7 @@ meaning there is much less overall noise in the signal.\
 Observe the frequency domain of the noise signal input, \
 and see that much of the energy of the noise is contained within components greater than 300Hz.";
     QStringList objectives = {"Listen to the filtered signal"};
+    tutorialPanel->updatePanel(objectives,instructions);
 }
 
 void TutorialController::loadTutorial2_End()
