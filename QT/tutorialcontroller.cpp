@@ -9,10 +9,13 @@ TutorialController::TutorialController(QWidget *parent) : QWidget(parent)
     tutorialOneButton = new QPushButton("Tutorial One",this);
     tutorialTwoButton = new QPushButton("Tutorial Two",this);
     sandboxButton = new QPushButton("SandBox",this);
+    returnToTutorialSelectionButton = new QPushButton("Return to Tutorial Selection Screen");
+
 
     connect(sandboxButton,&QPushButton::clicked,[this](){ tutorialSelection(0);});
     connect(tutorialOneButton,&QPushButton::clicked,[this](){ tutorialSelection(1);});
     connect(tutorialTwoButton,&QPushButton::clicked,[this](){ tutorialSelection(2);});
+    connect(returnToTutorialSelectionButton,&QPushButton::clicked,[this](){loadTutorialPicker();});
 
     connect(inputScrollView,&InputScrollView::checkTutorialSignal,this,&TutorialController::checkConditions);
     connect(inputScrollView,&InputScrollView::filterAddedSignal,this,&TutorialController::checkConditions);
@@ -25,6 +28,8 @@ TutorialController::TutorialController(QWidget *parent) : QWidget(parent)
     this->tutorialPanel->objectivesLayout->addWidget(tutorialOneButton);
     this->tutorialPanel->objectivesLayout->addWidget(tutorialTwoButton);
     this->tutorialPanel->objectivesLayout->addWidget(sandboxButton);
+    this->tutorialPanel->objectivesLayout->addWidget(returnToTutorialSelectionButton);
+    this->returnToTutorialSelectionButton->setVisible(false);
     this->tutorialPanel->submitObjectivesButton->setVisible(false);
     //loadTutorial1_1();
     // set up to emit signal when all boxes are ticked
@@ -38,6 +43,7 @@ void TutorialController::tutorialSelection(int tutorialIndex)
     sandboxButton->setVisible(false);
     tutorialOneButton->setVisible(false);
     tutorialTwoButton->setVisible(false);
+    this->returnToTutorialSelectionButton->setVisible(false);
 //    delete sandboxButton;
 //    delete tutorialOneButton;
 //    delete tutorialTwoButton;
@@ -460,6 +466,8 @@ sandbox mode where you can play with the waves at will, or move on to Tutorial 2
             QStringList objectives = {};
     tutorialPanel->submitObjectivesButton->setText("Return to Tutorial Selection");
     tutorialPanel->updatePanel(objectives,instructions);
+    this->tutorialPanel->submitObjectivesButton->setVisible(false);
+    this->returnToTutorialSelectionButton->setVisible(true);
 }
 
 void TutorialController::loadTutorial2_1()
@@ -510,6 +518,8 @@ void TutorialController::loadTutorial2_End()
 sandbox mode where you can play with the waves at will, or go back to tutorial 1";
             QStringList objectives = {};
     tutorialPanel->updatePanel(objectives,instructions);
+    this->tutorialPanel->submitObjectivesButton->setVisible(false);
+    this->returnToTutorialSelectionButton->setVisible(true);
 }
 
 void TutorialController::objectiveChecked(int boxIndex,bool completed)
@@ -523,4 +533,15 @@ void TutorialController::objectiveChecked(int boxIndex,bool completed)
     }
     //bool objectivesComplete = this->tutorialPanel->getObjectiveStatus();
     //std::cout << "Objectives  complete: " << objectivesComplete << std::endl;
+}
+
+void TutorialController::loadTutorialPicker()
+{
+    this->tutorialPanel->objectivesLayout->addWidget(tutorialOneButton);
+    this->tutorialPanel->objectivesLayout->addWidget(tutorialTwoButton);
+    this->tutorialPanel->objectivesLayout->addWidget(sandboxButton);
+    sandboxButton->setVisible(true);
+    tutorialOneButton->setVisible(true);
+    tutorialTwoButton->setVisible(true);
+    this->returnToTutorialSelectionButton->setVisible(false);
 }

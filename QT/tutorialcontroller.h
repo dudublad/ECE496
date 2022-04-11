@@ -27,11 +27,15 @@ public:
 
     QPushButton* sandboxButton;
 
+    QPushButton* returnToTutorialSelectionButton;
+
     /*
      * Utility Functions
      *
      */
     TutorialController(QWidget *parent);
+
+    void loadTutorialPicker();
 
     void loadTutorial1_1();
     void loadTutorial1_2();
