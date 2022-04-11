@@ -9,13 +9,12 @@ TutorialController::TutorialController(QWidget *parent) : QWidget(parent)
     tutorialOneButton = new QPushButton("Tutorial One",this);
     tutorialTwoButton = new QPushButton("Tutorial Two",this);
     sandboxButton = new QPushButton("SandBox",this);
-    returnToTutorialSelectionButton = new QPushButton("Return to Tutorial Selection Screen");
 
 
     connect(sandboxButton,&QPushButton::clicked,[this](){ tutorialSelection(0);});
     connect(tutorialOneButton,&QPushButton::clicked,[this](){ tutorialSelection(1);});
     connect(tutorialTwoButton,&QPushButton::clicked,[this](){ tutorialSelection(2);});
-    connect(returnToTutorialSelectionButton,&QPushButton::clicked,[this](){loadTutorialPicker();});
+    connect(this->tutorialPanel->returnToTutorialSelectionButton,&QPushButton::clicked,[this](){loadTutorialPicker();});
 
     connect(inputScrollView,&InputScrollView::checkTutorialSignal,this,&TutorialController::checkConditions);
     connect(inputScrollView,&InputScrollView::filterAddedSignal,this,&TutorialController::checkConditions);
@@ -24,13 +23,13 @@ TutorialController::TutorialController(QWidget *parent) : QWidget(parent)
     mainTutorialLayout->addWidget(tutorialPanel,1);
     mainTutorialLayout->addWidget(inputScrollView,6);
     this->setLayout(mainTutorialLayout);
-
-    this->tutorialPanel->objectivesLayout->addWidget(tutorialOneButton);
-    this->tutorialPanel->objectivesLayout->addWidget(tutorialTwoButton);
-    this->tutorialPanel->objectivesLayout->addWidget(sandboxButton);
-    this->tutorialPanel->objectivesLayout->addWidget(returnToTutorialSelectionButton);
-    this->returnToTutorialSelectionButton->setVisible(false);
-    this->tutorialPanel->submitObjectivesButton->setVisible(false);
+    loadTutorialPicker();
+//    this->tutorialPanel->objectivesLayout->addWidget(tutorialOneButton);
+//    this->tutorialPanel->objectivesLayout->addWidget(tutorialTwoButton);
+//    this->tutorialPanel->objectivesLayout->addWidget(sandboxButton);
+//    this->tutorialPanel->objectivesLayout->addWidget(this->tutorialPanel->returnToTutorialSelectionButton);
+//    ///this->returnToTutorialSelectionButton->setVisible(false);
+//    this->tutorialPanel->submitObjectivesButton->setVisible(false);
     //loadTutorial1_1();
     // set up to emit signal when all boxes are ticked
 }
@@ -43,7 +42,7 @@ void TutorialController::tutorialSelection(int tutorialIndex)
     sandboxButton->setVisible(false);
     tutorialOneButton->setVisible(false);
     tutorialTwoButton->setVisible(false);
-    this->returnToTutorialSelectionButton->setVisible(false);
+    //this->returnToTutorialSelectionButton->setVisible(false);
 //    delete sandboxButton;
 //    delete tutorialOneButton;
 //    delete tutorialTwoButton;
@@ -51,7 +50,8 @@ void TutorialController::tutorialSelection(int tutorialIndex)
    switch(tutorialIndex) {
 
    case 0:
-       this->tutorialPanel->setVisible(false);
+       //this->tutorialPanel->setVisible(false);
+       loadSandbox();
         // Unload the tutorial section this is sandbox mode
        //Straight up no op probably
        break;
@@ -408,7 +408,8 @@ void TutorialController::loadTutorial1_2()
                              "Create Sine wave: Frequency: 700Hz, Amplitude: 0.14"};
     QString instructions = "Create 4 new sin waves. Observe the frequency domain,\
 and note that the fourier transform of a sin wave is a spike, \
-or delta at the respective frequency.";
+or delta at the respective frequency. In addition, stop the square wave from contributing to the output by\
+unchecking it's 'Add to Output' Checkbox";
     tutorialPanel->updatePanel(objectives,instructions);
 }
 
@@ -467,7 +468,6 @@ sandbox mode where you can play with the waves at will, or move on to Tutorial 2
     tutorialPanel->submitObjectivesButton->setText("Return to Tutorial Selection");
     tutorialPanel->updatePanel(objectives,instructions);
     this->tutorialPanel->submitObjectivesButton->setVisible(false);
-    this->returnToTutorialSelectionButton->setVisible(true);
 }
 
 void TutorialController::loadTutorial2_1()
@@ -519,7 +519,6 @@ sandbox mode where you can play with the waves at will, or go back to tutorial 1
             QStringList objectives = {};
     tutorialPanel->updatePanel(objectives,instructions);
     this->tutorialPanel->submitObjectivesButton->setVisible(false);
-    this->returnToTutorialSelectionButton->setVisible(true);
 }
 
 void TutorialController::objectiveChecked(int boxIndex,bool completed)
@@ -546,5 +545,14 @@ void TutorialController::loadTutorialPicker()
     sandboxButton->setVisible(true);
     tutorialOneButton->setVisible(true);
     tutorialTwoButton->setVisible(true);
-    this->returnToTutorialSelectionButton->setVisible(false);
+    this->tutorialPanel->submitObjectivesButton->setVisible(false);
+    this->tutorialPanel->returnToTutorialSelectionButton->setVisible(false);
+}
+
+void TutorialController::loadSandbox()
+{
+    QString instructions = "";
+    QStringList objectives = {};
+    tutorialPanel->updatePanel(objectives,instructions);
+    this->tutorialPanel->submitObjectivesButton->setVisible(false);
 }

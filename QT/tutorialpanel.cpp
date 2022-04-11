@@ -4,6 +4,7 @@ TutorialPanel::TutorialPanel(QWidget *parent, int tutorialNumber) : QWidget(pare
 {
     objectivesLayout = new QVBoxLayout(this);
     submitObjectivesButton = new QPushButton("Submit Objectives",this);
+    returnToTutorialSelectionButton = new QPushButton("Return to Tutorial Selection Screen",this);
     instructionsText = new QLabel("",this);
     instructionsText->setWordWrap(true);
 }
@@ -35,6 +36,7 @@ void TutorialPanel::updatePanel(QStringList objectives,QString instructions)
 
 
     objectivesLayout->removeWidget(submitObjectivesButton);
+    objectivesLayout->removeWidget(returnToTutorialSelectionButton);
     //connections are not handled here, they are handled in the tutorialController
     instructionsText->setText(instructions);
     objectivesLayout->addWidget(instructionsText);
@@ -48,6 +50,8 @@ void TutorialPanel::updatePanel(QStringList objectives,QString instructions)
     }
 
     objectivesLayout->addWidget(submitObjectivesButton,Qt::AlignCenter);
+    objectivesLayout->addWidget(returnToTutorialSelectionButton,Qt::AlignCenter);
+    returnToTutorialSelectionButton->setVisible(true);
     std::cout << "done updating panel" << std::endl;
 }
 

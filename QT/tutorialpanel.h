@@ -37,6 +37,7 @@ public:
     bool getObjectivesStatus();
     QVector<QCheckBox*> checkboxes;
     QPushButton* submitObjectivesButton;
+    QPushButton* returnToTutorialSelectionButton;
     QVBoxLayout* objectivesLayout;
     QLabel* instructionsText;
 };
