@@ -13,6 +13,9 @@ InputScrollView::InputScrollView(QWidget *parent) : QWidget(parent)
 
 
     //Connections
+    connect(output,&SoundDisplay::playButtonPressed,this,&InputScrollView::childPlayClicked);
+    connect(output,&SoundDisplay::waveGenerated,this,&InputScrollView::waveChanged);
+    connect(output,&SoundDisplay::filterAdded,this,&InputScrollView::childFilterAdded);
     connect(addRecordedInputButton,&QPushButton::clicked,[this](){ addInput(InputScrollView::SoundInputType::recordedSound);});
     connect(addSineWaveButton,&QPushButton::clicked,[this](){ addInput(InputScrollView::SoundInputType::sineWave);});
     connect(output->timeDomain, SIGNAL(plotFinished()), this, SLOT(enableSuperposition()));
@@ -28,7 +31,6 @@ InputScrollView::InputScrollView(QWidget *parent) : QWidget(parent)
     inputButtonLayout->addWidget(addRecordedInputButton);
     inputButtonLayout->addWidget(addSineWaveButton);
     outputLayout->addWidget(output);
-
     scrollLayout->addWidget(scrollArea);
     topLayout->addLayout(scrollLayout,5);
     topLayout->addLayout(inputButtonLayout,1);
@@ -44,7 +46,6 @@ InputScrollView::InputScrollView(QWidget *parent) : QWidget(parent)
     scrollArea->setWidget(scrollAreaInputContainer);
     scrollArea->setWidgetResizable(true);
 
-    addInput(InputScrollView::SoundInputType::recordedSound);
     addInput(InputScrollView::SoundInputType::sineWave);
 
     last_new_wave_time_ms = 0;
@@ -88,6 +89,7 @@ void InputScrollView::updateScrollArea()
             inputSubScrollLayout->removeWidget(widget);
         }
     }
+    std::cout << "current inputs: " << inputs.size() << std::endl;
 }
 
 void InputScrollView::addInput(SoundInputType inputType)
@@ -123,6 +125,8 @@ void InputScrollView::addInput(SoundInputType inputType)
         fprintf(stderr,"Added new SineWaveDisplay");
 
         insertedInput = toInsert;
+        //TODO: if statement here to check relevancy?
+        connect(toInsert,&WaveDisplay::waveGenerated,this,&InputScrollView::waveChanged);
         last_new_wave_time_ms = QDateTime::currentMSecsSinceEpoch();
     }
     else
@@ -135,6 +139,9 @@ void InputScrollView::addInput(SoundInputType inputType)
         connect(insertedInput->timeDomain, SIGNAL(plotStarted()), this, SLOT(updateOutput()));
         connect(insertedInput, SIGNAL(superpositionStateChanged()), this, SLOT(updateOutput()));
         connect(insertedInput->removeInputButton,SIGNAL(clicked()),this,SLOT(inputRemoved()));
+        connect(insertedInput,SIGNAL(inputRemoved(SoundDisplay*)),this,SLOT(removeInput(SoundDisplay*)));
+        connect(insertedInput,SIGNAL(filterAdded(SoundDisplay*)),this,SLOT(childFilterAdded(SoundDisplay*)));
+        connect(insertedInput,&SoundDisplay::playButtonPressed,this,&InputScrollView::childPlayClicked);
     }
 
     updateScrollArea();
@@ -151,7 +158,15 @@ void InputScrollView::removeInputByIndex(int index)
 
 void InputScrollView::removeInput(SoundDisplay* input)
 {
-
+    for(SoundDisplay* in : inputs)
+    {
+        if(in == input)
+        {
+            inputs.erase(std::remove(inputs.begin(),inputs.end(),in),inputs.end());
+            break;
+        }
+    }
+    waveChanged();
 }
 
 void InputScrollView::inputRemoved()
@@ -171,6 +186,22 @@ void InputScrollView::updateOutput()
 void InputScrollView::createOutputFile()
 {
     //creates an output file so the output can read it
+}
+
+void InputScrollView::waveChanged(SoundDisplay* sourceDisplay)
+{
+    std::cout << "emiting 1" << std::endl;
+    emit checkTutorialSignal(sourceDisplay,SIGNAL_GENERATED);
+}
+
+void InputScrollView::childFilterAdded(SoundDisplay* sourceDisplay)
+{
+    emit filterAddedSignal(sourceDisplay,EFFECT_ADDED_TYPE);
+}
+
+void InputScrollView::childPlayClicked(SoundDisplay* sourceDisplay)
+{
+    emit playPressedSignal(sourceDisplay,PLAY_BUTTON_PRESSED);
 }
 
 void InputScrollView::disableSuperposition()

@@ -5,6 +5,7 @@
 RecordedSoundDisplay::RecordedSoundDisplay(QWidget *parent, int id) : SoundDisplay(parent)
 {
     // init
+    soundType  = RECORDED_SOUND_TYPE;
     chooseFileButton = new QPushButton("Choose a new File",this);
     removeInputButton = new QPushButton("Remove Input",this);
     connect(chooseFileButton,SIGNAL(clicked()),this,SLOT(chooseFile()));

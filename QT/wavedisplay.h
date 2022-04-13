@@ -20,6 +20,9 @@ public:
 
     double amplitude;
 
+    //1 for sine,2 for square, 3 for saw
+    WaveType waveType;
+
     /*
      * Keeps track of when the last wave was generated
      * This is limited by GENERATE_LIMIT_S
@@ -64,9 +67,6 @@ public slots:
     void generateButtonPushed();
     void amplitudeSliderChange(int value);
     void amplitudeSpinBoxChange(double value);
-
-signals:
-    void waveGenerated(int waveFrequency);
 };
 
 #endif // WAVEDISPLAY_H

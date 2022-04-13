@@ -3,13 +3,14 @@
 
 WaveDisplay::WaveDisplay(QWidget *parent, int id) : SoundDisplay(parent)
 {
-
+    soundType = WAVE_SOUND_TYPE;
     int MAX_FREQ = 20000;
     int MIN_FREQ = 20;
     // initializing data attributes
     waveFrequency = 20;
     amplitude = 1.00;
     inputId = id;
+    waveType = Wave_Sin;
     // Creating subwidgets
     frequencySlider = new QSlider(Qt::Horizontal,this);
 
@@ -32,8 +33,8 @@ WaveDisplay::WaveDisplay(QWidget *parent, int id) : SoundDisplay(parent)
     frequencySpinBox->setSuffix(" Hz");
 
     amplitudeSpinBox->setMinimum(0);
-    amplitudeSpinBox->setMaximum(2);
-    amplitudeSpinBox->setSingleStep(0.1);
+    amplitudeSpinBox->setMaximum(1);
+    amplitudeSpinBox->setSingleStep(0.01);
     amplitudeSpinBox->setValue(amplitude);
     amplitudeSlider->setMinimum(0);
     amplitudeSlider->setMaximum(100);
@@ -104,6 +105,7 @@ void WaveDisplay::frequencySliderChange(int value)
 void WaveDisplay::waveTypeIndexChanged(int index)
 {
     wave.setWaveType((WaveType) index);
+    waveType = (WaveType)index;
     bool is_wave = index != Wave_Noise;
     frequencyLabel->setVisible(is_wave);
     frequencySpinBox->setVisible(is_wave);
@@ -135,7 +137,7 @@ void WaveDisplay::generateButtonPushed()
         wave.generateSine();
         copyFileToEffectFile();
         drawWaveFromFile(this->selectedFile);
-        emit waveGenerated(waveFrequency);
+        emit waveGenerated(this);
         last_generate_time_ms = QDateTime::currentMSecsSinceEpoch();
     }
 }
@@ -151,6 +153,6 @@ void WaveDisplay::amplitudeSliderChange(int value)
 
 void WaveDisplay::amplitudeSpinBoxChange(double value)
 {
-    amplitudeSlider->setValue(100 * value);
+    amplitudeSlider->setValue(round(100 * value));
 }
 

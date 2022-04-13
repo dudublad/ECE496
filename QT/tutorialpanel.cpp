@@ -4,7 +4,9 @@ TutorialPanel::TutorialPanel(QWidget *parent, int tutorialNumber) : QWidget(pare
 {
     objectivesLayout = new QVBoxLayout(this);
     submitObjectivesButton = new QPushButton("Submit Objectives",this);
-
+    returnToTutorialSelectionButton = new QPushButton("Return to Tutorial Selection Screen",this);
+    instructionsText = new QLabel("",this);
+    instructionsText->setWordWrap(true);
 }
 
 TutorialPanel::~TutorialPanel()
@@ -13,18 +15,31 @@ TutorialPanel::~TutorialPanel()
 }
 
 //
-void TutorialPanel::updatePanel(QStringList objectives)
+void TutorialPanel::updatePanel(QStringList objectives,QString instructions)
 {
-    //Disposes of checkboxes
+    std::cout << "\n updating panel count is: " << objectivesLayout->count() << std::endl;
+//    while(objectivesLayout->count() > 0)
+//    {
+//        QLayoutItem* child = objectivesLayout->takeAt(0);
+
+//        objectivesLayout->removeItem(child);
+//    }
+
+    //Disposes of existing checkboxes
     for(int i = 0;i < checkboxes.size();i++)
     {
-        free(checkboxes[i]);
+        checkboxes[i]->setVisible(false);
+        //TODO: Crashes on exit if this is left on
+        delete checkboxes[i];
     }
     checkboxes.clear();
 
 
     objectivesLayout->removeWidget(submitObjectivesButton);
+    objectivesLayout->removeWidget(returnToTutorialSelectionButton);
     //connections are not handled here, they are handled in the tutorialController
+    instructionsText->setText(instructions);
+    objectivesLayout->addWidget(instructionsText);
     for( const auto& objective : objectives)
     {
         QCheckBox* newCheckBox = new QCheckBox(objective,this);
@@ -34,10 +49,13 @@ void TutorialPanel::updatePanel(QStringList objectives)
         objectivesLayout->addWidget(newCheckBox);
     }
 
-    objectivesLayout->addWidget(submitObjectivesButton);
+    objectivesLayout->addWidget(submitObjectivesButton,Qt::AlignCenter);
+    objectivesLayout->addWidget(returnToTutorialSelectionButton,Qt::AlignCenter);
+    returnToTutorialSelectionButton->setVisible(true);
+    std::cout << "done updating panel" << std::endl;
 }
 
-bool TutorialPanel::getObjectiveStatus()
+bool TutorialPanel::getObjectivesStatus()
 {
     int numCheckBoxes = checkboxes.size();
     bool isChecked = true;
@@ -49,7 +67,6 @@ bool TutorialPanel::getObjectiveStatus()
             break;
         }
     }
-
     return isChecked;
 }
 

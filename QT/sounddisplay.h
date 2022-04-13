@@ -20,6 +20,9 @@ public:
     SoundDisplay(QWidget *parent);
     ~SoundDisplay();
     void changeFile(QString path);
+    static const int RECORDED_SOUND_TYPE = 1;
+    static const int WAVE_SOUND_TYPE = 2;
+    static const int OUTPUT_SOUND_TYPE = 3;
     void openFile();
 
     // copys the original file to the effect file
@@ -45,6 +48,8 @@ public:
     // Volume of the played sound, Scale: 0-100
     int volume;
 
+    //1 for recordedSound, 2 for wave, 3 for output
+    int soundType;
     //Plot Properties
     //How much to scale the plotted graph
     double yScaling = 1;
@@ -59,7 +64,7 @@ public:
 
     AudioFile soundFile;
 
-
+    audioFilter audioFilterData;
     /*
      * Widgets
      */
@@ -135,6 +140,10 @@ public slots:
     void addToOutputStateChanged(int state);
 
 signals:
+    void inputRemoved(SoundDisplay* toRemove);
+    void filterAdded(SoundDisplay* sourceDisplay);
+    void playButtonPressed(SoundDisplay* sourceDisplay);
+    void waveGenerated(SoundDisplay* sourceDisplay);
     void superpositionStateChanged();
 
 private slots:

@@ -35,8 +35,9 @@ public:
     // generate the sine.wav file
     void generateSine();
 
-private:
     WaveOscillator gen_wave;
+
+private:
     QString filePath;
     stk::FileWvOut output;
 

@@ -2,6 +2,7 @@
 
 OutputSoundDisplay::OutputSoundDisplay(QVector<SoundDisplay*>* input_vec, QWidget *parent) : SoundDisplay(parent)
 {
+    soundType = OUTPUT_SOUND_TYPE;
     connect(playButton,SIGNAL(clicked()),this,SLOT(onPlayButtonClicked()));
     inputId = 0;
     buttonLayout->addWidget(playButton);

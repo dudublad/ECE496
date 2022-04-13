@@ -65,7 +65,7 @@ SoundDisplay::~SoundDisplay()
     delete timeDomain;
     delete frequencyDisplay;
     delete effectPanel;
-    delete mainLayout;
+    //delete mainLayout;
     delete addToOutputCheckBox;
     //delete domainLayout;
     //delete buttonLayout;
@@ -138,6 +138,7 @@ void SoundDisplay::onPlayButtonClicked()
     this->soundFile.setStreamTime(0);
     this->soundFile.startStream();
     //std::cout << "Play Button Finished" << std::endl;
+    emit playButtonPressed(this);
 }
 
 void SoundDisplay::stopFile()
@@ -162,6 +163,7 @@ void SoundDisplay::toggleEffectPanel()
 void SoundDisplay::removeInputButtonPushed()
 {
     this->setVisible(false);
+    emit inputRemoved(this);
     // emit signal to inputScrollView to remove
 }
 
@@ -184,8 +186,11 @@ void SoundDisplay::addToOutputStateChanged(int state)
 
 void SoundDisplay::generateEffect(audioFilter filter){
     drawWaveFromFile("");
+    audioFilterData = filter;
     filter.generateFilter(this->selectedFile, this->fileName, yScaling);
     this->yMax = yScaling;
     this->yMin = -yScaling;
     drawWaveFromFile(this->selectedFile);
+    std::cout << "effect generated" << std::endl;
+    emit filterAdded(this);
 }

@@ -8,6 +8,7 @@
 #include "wavedisplay.h"
 #include "recordedsounddisplay.h"
 #include "outputsounddisplay.h"
+#include "programenums.h"
 
 #define NEW_WAVE_LIMIT_MS 1000
 
@@ -50,6 +51,7 @@ public:
     // ID value current count
     int nextInputId;
 
+    QVector<SoundDisplay*> inputs;
     /*
      * Keeps track of the last time a new was was added
      * This is limited by NEW_WAVE_LIMIT_MS
@@ -62,11 +64,15 @@ public slots:
     void removeInput(SoundDisplay* input);
     void removeInputByIndex(int index);
     void inputRemoved();
+    void waveChanged(SoundDisplay* sourceDisplay = NULL);
+    void childFilterAdded(SoundDisplay* sourceDisplay);
+    void childPlayClicked(SoundDisplay* sourceDisplay);
     void disableSuperposition();
     void enableSuperposition();
-private:
-    QVector<SoundDisplay*> inputs;
-    //private members
+signals:
+    void checkTutorialSignal(SoundDisplay* sourceDisplay,int sourceNumber);
+    void filterAddedSignal(SoundDisplay* sourceDisplay,int sourceNumber);
+    void playPressedSignal(SoundDisplay* sourceDisplay,int sourceNumber);
 };
 
 #endif // INPUTSCROLLVIEW_H
