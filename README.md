@@ -2,10 +2,12 @@
 
 Sound Synthesizer for Learning Purposes
 
+## Building and Running the Project
+
 ### Setting QT's working directory
 In order to open and modify files within our project, we need to set the correct working directory in QT.
 
-Go to projects->[environment]->run->working directory and set the top-level directory of this repo as your working directory.
+Go to `projects->[environment]->run->working directory` and set the top-level directory of this repo as your working directory.
 
 ### Getting QT Multimedia
 
@@ -34,12 +36,15 @@ must have VS2019 installed for compiler
 
 deselect shadow build
 
-Contributors:
-Max
+## Contributors:
+
+Max Arreaga-Gonzalez
+
 Kyu Bum Kim (kb.kim@mail.utoronto.ca)
+
 Eduardo Ortenblad (edu.ortenblad@mail.utoronto.ca)
 
-Acknowledgements:
+## Acknowledgements:
 
 This code uses STK (https://ccrma.stanford.edu/software/stk/index.html)
 
